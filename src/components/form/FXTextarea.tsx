@@ -1,0 +1,32 @@
+import { IInput } from "@/src/types";
+import { Textarea } from "@nextui-org/input";
+import { useFormContext, useWatch } from "react-hook-form";
+
+interface IProps extends IInput {}
+
+const ESTextarea = ({
+  name,
+  label,
+  varient = "bordered",
+  disabled,
+}: IProps) => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
+
+  const currentValue = useWatch({ name });
+
+  return (
+    <Textarea
+      {...register(name)}
+      label={label}
+      minRows={6}
+      variant={varient}
+      value={currentValue || ""}
+      disabled={disabled}
+    />
+  );
+};
+
+export default ESTextarea;
