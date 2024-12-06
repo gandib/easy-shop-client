@@ -8,8 +8,7 @@ import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import {
   getAllUser,
-  getUser,
-  getUserById,
+  getUserByEmail,
   registerUser,
   updateUser,
   updateUserStatus,
@@ -26,24 +25,6 @@ export const useUserRegistration = () => {
     onError(error, variables, context) {
       toast.error(error.message);
     },
-  });
-};
-
-export const useGetUser = (email: string) => {
-  const queryClient = useQueryClient();
-
-  return useQuery({
-    queryKey: ["USER", email],
-    queryFn: async () => await getUser(email),
-  });
-};
-
-export const useGetUserById = (id: string) => {
-  const queryClient = useQueryClient();
-
-  return useQuery({
-    queryKey: ["USER", id],
-    queryFn: async () => await getUserById(id),
   });
 };
 

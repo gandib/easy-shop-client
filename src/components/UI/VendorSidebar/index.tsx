@@ -6,12 +6,10 @@ import { Spinner } from "@nextui-org/spinner";
 import Image from "next/image";
 import VendorSidebarOptions from "./VendorSidebarOptions";
 import { vendorLinks } from "./constant";
-import { useGetUser } from "@/src/hooks/user.hook";
 import { useEffect } from "react";
 
 const VendorSidebar = () => {
   const { user: userData, isLoading } = useUser();
-  const { data: user, isPending } = useGetUser(userData?.email!);
 
   return (
     <div className="">

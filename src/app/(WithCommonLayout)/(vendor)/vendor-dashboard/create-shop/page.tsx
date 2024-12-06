@@ -7,6 +7,7 @@ import { useCreateShop } from "@/src/hooks/shop.hook";
 import createShopValidationSchema from "@/src/schemas/create-shop.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@nextui-org/button";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 import { FieldValues } from "react-hook-form";
 
@@ -14,19 +15,19 @@ const CreateShopPage = async () => {
   const { user, isLoading } = useUser();
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
   const [imagePreviews, setImagePreviews] = useState<string[] | []>([]);
-  const { mutate: handleCreateShop, isPending } = useCreateShop();
+  const { mutate: handleCreateShop, isPending, isSuccess } = useCreateShop();
+  const router = useRouter();
 
   const onSubmit = (data: FieldValues) => {
     const formData = new FormData();
-    const userData = {
+    const shopData = {
       ...data,
       vendorId: user?.id,
     };
-    console.log(data);
-    formData.append("data", JSON.stringify(userData));
+
+    formData.append("data", JSON.stringify(shopData));
 
     formData.append("file", imageFiles[0]);
-    console.log(userData);
 
     handleCreateShop(formData);
   };
@@ -53,6 +54,10 @@ const CreateShopPage = async () => {
 
   if (isLoading) {
     <p>Loading...</p>;
+  }
+
+  if (isSuccess) {
+    router.push("/vendor-dashboard");
   }
   return (
     <div>

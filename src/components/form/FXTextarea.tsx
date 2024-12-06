@@ -9,6 +9,8 @@ const ESTextarea = ({
   label,
   varient = "bordered",
   disabled,
+  value,
+  onChange,
 }: IProps) => {
   const {
     register,
@@ -23,8 +25,10 @@ const ESTextarea = ({
       label={label}
       minRows={6}
       variant={varient}
-      value={currentValue || ""}
+      value={currentValue || value || ""}
       disabled={disabled}
+      onChange={onChange!}
+      // value={value}
     />
   );
 };
