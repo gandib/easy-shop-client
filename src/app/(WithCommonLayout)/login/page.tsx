@@ -21,15 +21,6 @@ const Login = () => {
   const { setIsLoading } = useUser();
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setIsVisible(true);
-
-    return () => {
-      setIsVisible(false);
-    };
-  }, []);
 
   const { mutate: handleUserLogin, isPending, isSuccess } = useUserlogin();
   const { mutate: handleForgetPassword } = useForgetPassword();

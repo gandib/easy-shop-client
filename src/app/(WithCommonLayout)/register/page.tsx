@@ -2,7 +2,7 @@
 
 import ESForm from "@/src/components/form/ESForm";
 import ESInput from "@/src/components/form/ESInput";
-import { useUserRegistration } from "@/src/hooks/auth.hook";
+import { useUserRegistration } from "@/src/hooks/user.hook";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@nextui-org/button";
 import Link from "next/link";
@@ -14,16 +14,6 @@ import ESSelect from "@/src/components/form/ESSelect";
 import { useRouter } from "next/navigation";
 
 export default function Register() {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setIsVisible(true);
-
-    return () => {
-      setIsVisible(false);
-    };
-  }, []);
-
   const {
     mutate: handleUserRagistration,
     isPending,
@@ -31,7 +21,6 @@ export default function Register() {
   } = useUserRegistration();
   const [vendor, setVendor] = useState("");
   const router = useRouter();
-  const tt = true;
 
   const onSubmit = (data: FieldValues) => {
     if (data.role === "VENDOR") {

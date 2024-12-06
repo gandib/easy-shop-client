@@ -10,10 +10,24 @@ import {
   getAllUser,
   getUser,
   getUserById,
+  registerUser,
   updateUser,
   updateUserStatus,
 } from "../services/UserService";
 import next from "next";
+
+export const useUserRegistration = () => {
+  return useMutation<any, Error, FieldValues>({
+    mutationKey: ["USER_REGISTRATION"],
+    mutationFn: async (userData) => await registerUser(userData),
+    onSuccess(data, variables, context) {
+      toast.success(data.message);
+    },
+    onError(error, variables, context) {
+      toast.error(error.message);
+    },
+  });
+};
 
 export const useGetUser = (email: string) => {
   const queryClient = useQueryClient();

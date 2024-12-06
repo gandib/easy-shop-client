@@ -1,12 +1,12 @@
-# Easy Shop Sharing Community
+# Easy Shop
 
 ## Introduction
 
-A Easy Shop Sharing Community offering a wide range of Easy Shops to create. Brows easily and securely from the comfort of your home.
+A Easy Shop offering a wide range of Easy Shops to create. Brows easily and securely from the comfort of your home.
 
 ## Project Description
 
-Easy Shop Sharing Community is your go-to platform for browsing a wide variety of Easy Shops. Our user-friendly platform makes it easy and secure to brows your preferred Easy Shops from the comfort of your home. Enjoy seamless browsing experiences and focus on what matters most—enjoying your favorite Easy Shops.
+Easy Shop is your go-to platform for browsing a wide variety of Easy Shops. Our user-friendly platform makes it easy and secure to brows your preferred Easy Shops from the comfort of your home. Enjoy seamless browsing experiences and focus on what matters most—enjoying your favorite Easy Shops.
 
 ## Features
 
