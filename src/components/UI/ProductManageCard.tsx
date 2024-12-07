@@ -1,36 +1,60 @@
 "use client";
 import ESForm from "@/src/components/form/ESForm";
 import ESInput from "@/src/components/form/ESInput";
+import ESSelect from "@/src/components/form/ESSelect";
 import ESTextarea from "@/src/components/form/FXTextarea";
 import { useUser } from "@/src/context/user.provider";
+import { useCreateProduct } from "@/src/hooks/product.hook";
 import { useCreateShop } from "@/src/hooks/shop.hook";
-import createShopValidationSchema from "@/src/schemas/create-shop.schema";
+import { ICategory, IShop } from "@/src/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@nextui-org/button";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { FieldValues } from "react-hook-form";
 
-const CreateShopPage = () => {
+const ProductManageCard = ({
+  category,
+  shop,
+}: {
+  category: ICategory[];
+  shop: IShop;
+}) => {
   const { user, isLoading } = useUser();
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
   const [imagePreviews, setImagePreviews] = useState<string[] | []>([]);
-  const { mutate: handleCreateShop, isPending, isSuccess } = useCreateShop();
+  const {
+    mutate: handleCreateProduct,
+    isPending,
+    isSuccess,
+  } = useCreateProduct();
   const router = useRouter();
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [discount, setDiscount] = useState("");
+
+  const categoryOptions = category.map((catData) => ({
+    key: catData?.id,
+    label: catData?.name,
+  }));
 
   const onSubmit = (data: FieldValues) => {
     const formData = new FormData();
-    const shopData = {
+    const productData = {
       ...data,
-      vendorId: user?.id,
+      shopId: shop?.id,
+      price: Number(data.price),
+      quantity: Number(data.quantity),
+      discount: Number(data.discount),
     };
 
-    formData.append("data", JSON.stringify(shopData));
+    formData.append("data", JSON.stringify(productData));
 
     formData.append("file", imageFiles[0]);
 
-    handleCreateShop(formData);
+    handleCreateProduct(formData);
   };
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -63,7 +87,7 @@ const CreateShopPage = () => {
   return (
     <div>
       <div className="flex mt-6 w-full flex-col items-center justify-center mb-12">
-        <h3 className="my-2 text-2xl font-bold">Create a Shop</h3>
+        <h3 className="my-2 text-2xl font-bold">Add Product</h3>
         <div className=" w-[80%]">
           <ESForm
             onSubmit={onSubmit}
@@ -71,6 +95,17 @@ const CreateShopPage = () => {
           >
             <div className="py-3">
               <ESInput name="name" label="Name" size="sm" />
+            </div>
+            <div className="py-3">
+              <ESInput name="price" label="Price" size="sm" />
+            </div>
+            <div className="py-3">
+              <ESSelect
+                name="categoryId"
+                label="Category"
+                options={categoryOptions}
+                size="sm"
+              />
             </div>
             <div className="py-3">
               <ESTextarea
@@ -81,6 +116,13 @@ const CreateShopPage = () => {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>
+            <div className="py-3">
+              <ESInput name="quantity" label="quantity" size="sm" />
+            </div>
+            <div className="py-3">
+              <ESInput name="discount" label="Discount" size="sm" />
+            </div>
+
             <div className="min-w-fit flex-1 h-12">
               <label
                 className="bg-default-50/10 border-2 p-3 w-full h-full rounded-md flex items-center font-light"
@@ -121,4 +163,4 @@ const CreateShopPage = () => {
   );
 };
 
-export default CreateShopPage;
+export default ProductManageCard;

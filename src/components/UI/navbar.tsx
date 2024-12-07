@@ -53,14 +53,14 @@ export const Navbar = () => {
               Recent Products
             </NextLink>
           </NavbarItem>
-          <NavbarItem>
+          {/* <NavbarItem>
             <NextLink
               className={`text-lg ${pathname === "/shop" ? "text-primary-500" : ""}`}
               href="/shop"
             >
               Shop
             </NextLink>
-          </NavbarItem>
+          </NavbarItem> */}
 
           {user?.email && (
             <>
@@ -127,14 +127,14 @@ export const Navbar = () => {
               Recent Products
             </NextLink>
           </NavbarItem>
-          <NavbarItem>
+          {/* <NavbarItem>
             <NextLink
               className={`text-lg ${pathname === "/shop" ? "text-primary-500" : ""}`}
               href="/shop"
             >
               Shop
             </NextLink>
-          </NavbarItem>
+          </NavbarItem> */}
           {user?.email && (
             <>
               <NavbarItem>

@@ -1,0 +1,100 @@
+import { IProduct } from "@/src/types";
+import {
+  Card as NextUiCard,
+  CardHeader,
+  CardFooter,
+  CardBody,
+} from "@nextui-org/card";
+import Image from "next/image";
+import SeeDetailButton from "./SeeDetailButton";
+import RecipeDeleteButton from "./RecipeDeleteButton";
+import RecipeUpdateButton from "./RecipeUpdateButton";
+
+export interface IMeta {
+  page: number;
+  limit: number;
+  total: number;
+}
+
+const VendorProductCard = ({
+  products,
+}: {
+  products: { meta: IMeta; data: IProduct[] };
+}) => {
+  console.log(products);
+  return (
+    <div className="grid lg:grid-cols-2 gap-2 grow">
+      {products &&
+        products?.data.length > 0 &&
+        products?.data?.map((data: IProduct) => (
+          <NextUiCard
+            key={data.id}
+            isFooterBlurred
+            className=" hover:shadow-2xl "
+          >
+            <CardHeader className=" ">
+              {data?.img && (
+                <Image
+                  width={500}
+                  height={200}
+                  src={data?.img}
+                  alt="Product image"
+                />
+              )}
+            </CardHeader>
+
+            <CardBody>
+              <div className=" w-full">
+                <h4 className="mt-1 rounded p-1 text-base md:text-xl font-medium flex ">
+                  Brand:
+                  <p className="cursor-pointer hover:text-green-500 ml-2">
+                    {data?.shop?.name}
+                  </p>
+                </h4>
+                <h4 className="mt-1 rounded  p-1 text-lg sm:text-xl md:text-xl font-medium text-purple-500">
+                  {data.name}
+                </h4>
+                <h4 className="mt-1 rounded  p-1 text-base md:text-base font-medium">
+                  {data?.price}
+                </h4>
+                {data.rating && data.rating.length > 0 ? (
+                  <h4 className="mt-2 rounded flex items-center  p-1 text-base md:text-base font-medium text-green-500">
+                    {`Rating:
+                    ${
+                      data?.rating?.length &&
+                      (
+                        data.rating.reduce(
+                          (pre, next) => pre + next.rating,
+                          0
+                        ) / data.rating.length
+                      ).toFixed(1)
+                    }/5`}
+                  </h4>
+                ) : (
+                  <h4 className="mt-2 rounded  p-1 text-base md:text-base font-medium text-green-500">
+                    Rating: 0/5
+                  </h4>
+                )}
+              </div>
+              <div className="my-2 rounded  p-1 lg:text-lg font-medium flex ">
+                <div>
+                  <p>
+                    {data.description.slice(0, 200) +
+                      `${data.description.length > 200 ? "..." : ""}`}
+                  </p>
+                </div>
+              </div>
+            </CardBody>
+
+            <CardFooter className=" bottom-0 gap-2 justify-around border-t-1 border-zinc-100/50 bg-white/30">
+              <RecipeUpdateButton id={data.id} />
+              {/* <RecipeDeleteButton id={data?.id} setLoading={setLoading} /> */}
+              <SeeDetailButton id={data?.id} />
+            </CardFooter>
+          </NextUiCard>
+        ))}
+    </div>
+  );
+};
+
+export default VendorProductCard;

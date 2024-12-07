@@ -71,6 +71,11 @@ export interface IProduct {
   isDeleted: boolean;
   createdAt: string;
   updatedAt: string;
+  category: ICategory;
+  orderItem: IOrderItem[];
+  rating: IRating[];
+  review: IReview[];
+  shop: IShop;
 }
 
 export interface IShopResponse {

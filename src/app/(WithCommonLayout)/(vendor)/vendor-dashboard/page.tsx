@@ -1,7 +1,12 @@
-const VendorDashboard = () => {
+import VendorProductCard from "@/src/components/UI/VendorProductCard";
+import { getAllProductsByShopId } from "@/src/services/ProductService";
+
+const VendorDashboard = async () => {
+  const { data: allProducts } = await getAllProductsByShopId();
+  console.log(allProducts);
   return (
     <div>
-      <h1>Hello, VendorDashboard!</h1>
+      <VendorProductCard products={allProducts} />
     </div>
   );
 };
