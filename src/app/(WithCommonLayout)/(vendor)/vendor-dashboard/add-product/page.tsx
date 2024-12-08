@@ -8,7 +8,7 @@ const AddProductPage = async () => {
 
   return (
     <div>
-      <ProductManageCard category={allCategory} shop={user?.shop} />
+      <ProductManageCard category={allCategory} shop={user?.shop} title="Add" />
     </div>
   );
 };

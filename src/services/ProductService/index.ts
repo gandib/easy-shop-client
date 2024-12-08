@@ -76,6 +76,24 @@ export const getProductById = async (id: string) => {
   }
 };
 
+export const getSingleProduct = async (id: string) => {
+  let fetchOptions = {};
+  const token = cookies().get("accessToken")?.value;
+
+  fetchOptions = {
+    cache: "no-store",
+    headers: {
+      Authorization: `${token}`,
+    },
+  };
+  const res = await fetch(`${envConfig.baseApi}/product/${id}`, fetchOptions);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data!");
+  }
+  return res.json();
+};
+
 export const updateProductById = async (productData: FieldValues) => {
   try {
     const { data } = await axiosInstance.patch(

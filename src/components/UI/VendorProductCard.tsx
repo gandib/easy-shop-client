@@ -71,16 +71,16 @@ const VendorProductCard = ({
                     }/5`}
                   </h4>
                 ) : (
-                  <h4 className="mt-2 rounded  p-1 text-base md:text-base font-medium text-green-500">
+                  <h4 className="mt-1 rounded  p-1 text-base md:text-base font-medium text-green-500">
                     Rating: 0/5
                   </h4>
                 )}
               </div>
-              <div className="my-2 rounded  p-1 lg:text-lg font-medium flex ">
+              <div className="my-1 rounded  p-1 lg:text-lg font-medium flex ">
                 <div>
                   <p>
-                    {data.description.slice(0, 200) +
-                      `${data.description.length > 200 ? "..." : ""}`}
+                    {data.description.slice(0, 150) +
+                      `${data.description.length > 150 ? "..." : ""}`}
                   </p>
                 </div>
               </div>
