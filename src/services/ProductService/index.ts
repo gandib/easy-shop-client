@@ -100,7 +100,26 @@ export const updateProductById = async (productData: FieldValues) => {
       `/product/${productData.id}`,
       productData.data
     );
-    revalidateTag("product");
+    revalidateTag("PRODUCT");
+
+    return data;
+  } catch (error: any) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(error?.response?.data?.message);
+    } else {
+      throw new Error(error);
+    }
+  }
+};
+
+export const deleteProductById = async (productData: FieldValues) => {
+  try {
+    console.log(productData);
+    const { data } = await axiosInstance.delete(
+      `/product/${productData.id}`,
+      productData.data
+    );
+    revalidateTag("PRODUCT");
 
     return data;
   } catch (error: any) {

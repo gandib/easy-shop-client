@@ -8,6 +8,7 @@ import {
 import Image from "next/image";
 import SeeDetailButton from "./SeeDetailButton";
 import ProductUpdateButton from "./ProductUpdateButton";
+import ProductDeleteButton from "./ProductDeleteButton";
 
 export interface IMeta {
   page: number;
@@ -20,7 +21,6 @@ const VendorProductCard = ({
 }: {
   products: { meta: IMeta; data: IProduct[] };
 }) => {
-  console.log(products);
   return (
     <div className="grid lg:grid-cols-2 gap-2 grow">
       {products &&
@@ -87,7 +87,7 @@ const VendorProductCard = ({
 
             <CardFooter className=" bottom-0 gap-2 justify-around border-t-1 border-zinc-100/50 bg-white/30">
               <ProductUpdateButton id={data.id} />
-              {/* <RecipeDeleteButton id={data?.id} setLoading={setLoading} /> */}
+              <ProductDeleteButton id={data?.id} />
               <SeeDetailButton id={data?.id} />
             </CardFooter>
           </NextUiCard>

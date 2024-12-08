@@ -61,7 +61,7 @@ export const updateCategoryById = async (categoryData: FieldValues) => {
       `/Category/${categoryData.id}`,
       categoryData.data
     );
-    revalidateTag("Category");
+    revalidateTag("CATEGORY");
 
     return data;
   } catch (error: any) {
