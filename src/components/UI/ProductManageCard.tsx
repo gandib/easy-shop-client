@@ -47,6 +47,10 @@ const ProductManageCard = ({
 
   const onSubmit = (data: FieldValues) => {
     const formData = new FormData();
+    if (title === "Duplicate" && data.categoryId === "") {
+      data.categoryId = product?.categoryId;
+    }
+
     const productData = {
       ...data,
       shopId: shop?.id,
@@ -71,11 +75,13 @@ const ProductManageCard = ({
       handleUpdateProduct(updatedProductData);
     }
 
+    console.log(productData);
+
     formData.append("data", JSON.stringify(productData));
 
     formData.append("file", imageFiles[0]);
 
-    if (title === "Add") {
+    if (title === "Add" || title === "Duplicate") {
       handleCreateProduct(formData);
     }
   };
@@ -170,7 +176,7 @@ const ProductManageCard = ({
               />
             </div>
 
-            {title === "Add" && (
+            {(title === "Add" || title === "Duplicate") && (
               <div className="min-w-fit flex-1 h-12">
                 <label
                   className="bg-default-50/10 border-2 p-3 w-full h-full rounded-md flex items-center font-light"
