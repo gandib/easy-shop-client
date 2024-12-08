@@ -5,7 +5,7 @@ import { useUser } from "@/src/context/user.provider";
 import { Button } from "@nextui-org/button";
 import { Dispatch, SetStateAction } from "react";
 
-const RecipeDeleteButton = ({
+const ProductDeleteButton = ({
   id,
   setLoading,
 }: {
@@ -37,4 +37,4 @@ const RecipeDeleteButton = ({
   );
 };
 
-export default RecipeDeleteButton;
+export default ProductDeleteButton;

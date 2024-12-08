@@ -7,8 +7,7 @@ import {
 } from "@nextui-org/card";
 import Image from "next/image";
 import SeeDetailButton from "./SeeDetailButton";
-import RecipeDeleteButton from "./RecipeDeleteButton";
-import RecipeUpdateButton from "./RecipeUpdateButton";
+import ProductUpdateButton from "./ProductUpdateButton";
 
 export interface IMeta {
   page: number;
@@ -87,7 +86,7 @@ const VendorProductCard = ({
             </CardBody>
 
             <CardFooter className=" bottom-0 gap-2 justify-around border-t-1 border-zinc-100/50 bg-white/30">
-              <RecipeUpdateButton id={data.id} />
+              <ProductUpdateButton id={data.id} />
               {/* <RecipeDeleteButton id={data?.id} setLoading={setLoading} /> */}
               <SeeDetailButton id={data?.id} />
             </CardFooter>

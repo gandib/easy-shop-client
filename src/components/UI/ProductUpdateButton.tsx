@@ -4,7 +4,7 @@ import { Button } from "@nextui-org/button";
 import { useRouter } from "next/navigation";
 import { use } from "react";
 
-const RecipeUpdateButton = ({ id }: { id: string }) => {
+const ProductUpdateButton = ({ id }: { id: string }) => {
   const { user, isLoading } = useUser();
   const router = useRouter();
 
@@ -24,4 +24,4 @@ const RecipeUpdateButton = ({ id }: { id: string }) => {
   );
 };
 
-export default RecipeUpdateButton;
+export default ProductUpdateButton;
