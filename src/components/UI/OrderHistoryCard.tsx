@@ -23,10 +23,10 @@ const OrderHistoryCard = ({
 }: {
   orders: { meta: IMeta; data: IOrder[] };
 }) => {
-  const [totalPage, setTotalPage] = useState(orders?.meta?.total);
-  const [currentPage, setCurrentPage] = useState(orders?.meta?.page);
-  const [limit, setLimit] = useState(1);
   const [orderData, setOrderData] = useState(orders);
+  const [currentPage, setCurrentPage] = useState(orderData?.meta?.page);
+  const [limit, setLimit] = useState(10);
+  const [totalPage, setTotalPage] = useState(orderData?.meta?.totalPage);
 
   useEffect(() => {
     const query: queryParams[] = [];
@@ -40,7 +40,7 @@ const OrderHistoryCard = ({
     const fetchData = async () => {
       const { data: allOrder } = await getAllOrder(query);
       setOrderData(allOrder);
-      setTotalPage(orders?.meta?.total);
+      setTotalPage(orderData?.meta?.totalPage);
     };
 
     if (query.length > 0) {
