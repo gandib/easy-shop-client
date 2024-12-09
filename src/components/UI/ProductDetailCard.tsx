@@ -121,7 +121,7 @@ const ProductDetailCard = ({ product }: { product: IProduct }) => {
                 product?.review?.map((review) => (
                   <div className="my-2">
                     <p key={review.id} className="flex gap-2">
-                      User Name: {review.user.name}{" "}
+                      User Name: {review?.user?.name}{" "}
                       {/* {user?.id === review.user.id && (
                         <DeleteIcon
                           className="text-red-500"
@@ -130,6 +130,17 @@ const ProductDetailCard = ({ product }: { product: IProduct }) => {
                       )} */}
                     </p>
                     <p key={review.id}>{review.comment}</p>
+
+                    <div className="my-1 rounded  p-1 lg:text-lg font-medium flex">
+                      {review?.shopResponse?.response && (
+                        <p className="ml-2">
+                          <span className="text-lg text-purple-500">
+                            {review?.shopResponse?.shop?.name}:
+                          </span>{" "}
+                          {review?.shopResponse?.response}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 ))}
             </div>

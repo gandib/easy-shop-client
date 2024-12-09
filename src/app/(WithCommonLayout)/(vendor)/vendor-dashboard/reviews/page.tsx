@@ -1,7 +1,12 @@
-const ReviewsPage = () => {
+import AllReviewsCard from "@/src/components/UI/AllReviewsCard";
+import { getAllReview } from "@/src/services/RatingAndReviewService";
+
+const ReviewsPage = async () => {
+  const { data: allReviews } = await getAllReview();
+  console.log(allReviews);
   return (
     <div>
-      <h1>Hello, ReviewsPage!</h1>
+      <AllReviewsCard reviews={allReviews} />
     </div>
   );
 };

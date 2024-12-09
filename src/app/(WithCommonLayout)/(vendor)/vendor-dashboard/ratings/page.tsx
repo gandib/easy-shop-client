@@ -1,7 +1,11 @@
-const RatingsPage = () => {
+import RatingCard from "@/src/components/UI/RatingCard";
+import { getAllRating } from "@/src/services/RatingAndReviewService";
+
+const RatingsPage = async () => {
+  const { data: ratings } = await getAllRating();
   return (
     <div>
-      <h1>Hello, RatingsPage!</h1>
+      <RatingCard ratings={ratings} />
     </div>
   );
 };
