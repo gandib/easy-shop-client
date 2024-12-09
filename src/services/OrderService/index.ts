@@ -1,5 +1,6 @@
 "use server";
 
+import { queryParams } from "@/src/components/UI/OrderHistoryCard";
 import envConfig from "@/src/config/envConfig";
 import axiosInstance from "@/src/lib/AxiosInstance";
 import axios from "axios";
@@ -20,8 +21,15 @@ export const createOrder = async (orderData: FieldValues) => {
   }
 };
 
-export const getAllOrder = async () => {
-  const url = `${envConfig.baseApi}/order`;
+export const getAllOrder = async (query: queryParams[]) => {
+  const params = new URLSearchParams();
+  if (query) {
+    query.forEach((item) => {
+      params.append(item.name, item.value as string);
+    });
+  }
+
+  const url = `${envConfig.baseApi}/order?${params.toString()}`;
   const token = cookies().get("accessToken")?.value;
 
   try {

@@ -7,14 +7,47 @@ import {
   TableBody,
   TableRow,
   TableCell,
+  Pagination,
 } from "@nextui-org/react";
 import { IMeta } from "./VendorProductCard";
+import { useEffect, useState } from "react";
+import { getAllOrder } from "@/src/services/OrderService";
+
+export type queryParams = {
+  name: string;
+  value: boolean | React.Key;
+};
 
 const OrderHistoryCard = ({
   orders,
 }: {
-  orders: { meta: { page: IMeta }; data: IOrder[] };
+  orders: { meta: IMeta; data: IOrder[] };
 }) => {
+  const [totalPage, setTotalPage] = useState(orders?.meta?.total);
+  const [currentPage, setCurrentPage] = useState(orders?.meta?.page);
+  const [limit, setLimit] = useState(1);
+  const [orderData, setOrderData] = useState(orders);
+
+  useEffect(() => {
+    const query: queryParams[] = [];
+    if (limit) {
+      query.push({ name: "limit", value: limit });
+    }
+    if (currentPage) {
+      query.push({ name: "page", value: currentPage });
+    }
+
+    const fetchData = async () => {
+      const { data: allOrder } = await getAllOrder(query);
+      setOrderData(allOrder);
+      setTotalPage(orders?.meta?.total);
+    };
+
+    if (query.length > 0) {
+      fetchData();
+    }
+  }, [currentPage, totalPage]);
+
   return (
     <div>
       <Table aria-label="Example static collection table">
@@ -25,7 +58,7 @@ const OrderHistoryCard = ({
           <TableColumn>PAYMENT STATUS</TableColumn>
         </TableHeader>
         <TableBody>
-          {orders?.data?.map((order: IOrder) => (
+          {orderData?.data?.map((order: IOrder) => (
             <TableRow key={order?.id}>
               <TableCell>{order?.id}</TableCell>
               <TableCell>{order?.totalPrice}</TableCell>
@@ -35,6 +68,12 @@ const OrderHistoryCard = ({
           ))}
         </TableBody>
       </Table>
+      <Pagination
+        total={totalPage}
+        page={currentPage}
+        onChange={(page) => setCurrentPage(page)}
+        className="flex justify-center my-2"
+      />
     </div>
   );
 };
