@@ -9,6 +9,7 @@ import Image from "next/image";
 import SeeDetailButton from "./SeeDetailButton";
 import ProductUpdateButton from "./ProductUpdateButton";
 import ProductDeleteButton from "./ProductDeleteButton";
+import ShopRedirect from "./ShopRedirect";
 
 export interface IMeta {
   page: number;
@@ -44,12 +45,7 @@ const VendorProductCard = ({
 
             <CardBody>
               <div className=" w-full">
-                <h4 className="mt-1 rounded p-1 text-base md:text-xl font-medium flex ">
-                  Brand:
-                  <p className="cursor-pointer hover:text-green-500 ml-2">
-                    {data?.shop?.name}
-                  </p>
-                </h4>
+                <ShopRedirect shop={data?.shop} />
                 <h4 className="mt-1 rounded  p-1 text-lg sm:text-xl md:text-xl font-medium text-purple-500">
                   {data.name}
                 </h4>

@@ -6,4 +6,5 @@ export const vendorLinks = [
   { href: "/vendor-dashboard/duplicate-product", label: "Duplicate Product" },
   { href: "/vendor-dashboard/reviews", label: "Reviews" },
   { href: "/vendor-dashboard/ratings", label: "Ratings" },
+  { href: "/vendor-dashboard/order-history", label: "Order History" },
 ];

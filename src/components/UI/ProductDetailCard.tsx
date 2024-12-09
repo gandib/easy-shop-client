@@ -20,6 +20,7 @@ import {
   useCreateRating,
   useCreateReview,
 } from "@/src/hooks/rating-review.hook";
+import { useRouter } from "next/navigation";
 
 const ProductDetailCard = ({ product }: { product: IProduct }) => {
   const { user, isLoading } = useUser();
@@ -27,7 +28,7 @@ const ProductDetailCard = ({ product }: { product: IProduct }) => {
   const { mutate: createReview } = useCreateReview();
   const [rate, setRate] = useState(5);
   const [commentError, setCommentError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const handleRating = (productId: string) => {
     const ratingData = {
@@ -47,14 +48,6 @@ const ProductDetailCard = ({ product }: { product: IProduct }) => {
     };
     createReview(reviewData);
   };
-
-  //   const handleDeleteReview = (id: string) => {
-  //     const reviewData = {
-  //       //   id: recipe?.id,
-  //       commentId: id,
-  //     };
-  //     // deleteReview(reviewData);
-  //   };
 
   if (isLoading) {
     <p>Loading...</p>;
@@ -83,7 +76,10 @@ const ProductDetailCard = ({ product }: { product: IProduct }) => {
             )}
             <h4 className="mt-1 rounded p-1 text-base md:text-lg font-medium flex ">
               Brand:
-              <p className="cursor-pointer hover:text-green-500 ml-2">
+              <p
+                onClick={() => router.push(`/shop/${product?.shopId}`)}
+                className="cursor-pointer hover:text-green-500 ml-2"
+              >
                 {product?.shop?.name}
               </p>
             </h4>
