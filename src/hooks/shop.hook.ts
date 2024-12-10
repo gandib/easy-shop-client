@@ -3,6 +3,7 @@ import { FieldValues } from "react-hook-form";
 import {
   createShop,
   getShopById,
+  updateShopBlackList,
   updateShopById,
 } from "../services/ShopService";
 import { toast } from "sonner";
@@ -34,6 +35,23 @@ export const useUpdateShopById = () => {
 
   return useMutation<any, Error, FieldValues>({
     mutationFn: async (shopData) => await updateShopById(shopData),
+
+    onSuccess(data, variables, context) {
+      toast.success(data.message);
+      // Invalidate the specific query using the query key with email
+      queryClient.invalidateQueries({ queryKey: ["SHOP"] });
+    },
+    onError(error, variables, context) {
+      toast.error(error.message);
+    },
+  });
+};
+
+export const useUpdateShopBlackList = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation<any, Error, FieldValues>({
+    mutationFn: async (shopData) => await updateShopBlackList(shopData),
 
     onSuccess(data, variables, context) {
       toast.success(data.message);

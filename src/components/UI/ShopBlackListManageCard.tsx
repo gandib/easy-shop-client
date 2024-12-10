@@ -1,6 +1,6 @@
 "use client";
 
-import { IUser } from "@/src/types";
+import { IShop } from "@/src/types";
 import { Button } from "@nextui-org/button";
 import {
   Table,
@@ -15,41 +15,42 @@ import { useState } from "react";
 import ESForm from "../form/ESForm";
 import ESSelect from "../form/ESSelect";
 import { FieldValues } from "react-hook-form";
-import { useUpdateUserStatus } from "@/src/hooks/user.hook";
+import { useUpdateShopBlackList } from "@/src/hooks/shop.hook";
 
-const UserManagementCard = ({ users }: { users: IUser[] }) => {
+const ShopBlackListManageCard = ({ shops }: { shops: IShop[] }) => {
   const [open, setOpen] = useState(false);
   const [id, setId] = useState("");
-  const { mutate: updateStatus } = useUpdateUserStatus();
+  const { mutate: updateBlackListStatus } = useUpdateShopBlackList();
 
   const onSubmit = (data: FieldValues) => {
     console.log({ data });
     const statusData = {
       id,
-      status: data.status,
+      data: {
+        isBlackListed: data.isBlackListed === "true" ? true : false,
+      },
     };
     console.log(statusData);
-    updateStatus(statusData);
+    updateBlackListStatus(statusData);
     setOpen(true);
   };
-
   return (
     <div>
       <Table aria-label="Example static collection table">
         <TableHeader>
           <TableColumn>NAME</TableColumn>
-          <TableColumn>EMAIL</TableColumn>
-          <TableColumn>STATUS</TableColumn>
-          <TableColumn>ROLE</TableColumn>
+          <TableColumn>Vendor Name</TableColumn>
+          <TableColumn>ISBLACKLISTED</TableColumn>
           <TableColumn>ACTIONS</TableColumn>
         </TableHeader>
         <TableBody>
-          {users?.map((user: IUser) => (
-            <TableRow key={user?.id}>
-              <TableCell>{user?.name}</TableCell>
-              <TableCell>{user?.email}</TableCell>
-              <TableCell>{user?.status}</TableCell>
-              <TableCell>{user?.role}</TableCell>
+          {shops?.map((shop: IShop) => (
+            <TableRow key={shop?.id}>
+              <TableCell>{shop?.name}</TableCell>
+              <TableCell>{shop?.vendor?.name}</TableCell>
+              <TableCell>
+                {shop?.isBlackListed === false ? "false" : "true"}
+              </TableCell>
               <TableCell>
                 <Popover
                   showArrow
@@ -68,7 +69,7 @@ const UserManagementCard = ({ users }: { users: IUser[] }) => {
                             className="text-small font-bold text-foreground"
                             {...titleProps}
                           >
-                            User Status Change
+                            Shop Restriction
                           </p>
                           <div className="mt-2 flex flex-col gap-2 w-full">
                             <ESForm
@@ -77,18 +78,17 @@ const UserManagementCard = ({ users }: { users: IUser[] }) => {
                             >
                               <div className="py-3">
                                 <ESSelect
-                                  name="status"
-                                  label="Status"
+                                  name="isBlackListed"
+                                  label="isBlackListed"
                                   options={[
-                                    { key: "ACTIVE", label: "ACTIVE" },
-                                    { key: "SUSPENDED", label: "SUSPENDED" },
-                                    { key: "DELETED", label: "DELETED" },
+                                    { key: "true", label: "TRUE" },
+                                    { key: "false", label: "FALSE" },
                                   ]}
                                   size="sm"
                                 />
                               </div>
                               <Button
-                                onClick={() => setId(user?.id)}
+                                onClick={() => setId(shop?.id)}
                                 type="submit"
                                 className="my-3 w-full rounded-md bg-default-900 font-semibold text-default"
                                 size="lg"
@@ -111,4 +111,4 @@ const UserManagementCard = ({ users }: { users: IUser[] }) => {
   );
 };
 
-export default UserManagementCard;
+export default ShopBlackListManageCard;
