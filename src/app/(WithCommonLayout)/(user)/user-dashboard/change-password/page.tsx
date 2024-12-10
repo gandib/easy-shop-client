@@ -15,7 +15,7 @@ export default function ChangePassword() {
 
   const onSubmit = (data: FieldValues) => {
     let profileData = {
-      id: user?._id!,
+      id: user?.id!,
       data: data,
     };
 

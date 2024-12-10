@@ -1,4 +1,5 @@
 "use server";
+import { queryParams } from "@/src/components/UI/OrderHistoryCard";
 import envConfig from "@/src/config/envConfig";
 import axiosInstance from "@/src/lib/AxiosInstance";
 import axios from "axios";
@@ -20,8 +21,14 @@ export const createProduct = async (productData: FieldValues) => {
   }
 };
 
-export const getAllProducts = async () => {
-  const url = `${envConfig.baseApi}/product`;
+export const getAllProducts = async (query: queryParams[]) => {
+  const params = new URLSearchParams();
+  if (query) {
+    query.forEach((item) => {
+      params.append(item.name, item.value as string);
+    });
+  }
+  const url = `${envConfig.baseApi}/product?${params.toString()}`;
   const token = cookies().get("accessToken")?.value;
 
   try {
@@ -41,8 +48,14 @@ export const getAllProducts = async () => {
   }
 };
 
-export const getAllProductsByShopId = async () => {
-  const url = `${envConfig.baseApi}/product/all-products-by-shop`;
+export const getAllProductsByShopId = async (query: queryParams[]) => {
+  const params = new URLSearchParams();
+  if (query) {
+    query.forEach((item) => {
+      params.append(item.name, item.value as string);
+    });
+  }
+  const url = `${envConfig.baseApi}/product/all-products-by-shop?${params.toString()}`;
   const token = cookies().get("accessToken")?.value;
 
   try {

@@ -71,6 +71,7 @@ const OrderHistoryCard = ({
       <Pagination
         total={totalPage}
         page={currentPage}
+        showControls
         onChange={(page) => setCurrentPage(page)}
         className="flex justify-center my-2"
       />

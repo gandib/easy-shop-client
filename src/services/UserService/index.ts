@@ -77,10 +77,7 @@ export const updateUser = async (userData: FieldValues) => {
 
 export const updateUserStatus = async (userData: FieldValues) => {
   try {
-    const { data } = await axiosInstance.patch(
-      `/user/status-change`,
-      userData.data
-    );
+    const { data } = await axiosInstance.patch(`/user/status-change`, userData);
     revalidateTag("USER");
 
     return data;

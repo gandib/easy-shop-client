@@ -21,6 +21,7 @@ import {
   useCreateReview,
 } from "@/src/hooks/rating-review.hook";
 import { useRouter } from "next/navigation";
+import RelatedProduct from "./RelatedProduct";
 
 const ProductDetailCard = ({ product }: { product: IProduct }) => {
   const { user, isLoading } = useUser();
@@ -191,6 +192,8 @@ const ProductDetailCard = ({ product }: { product: IProduct }) => {
           </CardFooter>
         </NextUiCard>
       )}
+
+      <RelatedProduct />
     </div>
   );
 };
