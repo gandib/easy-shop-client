@@ -4,7 +4,6 @@ import { useUser } from "@/src/context/user.provider";
 import { Spinner } from "@nextui-org/spinner";
 import AdminSidebarOptions from "./AdminSidebarOptions";
 import { adminLinks } from "./constant";
-import { useGetAllUser } from "@/src/hooks/user.hook";
 
 const AdminSidebar = () => {
   const { user: userData, isLoading } = useUser();

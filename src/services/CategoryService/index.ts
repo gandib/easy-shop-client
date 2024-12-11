@@ -42,16 +42,23 @@ export const getAllCategory = async () => {
 };
 
 export const getCategoryById = async (id: string) => {
-  try {
-    const { data } = await axiosInstance.get(`/category/${id}`);
+  const url = `${envConfig.baseApi}/category/${id}`;
+  const token = cookies().get("accessToken")?.value;
 
+  try {
+    const res = await fetch(url, {
+      method: "GET",
+      cache: "no-store",
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+
+    const data = await res.json();
     return data;
-  } catch (error: any) {
-    if (axios.isAxiosError(error)) {
-      throw new Error(error?.response?.data?.message);
-    } else {
-      throw new Error(error);
-    }
+  } catch (error) {
+    console.error("Error fetching my recipes:", error);
+    throw error;
   }
 };
 

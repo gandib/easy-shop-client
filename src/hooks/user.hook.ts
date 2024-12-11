@@ -8,7 +8,6 @@ import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import {
   getAllUser,
-  getUserByEmail,
   registerUser,
   updateUser,
   updateUserStatus,

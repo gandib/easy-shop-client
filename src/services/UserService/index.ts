@@ -26,16 +26,23 @@ export const registerUser = async (userData: FieldValues) => {
 };
 
 export const getAllUser = async () => {
-  try {
-    const { data } = await axiosInstance.get(`/user`);
+  const url = `${envConfig.baseApi}/user`;
+  const token = cookies().get("accessToken")?.value;
 
+  try {
+    const res = await fetch(url, {
+      method: "GET",
+      cache: "no-store",
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+
+    const data = await res.json();
     return data;
-  } catch (error: any) {
-    if (axios.isAxiosError(error)) {
-      throw new Error(error?.response?.data?.message);
-    } else {
-      throw new Error(error);
-    }
+  } catch (error) {
+    console.error("Error fetching my recipes:", error);
+    throw error;
   }
 };
 

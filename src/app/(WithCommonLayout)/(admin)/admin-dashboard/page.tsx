@@ -1,15 +1,15 @@
-const AdminDashboard = async () => {
-  // const { data: allProducts } = await getAllProductss([
-  //   { name: "sort", value: "-upvote" },
-  //   { name: "limit", value: 10 },
-  // ]);
+import CategoryDisplayCard from "@/src/components/UI/CategoryDisplayCard";
+import { getAllCategory } from "@/src/services/CategoryService";
+import { ICategory } from "@/src/types";
 
-  // const { data: allTag } = await getAllTag();
+const AdminDashboard = async () => {
+  const { data: allCategories } = await getAllCategory();
 
   return (
-    <div>
-      {/* <AdminDashboardCard product={allProduct} tags={allTag} /> */}
-      <p>Admin dashboard</p>
+    <div className="grid grid-cols-2 gap-2">
+      {allCategories?.map((category: ICategory) => (
+        <CategoryDisplayCard category={category} key={category?.id} />
+      ))}
     </div>
   );
 };
