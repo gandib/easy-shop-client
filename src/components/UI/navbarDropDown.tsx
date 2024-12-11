@@ -23,6 +23,7 @@ const NavbarDropDown = () => {
   const handleLogout = () => {
     logout();
     setIsLoading(true);
+    router.push("/");
 
     if (protectedRoutes.some((route) => pathname.match(route))) {
       router.push("/");
