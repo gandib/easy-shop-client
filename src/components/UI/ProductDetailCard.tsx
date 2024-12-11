@@ -193,7 +193,7 @@ const ProductDetailCard = ({ product }: { product: IProduct }) => {
         </NextUiCard>
       )}
 
-      <RelatedProduct />
+      <RelatedProduct categoryName={product?.category?.name} />
     </div>
   );
 };

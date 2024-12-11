@@ -1,14 +1,24 @@
 import { IReview } from "@/src/types";
 import ReviewResponseCard from "./ReviewResponseCard";
 
-const AllReviewsCard = ({ reviews }: { reviews: IReview[] }) => {
+const AllReviewsCard = ({
+  reviews,
+  viewAs,
+}: {
+  reviews: IReview[];
+  viewAs?: string;
+}) => {
   console.log(reviews);
 
   return (
     <div className="grid grid-cols-2 gap-2">
       {reviews &&
         reviews?.map((review: IReview) => (
-          <ReviewResponseCard key={review?.id} review={review} />
+          <ReviewResponseCard
+            key={review?.id}
+            review={review}
+            viewAs={viewAs}
+          />
         ))}
     </div>
   );

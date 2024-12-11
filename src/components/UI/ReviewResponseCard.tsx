@@ -13,7 +13,13 @@ import { Button } from "@nextui-org/button";
 import { IReview } from "@/src/types";
 import { usecreateReviewResponse } from "@/src/hooks/rating-review.hook";
 
-const ReviewResponseCard = ({ review }: { review: IReview }) => {
+const ReviewResponseCard = ({
+  review,
+  viewAs,
+}: {
+  review: IReview;
+  viewAs?: string;
+}) => {
   const [commentError, setCommentError] = useState("");
   const [response, setResponse] = useState("");
   const { mutate: createResponse } = usecreateReviewResponse();
@@ -50,27 +56,29 @@ const ReviewResponseCard = ({ review }: { review: IReview }) => {
             )}
           </div>
         </CardHeader>
-        <CardBody>
-          {!review?.shopResponse?.response && (
-            <div className="my-6 ">
-              <h1>Leave a Reply</h1>
-              <div className="">
-                <ESForm onSubmit={onSubmit}>
-                  <ESTextarea
-                    label="Type a response"
-                    name="response"
-                    value={response}
-                    onChange={(e) => setResponse(e.target.value)}
-                  />
-                  <p className="text-sm text-red-500">{commentError}</p>
-                  <Button className="my-4" type="submit" variant="bordered">
-                    Submit
-                  </Button>
-                </ESForm>
+        {!viewAs && (
+          <CardBody>
+            {!review?.shopResponse?.response && (
+              <div className="my-6 ">
+                <h1>Leave a Reply</h1>
+                <div className="">
+                  <ESForm onSubmit={onSubmit}>
+                    <ESTextarea
+                      label="Type a response"
+                      name="response"
+                      value={response}
+                      onChange={(e) => setResponse(e.target.value)}
+                    />
+                    <p className="text-sm text-red-500">{commentError}</p>
+                    <Button className="my-4" type="submit" variant="bordered">
+                      Submit
+                    </Button>
+                  </ESForm>
+                </div>
               </div>
-            </div>
-          )}
-        </CardBody>
+            )}
+          </CardBody>
+        )}
 
         <CardFooter className=" bottom-0 gap-2 justify-around border-t-1 border-zinc-100/50 bg-white/30">
           {/* <ProductUpdateButton id={product?.id} /> */}

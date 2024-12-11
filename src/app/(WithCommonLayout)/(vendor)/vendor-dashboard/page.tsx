@@ -3,9 +3,9 @@ import { getAllProductsByShopId } from "@/src/services/ProductService";
 
 const VendorDashboard = async () => {
   const { data: allProducts } = await getAllProductsByShopId([
-    { name: "limit", value: 1 },
+    { name: "limit", value: 10 },
   ]);
-  console.log(allProducts);
+
   return (
     <div>
       <VendorProductCard products={allProducts} />
