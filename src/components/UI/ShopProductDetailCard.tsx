@@ -9,7 +9,15 @@ import {
 import Image from "next/image";
 import { useUser } from "@/src/context/user.provider";
 import { useState } from "react";
-import { Cross, Delete, DeleteIcon, Minus, Plus, Star } from "lucide-react";
+import {
+  CornerDownRight,
+  Cross,
+  Delete,
+  DeleteIcon,
+  Minus,
+  Plus,
+  Star,
+} from "lucide-react";
 import { Button } from "@nextui-org/button";
 import ESForm from "../form/ESForm";
 import ESTextarea from "../form/FXTextarea";
@@ -119,11 +127,11 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
               <p className="text-green-500"> Reviews:</p>
               {product?.review?.length < 1 && "No Reviews"}
               {product?.review &&
-                product?.review.length > 0 &&
+                product?.review?.length > 0 &&
                 product?.review?.map((review) => (
-                  <div className="my-2" key={review.id}>
+                  <div key={review.id} className="my-2">
                     <p className="flex gap-2">
-                      User Name: {review?.user?.name}{" "}
+                      Comment as: {review?.user?.name}{" "}
                       {/* {user?.id === review.user.id && (
                         <DeleteIcon
                           className="text-red-500"
@@ -131,14 +139,18 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
                         />
                       )} */}
                     </p>
-                    <p key={review.id}>{review.comment}</p>
+                    <p key={review.id} className="flex items-center">
+                      {" "}
+                      <CornerDownRight /> {review.comment}
+                    </p>
 
                     <div className="my-1 rounded  p-1 lg:text-lg font-medium flex">
                       {review?.shopResponse[0]?.response && (
-                        <p className="ml-2">
-                          <span className="text-lg text-purple-500">
-                            {review?.shopResponse[0]?.shop?.name}:
-                          </span>{" "}
+                        <p className="ml-2 flex">
+                          <span className="text-lg text-purple-500 flex">
+                            <CornerDownRight />{" "}
+                            {`${review?.shopResponse[0]?.shop?.name}: `}
+                          </span>
                           {review?.shopResponse[0]?.response}
                         </p>
                       )}
