@@ -111,7 +111,7 @@ export interface IReview {
   updatedAt: string;
   product: IProduct;
   user: IUser;
-  shopResponse: IShopResponse;
+  shopResponse: IShopResponse[];
 }
 
 export interface IShopResponse {

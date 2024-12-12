@@ -58,7 +58,7 @@ const RelatedProduct = ({
       <VendorProductCard
         products={relatedProducts!}
         category={categoryName}
-        fromShop="shop"
+        fromShop={fromShop}
       />
     </div>
   );

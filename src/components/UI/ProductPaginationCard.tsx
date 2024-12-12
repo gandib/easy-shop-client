@@ -52,13 +52,17 @@ const ProductPaginationCard = ({
   }, [currentPage, totalPage]);
   return (
     <div>
-      <Pagination
-        total={totalPage}
-        page={currentPage}
-        showControls
-        onChange={(page) => setCurrentPage(page)}
-        className="flex justify-center my-2"
-      />
+      {productData?.data?.length > 0 ? (
+        <Pagination
+          total={totalPage}
+          page={currentPage}
+          showControls
+          onChange={(page) => setCurrentPage(page)}
+          className="flex justify-center my-2"
+        />
+      ) : (
+        "No products to show!"
+      )}
     </div>
   );
 };

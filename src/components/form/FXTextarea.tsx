@@ -27,7 +27,7 @@ const ESTextarea = ({
       variant={varient}
       value={currentValue || value || ""}
       disabled={disabled}
-      onChange={onChange!}
+      // onChange={onChange!}
     />
   );
 };

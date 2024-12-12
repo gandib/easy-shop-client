@@ -9,7 +9,7 @@ import {
 import Image from "next/image";
 import { useUser } from "@/src/context/user.provider";
 import { useState } from "react";
-import { Cross, Delete, DeleteIcon, Minus, Plus, Star } from "lucide-react";
+import { CornerDownRight, Minus, Plus, Star } from "lucide-react";
 import { Button } from "@nextui-org/button";
 import ESForm from "../form/ESForm";
 import ESTextarea from "../form/FXTextarea";
@@ -53,7 +53,6 @@ const ProductDetailCard = ({ product }: { product: IProduct }) => {
   if (isLoading) {
     <p>Loading...</p>;
   }
-  console.log(product?.category?.name);
 
   const rating = product?.rating || [];
   const averageRating =
@@ -115,11 +114,11 @@ const ProductDetailCard = ({ product }: { product: IProduct }) => {
               <p className="text-green-500"> Reviews:</p>
               {product?.review?.length < 1 && "No Reviews"}
               {product?.review &&
-                product?.review.length > 0 &&
+                product?.review?.length > 0 &&
                 product?.review?.map((review) => (
-                  <div className="my-2">
-                    <p key={review.id} className="flex gap-2">
-                      User Name: {review?.user?.name}{" "}
+                  <div key={review.id} className="my-2">
+                    <p className="flex gap-2">
+                      Comment as: {review?.user?.name}{" "}
                       {/* {user?.id === review.user.id && (
                         <DeleteIcon
                           className="text-red-500"
@@ -127,15 +126,19 @@ const ProductDetailCard = ({ product }: { product: IProduct }) => {
                         />
                       )} */}
                     </p>
-                    <p key={review.id}>{review.comment}</p>
+                    <p key={review.id} className="flex items-center">
+                      {" "}
+                      <CornerDownRight /> {review.comment}
+                    </p>
 
                     <div className="my-1 rounded  p-1 lg:text-lg font-medium flex">
-                      {review?.shopResponse?.response && (
-                        <p className="ml-2">
-                          <span className="text-lg text-purple-500">
-                            {review?.shopResponse?.shop?.name}:
-                          </span>{" "}
-                          {review?.shopResponse?.response}
+                      {review?.shopResponse[0]?.response && (
+                        <p className="ml-2 flex">
+                          <span className="text-lg text-purple-500 flex">
+                            <CornerDownRight />{" "}
+                            {`${review?.shopResponse[0]?.shop?.name}: `}
+                          </span>
+                          {review?.shopResponse[0]?.response}
                         </p>
                       )}
                     </div>
@@ -173,18 +176,22 @@ const ProductDetailCard = ({ product }: { product: IProduct }) => {
               </Button>
             </div>
 
-            <div className="my-6 ">
-              <h1>Leave a review</h1>
-              <div className="">
-                <ESForm onSubmit={onSubmit}>
-                  <ESTextarea label="Type a comment" name="comment" />
-                  <p className="text-sm text-red-500">{commentError}</p>
-                  <Button className="my-4" type="submit" variant="bordered">
-                    Submit
-                  </Button>
-                </ESForm>
-              </div>
-            </div>
+            {user?.role === "USER" &&
+              product?.review?.find((review) => review?.userId === user?.id)
+                ?.userId !== user?.id && (
+                <div className="my-6 ">
+                  <h1>Leave a review</h1>
+                  <div className="">
+                    <ESForm onSubmit={onSubmit}>
+                      <ESTextarea label="Type a comment" name="comment" />
+                      <p className="text-sm text-red-500">{commentError}</p>
+                      <Button className="my-4" type="submit" variant="bordered">
+                        Submit
+                      </Button>
+                    </ESForm>
+                  </div>
+                </div>
+              )}
           </CardBody>
 
           <CardFooter className=" bottom-0 gap-2 justify-around border-t-1 border-zinc-100/50 bg-white/30">

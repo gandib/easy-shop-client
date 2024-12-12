@@ -43,7 +43,7 @@ const VendorProductCard = ({
     <div>
       <div className="grid lg:grid-cols-2 gap-2 grow">
         {productData &&
-          productData?.data.length > 0 &&
+          productData?.data?.length > 0 &&
           productData?.data?.map((data: IProduct) => (
             <NextUiCard
               key={data.id}
@@ -109,16 +109,20 @@ const VendorProductCard = ({
 
                 {user?.role === "USER" && <Button>Add to Cart</Button>}
 
-                <SeeDetailButton id={data?.id} fromShop="shop" />
+                <SeeDetailButton id={data?.id} fromShop={fromShop} />
               </CardFooter>
             </NextUiCard>
           ))}
       </div>
-      <ProductPaginationCard
-        productData={productData}
-        setProductData={setProductData}
-        category={category}
-      />
+      {productData?.data?.length > 0 ? (
+        <ProductPaginationCard
+          productData={productData}
+          setProductData={setProductData}
+          category={category}
+        />
+      ) : (
+        "No products to show!"
+      )}
     </div>
   );
 };

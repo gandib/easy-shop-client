@@ -68,13 +68,17 @@ const OrderHistoryCard = ({
           ))}
         </TableBody>
       </Table>
-      <Pagination
-        total={totalPage}
-        page={currentPage}
-        showControls
-        onChange={(page) => setCurrentPage(page)}
-        className="flex justify-center my-2"
-      />
+      {orderData?.data?.length > 0 ? (
+        <Pagination
+          total={totalPage}
+          page={currentPage}
+          showControls
+          onChange={(page) => setCurrentPage(page)}
+          className="flex justify-center my-2"
+        />
+      ) : (
+        "No orders to show"
+      )}
     </div>
   );
 };

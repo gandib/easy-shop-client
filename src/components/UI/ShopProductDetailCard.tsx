@@ -55,6 +55,10 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
   }
   console.log(product?.category?.name);
 
+  console.log(
+    product?.review?.find((review) => review?.userId === user?.id)?.userId
+  );
+
   const rating = product?.rating || [];
   const averageRating =
     rating.length > 0
@@ -117,8 +121,8 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
               {product?.review &&
                 product?.review.length > 0 &&
                 product?.review?.map((review) => (
-                  <div className="my-2">
-                    <p key={review.id} className="flex gap-2">
+                  <div className="my-2" key={review.id}>
+                    <p className="flex gap-2">
                       User Name: {review?.user?.name}{" "}
                       {/* {user?.id === review.user.id && (
                         <DeleteIcon
@@ -130,12 +134,12 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
                     <p key={review.id}>{review.comment}</p>
 
                     <div className="my-1 rounded  p-1 lg:text-lg font-medium flex">
-                      {review?.shopResponse?.response && (
+                      {review?.shopResponse[0]?.response && (
                         <p className="ml-2">
                           <span className="text-lg text-purple-500">
-                            {review?.shopResponse?.shop?.name}:
+                            {review?.shopResponse[0]?.shop?.name}:
                           </span>{" "}
-                          {review?.shopResponse?.response}
+                          {review?.shopResponse[0]?.response}
                         </p>
                       )}
                     </div>
@@ -173,18 +177,22 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
               </Button>
             </div>
 
-            <div className="my-6 ">
-              <h1>Leave a review</h1>
-              <div className="">
-                <ESForm onSubmit={onSubmit}>
-                  <ESTextarea label="Type a comment" name="comment" />
-                  <p className="text-sm text-red-500">{commentError}</p>
-                  <Button className="my-4" type="submit" variant="bordered">
-                    Submit
-                  </Button>
-                </ESForm>
-              </div>
-            </div>
+            {user?.role === "USER" &&
+              product?.review?.find((review) => review?.userId === user?.id)
+                ?.userId !== user?.id && (
+                <div className="my-6 ">
+                  <h1>Leave a review</h1>
+                  <div className="">
+                    <ESForm onSubmit={onSubmit}>
+                      <ESTextarea label="Type a comment" name="comment" />
+                      <p className="text-sm text-red-500">{commentError}</p>
+                      <Button className="my-4" type="submit" variant="bordered">
+                        Submit
+                      </Button>
+                    </ESForm>
+                  </div>
+                </div>
+              )}
           </CardBody>
 
           <CardFooter className=" bottom-0 gap-2 justify-around border-t-1 border-zinc-100/50 bg-white/30">

@@ -3,6 +3,7 @@ import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import {
   createRating,
+  createReview,
   createReviewResponse,
 } from "../services/RatingAndReviewService";
 
@@ -22,7 +23,7 @@ export const useCreateRating = () => {
 export const useCreateReview = () => {
   return useMutation<any, Error, FieldValues>({
     mutationKey: ["REVIEW"],
-    mutationFn: async (reviewData) => await createRating(reviewData),
+    mutationFn: async (reviewData) => await createReview(reviewData),
     onSuccess(data, variables, context) {
       toast.success(data.message);
     },

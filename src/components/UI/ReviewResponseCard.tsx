@@ -34,6 +34,7 @@ const ReviewResponseCard = ({
     };
     createResponse(responseData);
   };
+  console.log({ viewAs, response, review });
   return (
     <div>
       <NextUiCard isFooterBlurred className="  ">
@@ -48,17 +49,17 @@ const ReviewResponseCard = ({
             <p>{review?.comment}</p>
           </div>
           <div className="my-1 rounded  p-1 lg:text-lg font-medium flex justify-center ">
-            {review?.shopResponse?.response && (
+            {review?.shopResponse[0]?.response && (
               <p className="ml-2">
                 <span className="text-lg text-purple-500">Responsed:</span>{" "}
-                {review?.shopResponse?.response}
+                {review?.shopResponse[0].response}
               </p>
             )}
           </div>
         </CardHeader>
         {!viewAs && (
           <CardBody>
-            {!review?.shopResponse?.response && (
+            {!review?.shopResponse[0]?.response && (
               <div className="my-6 ">
                 <h1>Leave a Reply</h1>
                 <div className="">
