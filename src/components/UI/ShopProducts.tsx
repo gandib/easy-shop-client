@@ -12,10 +12,11 @@ import SeeDetailButton from "./SeeDetailButton";
 import ProductUpdateButton from "./ProductUpdateButton";
 import ProductDeleteButton from "./ProductDeleteButton";
 import ShopRedirect from "./ShopRedirect";
-import ProductPaginationCard from "./ProductPaginationCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Button, Pagination } from "@nextui-org/react";
+import { queryParams } from "./OrderHistoryCard";
+import { getAllProducts } from "@/src/services/ProductService";
 import { useUser } from "@/src/context/user.provider";
-import { Button } from "@nextui-org/button";
 
 export interface IMeta {
   page: number;
@@ -24,21 +25,41 @@ export interface IMeta {
   totalPage: number;
 }
 
-const VendorProductCard = ({
+const ShopProducts = ({
   products,
-  category,
-  fromShop,
+  shopId,
 }: {
   products: { meta: IMeta; data: IProduct[] };
-  category?: string;
-  fromShop?: string;
+  shopId: string;
 }) => {
   const [productData, setProductData] = useState(products);
+  const [currentPage, setCurrentPage] = useState(productData?.meta?.page);
+  const [limit, setLimit] = useState(10);
+  const [totalPage, setTotalPage] = useState(productData?.meta?.totalPage);
   const { user, isLoading } = useUser();
+
+  useEffect(() => {
+    const query: queryParams[] = [];
+    if (limit) {
+      query.push({ name: "limit", value: limit });
+    }
+    if (currentPage) {
+      query.push({ name: "page", value: currentPage });
+    }
+
+    const fetchData = async () => {
+      const { data: allProducts } = await getAllProducts([
+        { name: "shop", value: shopId },
+      ]);
+      setProductData(allProducts);
+    };
+    fetchData();
+  }, [currentPage, totalPage]);
 
   if (isLoading) {
     <p>Loading...</p>;
   }
+
   return (
     <div>
       <div className="grid lg:grid-cols-2 gap-2 grow">
@@ -107,20 +128,24 @@ const VendorProductCard = ({
                   </>
                 )}
 
-                {user?.role === "USER" && <Button>Add to Cart</Button>}
+                {user?.role === "USER" && <Button>Add to Card</Button>}
 
                 <SeeDetailButton id={data?.id} fromShop="shop" />
               </CardFooter>
             </NextUiCard>
           ))}
       </div>
-      <ProductPaginationCard
-        productData={productData}
-        setProductData={setProductData}
-        category={category}
-      />
+      <div>
+        <Pagination
+          total={totalPage}
+          page={currentPage}
+          showControls
+          onChange={(page) => setCurrentPage(page)}
+          className="flex justify-center my-2"
+        />
+      </div>
     </div>
   );
 };
 
-export default VendorProductCard;
+export default ShopProducts;

@@ -9,6 +9,7 @@ import { FieldValues } from "react-hook-form";
 export const createRating = async (ratingData: FieldValues) => {
   try {
     const { data } = await axiosInstance.post("/rating", ratingData);
+    revalidateTag("PRODUCT");
 
     return data;
   } catch (error: any) {
@@ -23,6 +24,7 @@ export const createRating = async (ratingData: FieldValues) => {
 export const createReview = async (reviewData: FieldValues) => {
   try {
     const { data } = await axiosInstance.post("/review", reviewData);
+    revalidateTag("PRODUCT");
 
     return data;
   } catch (error: any) {

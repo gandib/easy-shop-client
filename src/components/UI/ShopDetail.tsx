@@ -1,6 +1,8 @@
 "use client";
 
 import { useUser } from "@/src/context/user.provider";
+import { useCreateFollow, useUnFollow } from "@/src/hooks/follow.hook";
+import { getAllProducts } from "@/src/services/ProductService";
 import { IShop } from "@/src/types";
 import { Button } from "@nextui-org/button";
 import {
@@ -10,24 +12,47 @@ import {
   CardBody,
 } from "@nextui-org/card";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import ShopProducts from "./ShopProducts";
 
 const ShopDetail = ({ shop }: { shop: IShop }) => {
   const { user, isLoading } = useUser();
-  const handleRating = (productId: string) => {
-    const ratingData = {
-      // rating: rate,
-      productId,
+  const { mutate: createFollow } = useCreateFollow();
+  const { mutate: unFollow } = useUnFollow();
+  const [products, setProducts] = useState();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data: allProducts } = await getAllProducts([
+        { name: "shop", value: shop?.id },
+      ]);
+      setProducts(allProducts);
     };
-    //   postRating(ratingData);
+    fetchData();
+  }, [shop]);
+  console.log(products);
+
+  const handleFollow = (shopId: string) => {
+    const followData = {
+      shopId,
+    };
+
+    if (!shop?.follow?.map((follower) => follower?.userId === user?.id)[0]) {
+      createFollow(followData);
+    }
+
+    if (shop?.follow?.map((follower) => follower?.userId === user?.id)[0]) {
+      unFollow(followData);
+    }
   };
 
   if (isLoading) {
     <p>Loading...</p>;
   }
 
-  console.log(
-    shop?.follow?.map((follower) => follower?.userId === user?.id)[0]
-  );
+  // console.log(
+  //   shop?.follow?.map((follower) => follower?.userId === user?.id)[0]
+  // );
   return (
     <div className="">
       {shop && (
@@ -41,11 +66,15 @@ const ShopDetail = ({ shop }: { shop: IShop }) => {
                 alt="Shop image"
               />
             )}
-
-            <div className=" w-full">
-              <h4 className="mt-2 rounded  p-1 text-lg sm:text-xl md:text-xl font-medium text-purple-500">
-                {shop.name}
-              </h4>
+            <div className="grid grid-cols-2 w-full">
+              <div className=" w-full flex justify-start items-center">
+                <h4 className="mt-2 rounded  p-1 text-lg sm:text-xl md:text-xl font-medium text-purple-500">
+                  {shop.name}
+                </h4>
+              </div>
+              <div className="flex justify-end items-center text-lg sm:text-xl md:text-xl font-medium text-purple-500">
+                <p>Followers: {shop?.follow?.length}</p>
+              </div>
             </div>
             <div className="my-2 rounded  p-1 lg:text-lg font-medium flex justify-center ">
               <p>{shop?.description}</p>
@@ -54,8 +83,9 @@ const ShopDetail = ({ shop }: { shop: IShop }) => {
           <CardBody></CardBody>
 
           <CardFooter className=" bottom-0 gap-2 justify-end border-t-1 border-zinc-100/50 bg-white/30">
-            {shop?.follow?.length > 0 && user?.role === "USER" ? (
+            {user?.role === "USER" ? (
               <Button
+                onClick={() => handleFollow(shop?.id)}
                 size="md"
                 className="w-[20%] bg-green-500 text-white"
               >{`${shop?.follow?.map((follower) => follower?.userId === user?.id)[0] ? "Unfollow" : "Follow"}`}</Button>
@@ -65,6 +95,10 @@ const ShopDetail = ({ shop }: { shop: IShop }) => {
           </CardFooter>
         </NextUiCard>
       )}
+
+      <div className="my-4">
+        <ShopProducts products={products!} shopId={shop?.id!} />
+      </div>
     </div>
   );
 };

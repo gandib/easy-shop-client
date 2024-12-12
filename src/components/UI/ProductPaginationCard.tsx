@@ -4,14 +4,19 @@ import { Pagination } from "@nextui-org/react";
 import { queryParams } from "./OrderHistoryCard";
 import { IMeta } from "./VendorProductCard";
 import { IProduct } from "@/src/types";
-import { getAllProductsByShopId } from "@/src/services/ProductService";
+import {
+  getAllProducts,
+  getAllProductsByShopId,
+} from "@/src/services/ProductService";
 
 const ProductPaginationCard = ({
   productData,
   setProductData,
+  category,
 }: {
   productData: { meta: IMeta; data: IProduct[] };
   setProductData: any;
+  category?: string;
 }) => {
   const [currentPage, setCurrentPage] = useState(productData?.meta?.page);
   const [limit, setLimit] = useState(10);
@@ -27,9 +32,18 @@ const ProductPaginationCard = ({
     }
 
     const fetchData = async () => {
-      const { data: allProducts } = await getAllProductsByShopId(query);
-      setProductData(allProducts);
-      setTotalPage(productData?.meta?.totalPage);
+      if (!category) {
+        const { data: allProducts } = await getAllProductsByShopId(query);
+        setProductData(allProducts);
+        setTotalPage(productData?.meta?.totalPage);
+      }
+      if (category) {
+        const { data } = await getAllProducts([
+          { name: "category", value: category },
+        ]);
+        setProductData(data);
+        setTotalPage(productData?.meta?.totalPage);
+      }
     };
 
     if (query.length > 0) {

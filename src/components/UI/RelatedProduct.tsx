@@ -19,7 +19,13 @@ import { getAllProducts } from "@/src/services/ProductService";
 import { IProduct } from "@/src/types";
 import VendorProductCard, { IMeta } from "./VendorProductCard";
 
-const RelatedProduct = ({ categoryName }: { categoryName: string }) => {
+const RelatedProduct = ({
+  categoryName,
+  fromShop,
+}: {
+  categoryName: string;
+  fromShop?: string;
+}) => {
   const [relatedProducts, setRelatedProducts] = useState<{
     meta: IMeta;
     data: IProduct[];
@@ -49,7 +55,11 @@ const RelatedProduct = ({ categoryName }: { categoryName: string }) => {
   return (
     <div>
       <h2 className="text-xl font-bold my-4">Related Products</h2>
-      <VendorProductCard products={relatedProducts!} />
+      <VendorProductCard
+        products={relatedProducts!}
+        category={categoryName}
+        fromShop="shop"
+      />
     </div>
   );
 };

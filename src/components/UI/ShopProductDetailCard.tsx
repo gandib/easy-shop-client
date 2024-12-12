@@ -23,7 +23,7 @@ import {
 import { useRouter } from "next/navigation";
 import RelatedProduct from "./RelatedProduct";
 
-const ProductDetailCard = ({ product }: { product: IProduct }) => {
+const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
   const { user, isLoading } = useUser();
   const { mutate: postRating } = useCreateRating();
   const { mutate: createReview } = useCreateReview();
@@ -188,15 +188,15 @@ const ProductDetailCard = ({ product }: { product: IProduct }) => {
           </CardBody>
 
           <CardFooter className=" bottom-0 gap-2 justify-around border-t-1 border-zinc-100/50 bg-white/30">
-            <ProductUpdateButton id={product?.id} />
+            {/* <ProductUpdateButton id={product?.id} /> */}
             {/* <ProductDeleteButton id={recipe?._id} setLoading={setLoading} /> */}
           </CardFooter>
         </NextUiCard>
       )}
 
-      <RelatedProduct categoryName={product?.category?.name} />
+      <RelatedProduct categoryName={product?.category?.name} fromShop="shop" />
     </div>
   );
 };
 
-export default ProductDetailCard;
+export default ShopProductDetailCard;
