@@ -16,6 +16,7 @@ import ProductPaginationCard from "./ProductPaginationCard";
 import { useState } from "react";
 import { useUser } from "@/src/context/user.provider";
 import { Button } from "@nextui-org/button";
+import { addToCart } from "@/src/utils/addToCart";
 
 export interface IMeta {
   page: number;
@@ -35,6 +36,10 @@ const VendorProductCard = ({
 }) => {
   const [productData, setProductData] = useState(products);
   const { user, isLoading } = useUser();
+
+  const handleAddToCart = (productId: string, shopId: string) => {
+    addToCart(productId, shopId);
+  };
 
   if (isLoading) {
     <p>Loading...</p>;
@@ -107,7 +112,13 @@ const VendorProductCard = ({
                   </>
                 )}
 
-                {user?.role === "USER" && <Button>Add to Cart</Button>}
+                {user?.role === "USER" && (
+                  <Button
+                    onClick={() => handleAddToCart(data?.id, data?.shopId)}
+                  >
+                    Add to Cart
+                  </Button>
+                )}
 
                 <SeeDetailButton id={data?.id} fromShop={fromShop} />
               </CardFooter>

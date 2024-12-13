@@ -14,7 +14,7 @@ export const siteConfig = {
     },
     {
       label: "Cart",
-      href: "/cart",
+      href: "/user-dashboard/cart",
     },
   ],
   navMenuItems: [
@@ -28,7 +28,7 @@ export const siteConfig = {
     },
     {
       label: "Cart",
-      href: "/cart",
+      href: "/user-dashboard/cart",
     },
   ],
   links: {

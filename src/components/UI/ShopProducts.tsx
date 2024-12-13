@@ -13,10 +13,20 @@ import ProductUpdateButton from "./ProductUpdateButton";
 import ProductDeleteButton from "./ProductDeleteButton";
 import ShopRedirect from "./ShopRedirect";
 import { useEffect, useState } from "react";
-import { Button, Pagination } from "@nextui-org/react";
+import {
+  Button,
+  Pagination,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@nextui-org/react";
 import { queryParams } from "./OrderHistoryCard";
 import { getAllProducts } from "@/src/services/ProductService";
 import { useUser } from "@/src/context/user.provider";
+import { toast } from "sonner";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import { addToCart } from "@/src/utils/addToCart";
 
 export interface IMeta {
   page: number;
@@ -55,6 +65,10 @@ const ShopProducts = ({
     };
     fetchData();
   }, [currentPage, totalPage]);
+
+  const handleAddToCart = (productId: string, shopId: string) => {
+    addToCart(productId, shopId);
+  };
 
   if (isLoading) {
     <p>Loading...</p>;
@@ -128,7 +142,13 @@ const ShopProducts = ({
                   </>
                 )}
 
-                {user?.role === "USER" && <Button>Add to Card</Button>}
+                {user?.role === "USER" && (
+                  <Button
+                    onClick={() => handleAddToCart(data?.id, data?.shopId)}
+                  >
+                    Add to Card
+                  </Button>
+                )}
 
                 <SeeDetailButton id={data?.id} fromShop="shop" />
               </CardFooter>
