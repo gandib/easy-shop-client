@@ -20,6 +20,7 @@ const ShopDetail = ({ shop }: { shop: IShop }) => {
   const { mutate: createFollow } = useCreateFollow();
   const { mutate: unFollow } = useUnFollow();
   const [products, setProducts] = useState();
+  console.log({ shop });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -78,6 +79,24 @@ const ShopDetail = ({ shop }: { shop: IShop }) => {
             </div>
             <div className="my-2 rounded  p-1 lg:text-lg font-medium flex justify-center ">
               <p>{shop?.description}</p>
+            </div>
+            <div className="flex justify-end items-center text-lg sm:text-xl md:text-xl font-medium ">
+              <p>
+                Coupon Code:
+                {shop?.coupon[0]?.code ? (
+                  <span className="text-purple-500">
+                    {` `}
+                    {shop?.coupon[0]?.code}
+                    <span className="text-black">
+                      {" "}
+                      use this code to get {shop?.coupon[0]?.percentage}%
+                      discount
+                    </span>
+                  </span>
+                ) : (
+                  "Not Available"
+                )}
+              </p>
             </div>
           </CardHeader>
           <CardBody></CardBody>
