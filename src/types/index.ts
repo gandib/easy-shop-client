@@ -76,6 +76,7 @@ export interface IProduct {
   rating: IRating[];
   review: IReview[];
   shop: IShop;
+  flashSale: IFlashSale;
 }
 
 export interface IShopResponse {
@@ -97,7 +98,29 @@ export interface ICoupon {
   shopId: string;
   code: string;
   percentage: number;
+  shop: IShop;
   expiryDate: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ICoupon {
+  id: string;
+  shopId: string;
+  code: string;
+  percentage: number;
+  shop: IShop;
+  expiryDate: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IFlashSale {
+  id: string;
+  productId: string;
+  percentage: number;
+  expiryDate: string;
+  product: IProduct;
   createdAt: string;
   updatedAt: string;
 }

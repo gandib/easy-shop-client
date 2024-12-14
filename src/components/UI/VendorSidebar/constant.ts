@@ -7,4 +7,9 @@ export const vendorLinks = [
   { href: "/vendor-dashboard/reviews", label: "Reviews" },
   { href: "/vendor-dashboard/ratings", label: "Ratings" },
   { href: "/vendor-dashboard/order-history", label: "Order History" },
+  { href: "/vendor-dashboard/all-coupon", label: "All Coupon" },
+  { href: "/vendor-dashboard/create-coupon", label: "Create Coupon" },
+  { href: "/vendor-dashboard/all-flash-sale", label: "All Flash Sale" },
+  { href: "/vendor-dashboard/create-flash-sale", label: "Create Flash Sale" },
+  { href: "/vendor-dashboard/change-password", label: "Change Password" },
 ];

@@ -65,7 +65,7 @@ export const getCategoryById = async (id: string) => {
 export const updateCategoryById = async (categoryData: FieldValues) => {
   try {
     const { data } = await axiosInstance.patch(
-      `/Category/${categoryData.id}`,
+      `/category/${categoryData.id}`,
       categoryData.data
     );
     revalidateTag("CATEGORY");
