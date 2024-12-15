@@ -28,12 +28,29 @@ export const loginUser = async (userData: FieldValues) => {
 export const forgetPassword = async (userData: FieldValues) => {
   try {
     const { data } = await axiosInstance.post(
-      "/auth/forget-password",
+      "/auth/forgot-password",
       userData
     );
     // if (data?.success) {
     //   cookies().set("accessToken", data?.token, { maxAge: 604800 });
     // }
+
+    return data;
+  } catch (error: any) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(error?.response?.data?.message);
+    } else {
+      throw new Error(error);
+    }
+  }
+};
+
+export const changePassword = async (userData: FieldValues) => {
+  try {
+    const { data } = await axiosInstance.post(
+      "/auth/change-password",
+      userData
+    );
 
     return data;
   } catch (error: any) {

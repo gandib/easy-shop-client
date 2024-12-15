@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import {
+  changePassword,
   forgetPassword,
   loginUser,
   recoverPassword,
@@ -11,6 +12,19 @@ export const useUserlogin = () => {
   return useMutation<any, Error, FieldValues>({
     mutationKey: ["USER_LOGIN"],
     mutationFn: async (userData) => await loginUser(userData),
+    onSuccess(data, variables, context) {
+      toast.success(data.message);
+    },
+    onError(error, variables, context) {
+      toast.error(error.message);
+    },
+  });
+};
+
+export const useChangePassword = () => {
+  return useMutation<any, Error, FieldValues>({
+    mutationKey: ["USER_LOGIN"],
+    mutationFn: async (userData) => await changePassword(userData),
     onSuccess(data, variables, context) {
       toast.success(data.message);
     },

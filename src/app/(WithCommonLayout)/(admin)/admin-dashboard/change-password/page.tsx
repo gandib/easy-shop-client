@@ -2,7 +2,6 @@
 
 import ESForm from "@/src/components/form/ESForm";
 import ESInput from "@/src/components/form/ESInput";
-import { useUser } from "@/src/context/user.provider";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@nextui-org/button";
 import { FieldValues } from "react-hook-form";
@@ -31,7 +30,7 @@ export default function ChangePassword() {
   }
 
   if (isSuccess) {
-    router.push("/user-dashboard");
+    router.push("/admin-dashboard");
   }
 
   return (

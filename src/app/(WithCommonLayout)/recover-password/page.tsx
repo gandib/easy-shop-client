@@ -27,10 +27,11 @@ const RecoverPassword = () => {
     const recoverData = {
       token: searchParams?.get("token"),
       data: {
-        id: searchParams?.get("id"),
-        newPassword: data.newPassword,
+        id: searchParams?.get("userId"),
+        password: data.newPassword,
       },
     };
+    console.log(recoverData);
 
     handleRecoverPassword(recoverData);
     setIsLoading(true);
