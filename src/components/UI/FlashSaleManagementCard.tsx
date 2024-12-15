@@ -37,10 +37,10 @@ const FlashSaleManagementCard = ({
   const [expiryDate, setExpiryDate] = useState(flashSale?.expiryDate);
   console.log(flashSale);
 
-  //   const productOptions = shop?.product?.map((product: IProduct) => ({
-  //     key: product?.id,
-  //     label: product?.name,
-  //   }));
+  const productOptions = shop?.product?.map((product: IProduct) => ({
+    key: product?.id,
+    label: product?.name,
+  }));
 
   const onSubmit = (data: FieldValues) => {
     console.log(data);
@@ -85,16 +85,18 @@ const FlashSaleManagementCard = ({
           onSubmit={onSubmit}
           //   resolver={zodResolver(registerValidationSchema)}
         >
-          {/* <div className="py-3">
-            <ESSelect
-              name="productId"
-              label="Product Id"
-              size="sm"
-              options={productOptions!}
-              value={productId}
-              onChange={(e) => setProductId(e.target.value)}
-            />
-          </div> */}
+          {title === "Create" && (
+            <div className="py-3">
+              <ESSelect
+                name="productId"
+                label="Product Id"
+                size="sm"
+                options={productOptions!}
+                value={productId}
+                onChange={(e) => setProductId(e.target.value)}
+              />
+            </div>
+          )}
           <div className="py-3">
             <ESInput
               name="percentage"

@@ -27,6 +27,7 @@ import { toast } from "sonner";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { addToCart } from "@/src/utils/addToCart";
+import ShowPopup from "./ShowPopup";
 
 export interface IMeta {
   page: number;
@@ -47,6 +48,41 @@ const ShopProducts = ({
   const [limit, setLimit] = useState(10);
   const [totalPage, setTotalPage] = useState(productData?.meta?.totalPage);
   const { user, isLoading } = useUser();
+  const [showPopup, setShowPopup] = useState(false);
+  const [warning, setWarning] = useState<{
+    message: string;
+    productId: string;
+    shopId: string;
+  } | null>(null);
+
+  const handleShowPopup = (productId: string, shopId: string) => {
+    addToCart(productId, shopId, (message, id, shop) => {
+      setWarning({ message, productId: id, shopId: shop });
+    });
+    setShowPopup(true);
+  };
+
+  const handleClosePopup = () => setShowPopup(false);
+
+  const handleReplaceCart = () => {
+    if (warning) {
+      localStorage.setItem(
+        "cart",
+        JSON.stringify([
+          { productId: warning.productId, shopId: warning.shopId },
+        ])
+      );
+      toast("Cart replaced successfully with the new product!");
+      setWarning(null);
+      setShowPopup(false);
+    }
+  };
+
+  const handleDismissWarning = () => {
+    toast("Cart remains unchanged.");
+    setWarning(null);
+    setShowPopup(false);
+  };
 
   useEffect(() => {
     const query: queryParams[] = [];
@@ -66,9 +102,9 @@ const ShopProducts = ({
     fetchData();
   }, [currentPage, totalPage]);
 
-  const handleAddToCart = (productId: string, shopId: string) => {
-    addToCart(productId, shopId);
-  };
+  // const handleAddToCart = (productId: string, shopId: string) => {
+  //   addToCart(productId, shopId);
+  // };
 
   if (isLoading) {
     <p>Loading...</p>;
@@ -76,7 +112,7 @@ const ShopProducts = ({
 
   return (
     <div>
-      <div className="grid lg:grid-cols-2 gap-2 grow">
+      <div className="grid lg:grid-cols-2 gap-2 grow relative">
         {productData &&
           productData?.data.length > 0 &&
           productData?.data?.map((data: IProduct) => (
@@ -144,7 +180,8 @@ const ShopProducts = ({
 
                 {user?.role === "USER" && (
                   <Button
-                    onClick={() => handleAddToCart(data?.id, data?.shopId)}
+                    size="sm"
+                    onClick={() => handleShowPopup(data.id, data.shopId)}
                   >
                     Add to Card
                   </Button>
@@ -152,6 +189,14 @@ const ShopProducts = ({
 
                 <SeeDetailButton id={data?.id} fromShop="shop" />
               </CardFooter>
+
+              {/* Popup Modal */}
+              {showPopup && warning && warning.productId === data.id && (
+                <ShowPopup
+                  handleReplaceCart={handleReplaceCart}
+                  handleDismissWarning={handleDismissWarning}
+                />
+              )}
             </NextUiCard>
           ))}
       </div>

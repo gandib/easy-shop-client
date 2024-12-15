@@ -13,7 +13,7 @@ import ProductUpdateButton from "./ProductUpdateButton";
 import ProductDeleteButton from "./ProductDeleteButton";
 import ShopRedirect from "./ShopRedirect";
 import ProductPaginationCard from "./ProductPaginationCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUser } from "@/src/context/user.provider";
 import { Button } from "@nextui-org/button";
 import { addToCart } from "@/src/utils/addToCart";
@@ -27,7 +27,7 @@ export interface IMeta {
   totalPage: number;
 }
 
-const VendorProductCard = ({
+const ProductListing = ({
   products,
   category,
   fromShop,
@@ -78,12 +78,18 @@ const VendorProductCard = ({
   //   addToCart(productId, shopId);
   // };
 
+  useEffect(() => {
+    setProductData(products);
+  }, [products]);
+
   if (isLoading) {
     <p>Loading...</p>;
   }
+
   return (
     <div>
-      <div className="grid lg:grid-cols-2 gap-2 grow relative">
+      <h1 className="text-2xl font-bold my-2">Product Listing</h1>
+      <div className="grid lg:grid-cols-3 gap-2 grow relative">
         {productData &&
           productData?.data?.length > 0 &&
           productData?.data?.map((data: IProduct) => (
@@ -171,7 +177,7 @@ const VendorProductCard = ({
             </NextUiCard>
           ))}
       </div>
-      {productData?.data?.length > 0 ? (
+      {/* {productData?.data?.length > 0 ? (
         <ProductPaginationCard
           productData={productData}
           setProductData={setProductData}
@@ -179,9 +185,9 @@ const VendorProductCard = ({
         />
       ) : (
         "No products to show!"
-      )}
+      )} */}
     </div>
   );
 };
 
-export default VendorProductCard;
+export default ProductListing;

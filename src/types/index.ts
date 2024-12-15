@@ -76,7 +76,7 @@ export interface IProduct {
   rating: IRating[];
   review: IReview[];
   shop: IShop;
-  flashSale: IFlashSale;
+  flashSale: IFlashSale[];
 }
 
 export interface IShopResponse {

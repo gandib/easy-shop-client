@@ -13,7 +13,7 @@ import ProductUpdateButton from "./ProductUpdateButton";
 import ProductDeleteButton from "./ProductDeleteButton";
 import ShopRedirect from "./ShopRedirect";
 import ProductPaginationCard from "./ProductPaginationCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUser } from "@/src/context/user.provider";
 import { Button } from "@nextui-org/button";
 import { addToCart } from "@/src/utils/addToCart";
@@ -27,7 +27,7 @@ export interface IMeta {
   totalPage: number;
 }
 
-const VendorProductCard = ({
+const AllProductsDisplayCard = ({
   products,
   category,
   fromShop,
@@ -38,12 +38,12 @@ const VendorProductCard = ({
 }) => {
   const [productData, setProductData] = useState(products);
   const { user, isLoading } = useUser();
-  const [showPopup, setShowPopup] = useState(false);
   const [warning, setWarning] = useState<{
     message: string;
     productId: string;
     shopId: string;
   } | null>(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleShowPopup = (productId: string, shopId: string) => {
     addToCart(productId, shopId, (message, id, shop) => {
@@ -78,19 +78,24 @@ const VendorProductCard = ({
   //   addToCart(productId, shopId);
   // };
 
+  useEffect(() => {
+    setProductData(products);
+  }, [products]);
+
   if (isLoading) {
     <p>Loading...</p>;
   }
+
   return (
     <div>
-      <div className="grid lg:grid-cols-2 gap-2 grow relative">
+      <div className="grid lg:grid-cols-3 gap-2 grow relative">
         {productData &&
           productData?.data?.length > 0 &&
           productData?.data?.map((data: IProduct) => (
             <NextUiCard
               key={data.id}
               isFooterBlurred
-              className=" hover:shadow-2xl "
+              className=" hover:shadow-2xl"
             >
               <CardHeader className=" ">
                 {data?.img && (
@@ -150,16 +155,43 @@ const VendorProductCard = ({
                 )}
 
                 {user?.role === "USER" && (
-                  <Button
-                    size="sm"
-                    onClick={() => handleShowPopup(data.id, data.shopId)}
-                  >
+                  // <Button
+                  //   size="sm"
+                  //   onClick={() => handleAddToCart(data?.id, data?.shopId)}
+                  // >
+                  //   Add to Cart
+                  // </Button>
+
+                  <Button onClick={() => handleShowPopup(data.id, data.shopId)}>
                     Add to Cart
                   </Button>
                 )}
 
                 <SeeDetailButton id={data?.id} fromShop={fromShop} />
               </CardFooter>
+
+              {/* Warning Overlay */}
+              {/* {warning && warning.productId === data.id && (
+                  <div className=" inset-0 bg-red-100 bg-opacity-50 flex flex-col items-center justify-center p-4">
+                    <p className="text-red-700 text-lg font-semibold">
+                      {warning.message}
+                    </p>
+                    <div className="flex gap-4 mt-4">
+                      <button
+                        onClick={handleReplaceCart}
+                        className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-green-400"
+                      >
+                        Yes
+                      </button>
+                      <button
+                        onClick={handleDismissWarning}
+                        className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-gray-400"
+                      >
+                        No
+                      </button>
+                    </div>
+                  </div>
+                )} */}
 
               {/* Popup Modal */}
               {showPopup && warning && warning.productId === data.id && (
@@ -171,7 +203,7 @@ const VendorProductCard = ({
             </NextUiCard>
           ))}
       </div>
-      {productData?.data?.length > 0 ? (
+      {/* {productData?.data?.length > 0 ? (
         <ProductPaginationCard
           productData={productData}
           setProductData={setProductData}
@@ -179,9 +211,9 @@ const VendorProductCard = ({
         />
       ) : (
         "No products to show!"
-      )}
+      )} */}
     </div>
   );
 };
 
-export default VendorProductCard;
+export default AllProductsDisplayCard;

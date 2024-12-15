@@ -6,11 +6,11 @@ const AllFlashSale = async () => {
   const { data: allFlashSale } = await getAllFlashSale();
   return (
     <div className="grid grid-cols-2 gap-2">
-      {allFlashSale &&
-        allFlashSale.length > 0 &&
-        allFlashSale?.map((flashSale: IFlashSale) => (
-          <FlashSaleDisplayCard flashSale={flashSale} />
-        ))}
+      {allFlashSale && allFlashSale.length > 0
+        ? allFlashSale?.map((flashSale: IFlashSale) => (
+            <FlashSaleDisplayCard flashSale={flashSale} />
+          ))
+        : "No flash sale to show!"}
     </div>
   );
 };

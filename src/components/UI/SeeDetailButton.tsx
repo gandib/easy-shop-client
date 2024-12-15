@@ -9,6 +9,7 @@ const SeeDetailButton = ({
 }: {
   id: string;
   fromShop?: string;
+  fromHome?: string;
 }) => {
   const router = useRouter();
 

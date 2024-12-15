@@ -13,7 +13,7 @@ import ProductUpdateButton from "./ProductUpdateButton";
 import ProductDeleteButton from "./ProductDeleteButton";
 import ShopRedirect from "./ShopRedirect";
 import ProductPaginationCard from "./ProductPaginationCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUser } from "@/src/context/user.provider";
 import { Button } from "@nextui-org/button";
 import { addToCart } from "@/src/utils/addToCart";
@@ -27,7 +27,7 @@ export interface IMeta {
   totalPage: number;
 }
 
-const VendorProductCard = ({
+const FlashSaleCard = ({
   products,
   category,
   fromShop,
@@ -36,8 +36,12 @@ const VendorProductCard = ({
   category?: string;
   fromShop?: string;
 }) => {
-  const [productData, setProductData] = useState(products);
+  const [productData, setProductData] = useState<{
+    meta: IMeta;
+    data: IProduct[];
+  }>(products);
   const { user, isLoading } = useUser();
+  const [expiryDate, setExpiryDate] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [warning, setWarning] = useState<{
     message: string;
@@ -78,15 +82,37 @@ const VendorProductCard = ({
   //   addToCart(productId, shopId);
   // };
 
-  if (isLoading) {
-    <p>Loading...</p>;
-  }
+  useEffect(() => {
+    setProductData(products);
+    // if (products?.flashSale?.[0]?.expiryDate) {
+    //   const formattedDate = new Date(
+    //     data.flashSale[0].expiryDate
+    //   ).toLocaleString();
+    //   setExpiryDate(formattedDate);
+    // }
+  }, [products]);
+
+  const flashSaleProducts = {
+    meta: {
+      ...products?.meta,
+      total: products?.data?.some(
+        (product: IProduct) => product?.flashSale?.length > 0
+      )
+        ? 1
+        : 0,
+    },
+    data: products?.data?.filter(
+      (product: IProduct) => product?.flashSale?.length > 0
+    ),
+  };
+
+  console.log(flashSaleProducts);
   return (
-    <div>
+    <div className="mb-10">
       <div className="grid lg:grid-cols-2 gap-2 grow relative">
-        {productData &&
-          productData?.data?.length > 0 &&
-          productData?.data?.map((data: IProduct) => (
+        {flashSaleProducts &&
+          flashSaleProducts?.data?.length > 0 &&
+          flashSaleProducts?.data?.map((data: IProduct) => (
             <NextUiCard
               key={data.id}
               isFooterBlurred
@@ -111,6 +137,13 @@ const VendorProductCard = ({
                   </h4>
                   <h4 className="mt-1 rounded  p-1 text-base md:text-base font-medium">
                     {data?.price}
+                  </h4>
+                  <h4 className="mt-1 rounded  p-1 text-base md:text-base font-medium">
+                    Flash Sale Discount: {data?.flashSale[0]?.percentage}%
+                  </h4>
+                  <h4 className="mt-1 rounded  p-1 text-base md:text-base font-medium">
+                    Flash Sale Expires In:{" "}
+                    {`${new Date(data?.flashSale[0]?.expiryDate).getDate()}-${new Date(data?.flashSale[0]?.expiryDate).getMonth() + 1}-${new Date(data?.flashSale[0]?.expiryDate).getFullYear()}`}
                   </h4>
                   {data.rating && data.rating.length > 0 ? (
                     <h4 className="mt-2 rounded flex items-center  p-1 text-base md:text-base font-medium text-green-500">
@@ -178,10 +211,10 @@ const VendorProductCard = ({
           category={category}
         />
       ) : (
-        "No products to show!"
+        ""
       )}
     </div>
   );
 };
 
-export default VendorProductCard;
+export default FlashSaleCard;
