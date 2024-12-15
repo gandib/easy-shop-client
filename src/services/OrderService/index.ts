@@ -48,3 +48,24 @@ export const getAllOrder = async (query: queryParams[]) => {
     throw error;
   }
 };
+
+export const getOrderById = async (id: string) => {
+  const url = `${envConfig.baseApi}/order/${id}`;
+  const token = cookies().get("accessToken")?.value;
+
+  try {
+    const res = await fetch(url, {
+      method: "GET",
+      cache: "no-store",
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching my recipes:", error);
+    throw error;
+  }
+};

@@ -3,7 +3,7 @@ import axiosInstance from "@/src/lib/AxiosInstance";
 import axios from "axios";
 import { FieldValues } from "react-hook-form";
 
-export const membershipPayment = async (paymentData: FieldValues) => {
+export const orderPayment = async (paymentData: FieldValues) => {
   try {
     const { data } = await axiosInstance.post("/payment/initiate", paymentData);
 

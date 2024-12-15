@@ -28,7 +28,7 @@ const CartPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [discountedTotal, setDiscountedTotal] = useState<number | null>(null);
   const [couponTotal, setCouponTotal] = useState<number | null>(null);
-  const { mutate: createOrder, isSuccess } = useCreateOrder();
+  const { mutate: createOrder, isSuccess, data } = useCreateOrder();
   const router = useRouter();
 
   useEffect(() => {
@@ -177,9 +177,11 @@ const CartPage = () => {
     createOrder(orderData);
   };
 
+  console.log(data);
+
   if (isSuccess) {
     localStorage.removeItem("cart");
-    router.push("/user-dashboard/checkout");
+    router.push(`/user-dashboard/checkout/${data?.data?.id}`);
   }
 
   return (

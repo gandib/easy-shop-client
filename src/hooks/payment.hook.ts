@@ -1,12 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
 import { FieldValues } from "react-hook-form";
-import { membershipPayment } from "../services/Payment";
+import { orderPayment } from "../services/Payment";
 import { toast } from "sonner";
 
-export const useMembershipPayment = () => {
+export const useOrderPayment = () => {
   return useMutation<any, Error, FieldValues>({
-    mutationKey: ["USER_PAYMENT"],
-    mutationFn: async (paymentData) => await membershipPayment(paymentData),
+    mutationKey: ["PAYMENT"],
+    mutationFn: async (paymentData) => await orderPayment(paymentData),
     onSuccess(data, variables, context) {
       toast.success(data.message);
     },
