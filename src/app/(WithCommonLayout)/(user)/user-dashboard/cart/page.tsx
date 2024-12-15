@@ -1,7 +1,7 @@
 "use client";
 
 import { getShopById } from "@/src/services/ShopService";
-import { IProduct } from "@/src/types";
+import { IProduct, IShop } from "@/src/types";
 import { useEffect, useMemo, useState } from "react";
 import {
   Table,
@@ -13,12 +13,23 @@ import {
   Button,
 } from "@nextui-org/react";
 import { Delete, DeleteIcon, MinusCircle, PlusCircle } from "lucide-react";
+import ESForm from "@/src/components/form/ESForm";
+import { FieldValues } from "react-hook-form";
+import ESInput from "@/src/components/form/ESInput";
+import { useCreateOrder } from "@/src/hooks/order.hook";
+import { useRouter } from "next/navigation";
 
 const CartPage = () => {
   const [cartData, setCartData] = useState<string | null>(null);
   const [products, setProducts] = useState<IProduct[] | null>(null);
+  const [shopData, setShopData] = useState<IShop | null>(null);
   const [quantity, setQuantity] = useState<{ [productId: string]: number }>({});
   const [subTotal, setSubTotal] = useState<{ [productId: string]: number }>({});
+  const [errorMessage, setErrorMessage] = useState("");
+  const [discountedTotal, setDiscountedTotal] = useState<number | null>(null);
+  const [couponTotal, setCouponTotal] = useState<number | null>(null);
+  const { mutate: createOrder, isSuccess } = useCreateOrder();
+  const router = useRouter();
 
   useEffect(() => {
     const storedCart = localStorage?.getItem("cart");
@@ -35,6 +46,7 @@ const CartPage = () => {
 
       try {
         const { data: shop } = await getShopById(parsedCart[0]?.shopId);
+        setShopData(shop);
 
         const matchedProducts = shop?.product.filter((product: IProduct) =>
           parsedCart.some((cartItem: any) => cartItem.productId === product.id)
@@ -68,13 +80,14 @@ const CartPage = () => {
 
     fetchShopData();
   }, [cartData]);
-  console.log(products);
 
   const updateQuantity = (
     productId: string,
     change: number,
     basePrice: number
   ) => {
+    setDiscountedTotal(null);
+    setCouponTotal(null);
     setQuantity((prevQuantities) => {
       const currentQuantity = prevQuantities[productId] || 1;
       const newQuantity = currentQuantity + change;
@@ -98,6 +111,8 @@ const CartPage = () => {
   }, [subTotal]);
 
   const handleDelete = (productId: string) => {
+    setDiscountedTotal(null);
+    setCouponTotal(null);
     setProducts(
       (prevProducts) =>
         prevProducts?.filter((product) => product.id !== productId) || null
@@ -121,9 +136,51 @@ const CartPage = () => {
     setCartData(JSON.stringify(updatedCart));
   };
 
-  const handleCheckout = () => {
-    // order create korte hobe aage, tarpor checkout page e jabe
+  const onSubmit = (data: FieldValues) => {
+    const couponData = shopData?.coupon?.find(
+      (coupon) => coupon?.code === data.coupon
+    );
+
+    if (!couponData) {
+      setErrorMessage("Invalid coupon code");
+      return;
+    }
+
+    const currentDate = new Date();
+    const expiryDate = new Date(couponData.expiryDate);
+
+    if (currentDate <= expiryDate) {
+      const discountPercentage = couponData.percentage || 0;
+      const discountFactor = (100 - discountPercentage) / 100;
+      const newTotal = total * discountFactor;
+
+      setDiscountedTotal(newTotal);
+      setCouponTotal((total * couponData.percentage) / 100);
+      setErrorMessage("");
+    } else {
+      setErrorMessage("Coupon is expired.");
+      setDiscountedTotal(null);
+    }
   };
+
+  const handleCheckout = () => {
+    const orderData = {
+      totalPrice: Number(
+        discountedTotal !== null ? discountedTotal.toFixed(2) : total.toFixed(2)
+      ),
+      orderItems: JSON.parse(cartData!)?.map((cart: any) => ({
+        productId: cart.productId,
+        quantity: quantity[cart.productId],
+      })),
+    };
+
+    createOrder(orderData);
+  };
+
+  if (isSuccess) {
+    localStorage.removeItem("cart");
+    router.push("/user-dashboard/checkout");
+  }
 
   return (
     <div>
@@ -183,16 +240,41 @@ const CartPage = () => {
               </TableBody>
             </Table>
           </div>
-          <div className="flex justify-between p-4">
-            <p>Total</p>
-            <p> {total.toFixed(2)}</p>
+
+          <div className="my-2">
+            <ESForm onSubmit={onSubmit}>
+              <div className="flex gap-2">
+                <ESInput name="coupon" label="Coupon code" size="sm" />
+                <Button size="lg" type="submit">
+                  Apply
+                </Button>
+              </div>
+              <p className="text-sm text-red-500">{errorMessage}</p>
+            </ESForm>
           </div>
+
+          <div className="flex justify-between p-4 font-bold text-xl">
+            <p>Coupon Discount</p>
+            <p> {couponTotal !== null ? couponTotal.toFixed(2) : 0}</p>
+          </div>
+          <div className="flex justify-between p-4 font-bold text-xl">
+            <p>Total</p>
+            <p>
+              {" "}
+              {discountedTotal !== null
+                ? discountedTotal.toFixed(2)
+                : total.toFixed(2)}
+            </p>
+          </div>
+
           <div className="flex justify-end">
-            <Button onClick={() => handleCheckout}>Proceed to Checkout</Button>
+            <Button onClick={() => handleCheckout()}>
+              Proceed to Checkout
+            </Button>
           </div>
         </div>
       ) : (
-        cartData && <p>Cart is empty!</p>
+        !cartData && <p>Cart is empty!</p>
       )}
     </div>
   );
