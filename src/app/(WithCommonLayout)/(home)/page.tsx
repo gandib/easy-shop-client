@@ -3,14 +3,21 @@ import Container from "@/src/components/UI/Container";
 import FlashSaleCard from "@/src/components/UI/FlashSaleCard";
 import HomeFilteringSearchingCard from "@/src/components/UI/HomeFilteringSearchingCard";
 import HomeFlashSale from "@/src/components/UI/HomeFlashSale";
+import PrioritizeProducts from "@/src/components/UI/PrioritizeProducts";
 import ScrollToTop from "@/src/components/UI/ScrollTopToBottomButton";
 import { getAllCategory } from "@/src/services/CategoryService";
-import { getAllProducts } from "@/src/services/ProductService";
+import {
+  getAllProducts,
+  getAllProductsByFollowedUser,
+} from "@/src/services/ProductService";
 import { IProduct } from "@/src/types";
 
 const Home = async () => {
   const { data: allProducts } = await getAllProducts([]);
   const { data: allCategory } = await getAllCategory();
+  const { data: allPrioritizeProducts } = await getAllProductsByFollowedUser(
+    []
+  );
 
   let flashSaleProducts = {
     meta: {
@@ -30,6 +37,7 @@ const Home = async () => {
 
   return (
     <Container>
+      <PrioritizeProducts products={allPrioritizeProducts} />
       <HomeFlashSale flashSale={flashSaleProducts} />
       <CategoryDisplay category={allCategory} />
       <HomeFilteringSearchingCard products={allProducts} fromShop="home" />

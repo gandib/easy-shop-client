@@ -186,15 +186,17 @@ const AllProductsFilteringSearching = ({
           <p>No Product available!</p>
         )}
 
-        {productData?.data?.length > 0 ? (
+        {productData?.data?.length > 0 || products?.data?.length > 0 ? (
           <div className="mt-5 flex justify-center items-center">
-            {products?.data?.length > 0 && (
-              <Pagination
-                total={totalPage}
-                page={currentPage}
-                onChange={(page) => setCurrentPage(page)}
-              />
-            )}
+            {products?.data?.length > 0 ||
+              (productData?.data?.length > 0 && (
+                <Pagination
+                  total={totalPage}
+                  page={currentPage}
+                  showControls
+                  onChange={(page) => setCurrentPage(page)}
+                />
+              ))}
           </div>
         ) : (
           ""

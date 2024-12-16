@@ -48,6 +48,33 @@ export const getAllProducts = async (query: queryParams[]) => {
   }
 };
 
+export const getAllProductsByFollowedUser = async (query: queryParams[]) => {
+  const params = new URLSearchParams();
+  if (query) {
+    query.forEach((item) => {
+      params.append(item.name, item.value as string);
+    });
+  }
+  const url = `${envConfig.baseApi}/product/by-follower?${params.toString()}`;
+  const token = cookies().get("accessToken")?.value;
+
+  try {
+    const res = await fetch(url, {
+      method: "GET",
+      cache: "no-store",
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching my recipes:", error);
+    throw error;
+  }
+};
+
 export const getAllProductsByShopId = async (query: queryParams[]) => {
   const params = new URLSearchParams();
   if (query) {
