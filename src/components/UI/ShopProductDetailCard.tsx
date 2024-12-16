@@ -30,6 +30,7 @@ import {
 } from "@/src/hooks/rating-review.hook";
 import { useRouter } from "next/navigation";
 import RelatedProduct from "./RelatedProduct";
+import { recentViewedProductsStore } from "@/src/utils/recentViewedProductsStore";
 
 const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
   const { user, isLoading } = useUser();
@@ -69,6 +70,8 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
           rating.reduce((pre, next) => pre + next.rating, 0) / rating.length
         ).toFixed(1)
       : "0";
+
+  recentViewedProductsStore(product?.id);
 
   return (
     <div className="">

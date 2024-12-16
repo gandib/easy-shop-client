@@ -1,6 +1,7 @@
 "use client";
 
 import { IProduct } from "@/src/types";
+import { useEffect, useState } from "react";
 import {
   Card as NextUiCard,
   CardHeader,
@@ -12,39 +13,26 @@ import SeeDetailButton from "./SeeDetailButton";
 import ProductUpdateButton from "./ProductUpdateButton";
 import ProductDeleteButton from "./ProductDeleteButton";
 import ShopRedirect from "./ShopRedirect";
-import ProductPaginationCard from "./ProductPaginationCard";
-import { useEffect, useState } from "react";
-import { useUser } from "@/src/context/user.provider";
-import { Button } from "@nextui-org/button";
-import { addToCart } from "@/src/utils/addToCart";
-import { toast } from "sonner";
+import { Button, Pagination } from "@nextui-org/react";
+import "react-confirm-alert/src/react-confirm-alert.css";
 import ShowPopup from "./ShowPopup";
-import { recentViewedProductsStore } from "@/src/utils/recentViewedProductsStore";
+import { useUser } from "@/src/context/user.provider";
+import { toast } from "sonner";
+import { addToCart } from "@/src/utils/addToCart";
 
-export interface IMeta {
-  page: number;
-  limit: number;
-  total: number;
-  totalPage: number;
-}
-
-const AllProductsDisplayCard = ({
+const RecentProductsCard = ({
   products,
-  category,
-  fromShop,
 }: {
-  products: { meta: IMeta; data: IProduct[] };
-  category?: string;
-  fromShop?: string;
+  products: { data: IProduct[] };
 }) => {
-  const [productData, setProductData] = useState(products);
+  const [cartData, setCartData] = useState<string | null>(null);
   const { user, isLoading } = useUser();
+  const [showPopup, setShowPopup] = useState(false);
   const [warning, setWarning] = useState<{
     message: string;
     productId: string;
     shopId: string;
   } | null>(null);
-  const [showPopup, setShowPopup] = useState(false);
 
   const handleShowPopup = (productId: string, shopId: string) => {
     addToCart(productId, shopId, (message, id, shop) => {
@@ -75,28 +63,30 @@ const AllProductsDisplayCard = ({
     setShowPopup(false);
   };
 
-  // const handleAddToCart = (productId: string, shopId: string) => {
-  //   addToCart(productId, shopId);
-  // };
-
   useEffect(() => {
-    setProductData(products);
-  }, [products]);
+    const storedCart = localStorage?.getItem("recentProducts");
+    setCartData(storedCart);
+  }, []);
+
+  const parsedCart = JSON.parse(cartData!);
+
+  const matchedProducts = products?.data?.filter((product: IProduct) =>
+    parsedCart?.some((cartItem: any) => cartItem.productId === product.id)
+  );
 
   if (isLoading) {
     <p>Loading...</p>;
   }
-
   return (
     <div>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-2 grow relative">
-        {productData &&
-          productData?.data?.length > 0 &&
-          productData?.data?.map((data: IProduct) => (
+        {matchedProducts &&
+          matchedProducts?.length > 0 &&
+          matchedProducts?.map((data: IProduct) => (
             <NextUiCard
               key={data.id}
               isFooterBlurred
-              className=" hover:shadow-2xl"
+              className=" hover:shadow-2xl "
             >
               <CardHeader className=" ">
                 {data?.img && (
@@ -156,22 +146,15 @@ const AllProductsDisplayCard = ({
                 )}
 
                 {user?.role === "USER" && (
-                  // <Button
-                  //   size="sm"
-                  //   onClick={() => handleAddToCart(data?.id, data?.shopId)}
-                  // >
-                  //   Add to Cart
-                  // </Button>
-
                   <Button
                     size="sm"
                     onClick={() => handleShowPopup(data.id, data.shopId)}
                   >
-                    Add to Cart
+                    Add to Card
                   </Button>
                 )}
 
-                <SeeDetailButton id={data?.id} fromShop={fromShop} />
+                <SeeDetailButton id={data?.id} fromShop="shop" />
               </CardFooter>
 
               {/* Popup Modal */}
@@ -184,17 +167,8 @@ const AllProductsDisplayCard = ({
             </NextUiCard>
           ))}
       </div>
-      {/* {productData?.data?.length > 0 ? (
-        <ProductPaginationCard
-          productData={productData}
-          setProductData={setProductData}
-          category={category}
-        />
-      ) : (
-        "No products to show!"
-      )} */}
     </div>
   );
 };
 
-export default AllProductsDisplayCard;
+export default RecentProductsCard;
