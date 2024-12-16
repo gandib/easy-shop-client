@@ -197,7 +197,7 @@ const FlashSaleCard = ({
             </NextUiCard>
           ))}
       </div>
-      {productData?.data?.length > 0 ? (
+      {productData?.data?.length > 0 && fromShop !== "homeFlash" ? (
         <ProductPaginationCard
           productData={productData}
           setProductData={setProductData}

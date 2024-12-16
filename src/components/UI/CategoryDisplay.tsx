@@ -11,7 +11,7 @@ const CategoryDisplay = ({ category }: { category: ICategory[] }) => {
     router.push(`/all-products?category=${name}`);
   };
   return (
-    <div className="mb-5">
+    <div className="mb-8">
       <h1 className="text-2xl font-bold my-2">Categories</h1>
       <div className="grid lg:grid-cols-4 md:grid-cols-3 gap-2">
         {category?.map((cat) => (
