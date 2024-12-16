@@ -170,12 +170,18 @@ const CompareCard = ({ products }: { products: { data: IProduct[] } }) => {
           </TableRow>
           <TableRow key="4">
             <TableCell>Rating</TableCell>
-            <TableCell>{firstAverageRating}</TableCell>
-            <TableCell>{secondAverageRating}</TableCell>
-            <TableCell>{thirdAverageRating}</TableCell>
+            <TableCell>
+              {firstProduct.length > 0 && firstAverageRating}
+            </TableCell>
+            <TableCell>
+              {secondProduct.length > 0 && secondAverageRating}
+            </TableCell>
+            <TableCell>
+              {thirdProduct.length > 0 && thirdAverageRating}
+            </TableCell>
           </TableRow>
           <TableRow key="5">
-            <TableCell>Discount</TableCell>
+            <TableCell>Description</TableCell>
             <TableCell>{firstProduct[0]?.description}</TableCell>
             <TableCell>{secondProduct[0]?.description}</TableCell>
             <TableCell>{thirdProduct[0]?.description}</TableCell>
