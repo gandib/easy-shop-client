@@ -7,7 +7,7 @@ const UpdateCategory = async ({
   params: { categoryId: string };
 }) => {
   const { data: category } = await getCategoryById(params.categoryId);
-  console.log(category);
+
   return (
     <div>
       <CategoryManagementCard title="Update" category={category} />

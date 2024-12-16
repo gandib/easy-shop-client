@@ -2,18 +2,15 @@
 
 import { useUser } from "@/src/context/user.provider";
 import { useEffect, useState } from "react";
-import { Pagination } from "@nextui-org/pagination";
 import { FieldValues, useForm } from "react-hook-form";
 import useDebounce from "@/src/hooks/debounce.hook";
 import { Input } from "@nextui-org/input";
-import { RotateCw, SearchIcon } from "lucide-react";
-import { Autocomplete, AutocompleteItem } from "@nextui-org/autocomplete";
-import { Button } from "@nextui-org/button";
+import { SearchIcon } from "lucide-react";
 import { ICategory, IProduct } from "@/src/types";
 import { getAllProducts } from "@/src/services/ProductService";
 import { RadioGroup, Radio } from "@nextui-org/react";
-import AllProductsDisplayCard from "./AllProductsDisplayCard";
 import { getAllCategory } from "@/src/services/CategoryService";
+import HomeProductsDisplayCard from "./HomeProductsDisplayCard";
 
 export type queryParams = {
   name: string;
@@ -123,16 +120,10 @@ const HomeFilteringSearchingCard = ({
     { name: "Less Upvoted", value: "upvote" },
   ];
 
-  //   console.log(productData);
-  //   console.log(categories);
-  //   console.log(allCategories);
-  //   console.log(products);
-  console.log({ category });
-
   return (
     <div className="mb-10">
       <h1 className="text-2xl font-bold mt-10 mb-2">Product Listing</h1>
-      <div className="grid lg:grid-cols-4">
+      <div className="grid lg:grid-cols-4 md:grid-cols-3">
         <div className="col-span-1">
           <RadioGroup
             label="Select category"
@@ -164,7 +155,7 @@ const HomeFilteringSearchingCard = ({
             />
           </div>
         </div>
-        <div className="col-span-3">
+        <div className="lg:col-span-3 md:col-span-2">
           <div className="my-2">
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="flex-1">
@@ -187,7 +178,7 @@ const HomeFilteringSearchingCard = ({
           </div>
 
           {products?.data?.length > 0 || productData?.data?.length > 0 ? (
-            <AllProductsDisplayCard
+            <HomeProductsDisplayCard
               products={productData || products}
               // setLoading={setLoading}
               category={category}

@@ -8,7 +8,7 @@ const CategoryDisplay = ({ category }: { category: ICategory[] }) => {
   const router = useRouter();
 
   const handleCategory = (name: string) => {
-    router.push(`/all-products/${name}`);
+    router.push(`/all-products?category=${name}`);
   };
   return (
     <div className="mb-5">

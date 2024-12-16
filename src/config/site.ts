@@ -16,6 +16,10 @@ export const siteConfig = {
       label: "Cart",
       href: "/user-dashboard/cart",
     },
+    {
+      label: "Compare",
+      href: "/compare-products",
+    },
   ],
   navMenuItems: [
     {
@@ -29,6 +33,10 @@ export const siteConfig = {
     {
       label: "Cart",
       href: "/user-dashboard/cart",
+    },
+    {
+      label: "Compare",
+      href: "/compare-products",
     },
   ],
   links: {

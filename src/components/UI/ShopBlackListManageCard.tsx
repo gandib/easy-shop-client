@@ -23,14 +23,13 @@ const ShopBlackListManageCard = ({ shops }: { shops: IShop[] }) => {
   const { mutate: updateBlackListStatus } = useUpdateShopBlackList();
 
   const onSubmit = (data: FieldValues) => {
-    console.log({ data });
     const statusData = {
       id,
       data: {
         isBlackListed: data.isBlackListed === "true" ? true : false,
       },
     };
-    console.log(statusData);
+
     updateBlackListStatus(statusData);
     setOpen(true);
   };

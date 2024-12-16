@@ -61,11 +61,6 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
   if (isLoading) {
     <p>Loading...</p>;
   }
-  console.log(product?.category?.name);
-
-  console.log(
-    product?.review?.find((review) => review?.userId === user?.id)?.userId
-  );
 
   const rating = product?.rating || [];
   const averageRating =

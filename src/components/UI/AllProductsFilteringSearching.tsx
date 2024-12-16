@@ -6,15 +6,12 @@ import { Pagination } from "@nextui-org/pagination";
 import { FieldValues, useForm } from "react-hook-form";
 import useDebounce from "@/src/hooks/debounce.hook";
 import { Input } from "@nextui-org/input";
-import { RotateCw, SearchIcon } from "lucide-react";
-import { Autocomplete, AutocompleteItem } from "@nextui-org/autocomplete";
-import { Button } from "@nextui-org/button";
+import { SearchIcon } from "lucide-react";
 import { ICategory, IProduct } from "@/src/types";
 import { getAllProducts } from "@/src/services/ProductService";
 import { RadioGroup, Radio } from "@nextui-org/react";
 import AllProductsDisplayCard from "./AllProductsDisplayCard";
 import { getAllCategory } from "@/src/services/CategoryService";
-import { number } from "zod";
 
 export type queryParams = {
   name: string;
@@ -74,7 +71,11 @@ const AllProductsFilteringSearching = ({
       query.push({ name: "page", value: currentPage });
     }
     if (category || categories) {
-      query.push({ name: "category", value: category! || categories });
+      if (categories) {
+        query.push({ name: "category", value: categories });
+      } else {
+        query.push({ name: "category", value: category! });
+      }
     }
     if (shopId) {
       query.push({ name: "shop", value: shopId! });
@@ -119,20 +120,9 @@ const AllProductsFilteringSearching = ({
     <p>Loading...</p>;
   }
 
-  const sortBy = [
-    { name: "Most Upvoted", value: "-upvote" },
-    { name: "Less Upvoted", value: "upvote" },
-  ];
-
-  //   console.log(productData);
-  //   console.log(categories);
-  //   console.log(allCategories);
-  //   console.log(products);
-  console.log({ category });
-
   return (
-    <div className="grid lg:grid-cols-3">
-      {/* <div className="col-span-1">
+    <div className="grid lg:grid-cols-4 md:grid-cols-3">
+      <div className="col-span-1">
         <RadioGroup
           label="Select category"
           onChange={(e) => setCategories(e.target.value)}
@@ -144,6 +134,7 @@ const AllProductsFilteringSearching = ({
                 {cat?.name}
               </Radio>
             ))}
+          <Radio value="">All</Radio>
         </RadioGroup>
 
         <div className="my-2">
@@ -161,8 +152,8 @@ const AllProductsFilteringSearching = ({
             onChange={(e) => setMaxPrice(Number(e.target.value))}
           />
         </div>
-      </div> */}
-      <div className="col-span-3">
+      </div>
+      <div className="lg:col-span-3 md:col-span-2">
         <div className="my-2">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex-1">

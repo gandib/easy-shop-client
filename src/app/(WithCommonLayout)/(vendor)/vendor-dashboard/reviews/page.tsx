@@ -3,7 +3,7 @@ import { getAllReview } from "@/src/services/RatingAndReviewService";
 
 const ReviewsPage = async () => {
   const { data: allReviews } = await getAllReview();
-  console.log(allReviews);
+
   return (
     <div>
       <AllReviewsCard reviews={allReviews} />

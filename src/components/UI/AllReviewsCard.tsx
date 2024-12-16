@@ -8,8 +8,6 @@ const AllReviewsCard = ({
   reviews: IReview[];
   viewAs?: string;
 }) => {
-  console.log(reviews);
-
   return (
     <div className="grid grid-cols-2 gap-2">
       {reviews &&

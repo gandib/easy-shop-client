@@ -127,7 +127,6 @@ export const updateProductById = async (productData: FieldValues) => {
 
 export const deleteProductById = async (productData: FieldValues) => {
   try {
-    console.log(productData);
     const { data } = await axiosInstance.delete(
       `/product/${productData.id}`,
       productData.data

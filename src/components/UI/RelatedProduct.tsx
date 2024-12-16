@@ -1,23 +1,8 @@
-// import { getAllProducts } from "@/src/services/ProductService";
-
-// const RelatedProduct = async ({ categoryName }: { categoryName: string }) => {
-//   const { data: relatedProducts } = await getAllProducts([
-//     { name: "category", value: categoryName },
-//   ]);
-//   // console.log(relatedProducts);
-//   return (
-//     <div>
-//       <h1>Hello, RelatedProduct!</h1>
-//     </div>
-//   );
-// };
-
-// export default RelatedProduct;
-
 import { useEffect, useState } from "react";
 import { getAllProducts } from "@/src/services/ProductService";
 import { IProduct } from "@/src/types";
 import VendorProductCard, { IMeta } from "./VendorProductCard";
+import RealtedProductsDisplayCard from "./RealtedProductsDisplayCard";
 
 const RelatedProduct = ({
   categoryName,
@@ -48,14 +33,13 @@ const RelatedProduct = ({
 
     fetchRelatedProducts();
   }, [categoryName]);
-  console.log(relatedProducts);
 
   if (loading) return <p>Loading related products...</p>;
 
   return (
     <div>
       <h2 className="text-xl font-bold my-4">Related Products</h2>
-      <VendorProductCard
+      <RealtedProductsDisplayCard
         products={relatedProducts!}
         category={categoryName}
         fromShop={fromShop}

@@ -3,7 +3,7 @@ import { getAllUser } from "@/src/services/UserService";
 
 const UserManagement = async () => {
   const { data: allUsers } = await getAllUser();
-  console.log(allUsers);
+
   return (
     <div>
       <UserManagementCard users={allUsers} />

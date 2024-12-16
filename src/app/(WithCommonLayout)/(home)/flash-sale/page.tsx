@@ -19,7 +19,6 @@ const FlashSale = async () => {
     ),
   };
 
-  console.log(flashSaleProducts);
   return (
     <Container>
       <FlashSaleCard products={flashSaleProducts} fromShop="flash" />

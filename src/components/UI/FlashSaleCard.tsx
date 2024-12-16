@@ -84,12 +84,6 @@ const FlashSaleCard = ({
 
   useEffect(() => {
     setProductData(products);
-    // if (products?.flashSale?.[0]?.expiryDate) {
-    //   const formattedDate = new Date(
-    //     data.flashSale[0].expiryDate
-    //   ).toLocaleString();
-    //   setExpiryDate(formattedDate);
-    // }
   }, [products]);
 
   const flashSaleProducts = {
@@ -106,10 +100,9 @@ const FlashSaleCard = ({
     ),
   };
 
-  console.log(flashSaleProducts);
   return (
     <div className="mb-10">
-      <div className="grid lg:grid-cols-2 gap-2 grow relative">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-2 grow relative">
         {flashSaleProducts &&
           flashSaleProducts?.data?.length > 0 &&
           flashSaleProducts?.data?.map((data: IProduct) => (

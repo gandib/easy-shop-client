@@ -177,8 +177,6 @@ const CartPage = () => {
     createOrder(orderData);
   };
 
-  console.log(data);
-
   if (isSuccess) {
     localStorage.removeItem("cart");
     router.push(`/user-dashboard/checkout/${data?.data?.id}`);

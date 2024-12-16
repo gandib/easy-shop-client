@@ -34,7 +34,7 @@ const ReviewResponseCard = ({
     };
     createResponse(responseData);
   };
-  console.log({ viewAs, response, review });
+
   return (
     <div>
       <NextUiCard isFooterBlurred className="  ">

@@ -1,7 +1,6 @@
 import CategoryDisplay from "@/src/components/UI/CategoryDisplay";
 import Container from "@/src/components/UI/Container";
 import HomeFilteringSearchingCard from "@/src/components/UI/HomeFilteringSearchingCard";
-import ProductListing from "@/src/components/UI/ProductListing";
 import { getAllCategory } from "@/src/services/CategoryService";
 import { getAllProducts } from "@/src/services/ProductService";
 
@@ -11,7 +10,6 @@ const Home = async () => {
 
   return (
     <Container>
-      {/* <ProductListing products={allProducts} /> */}
       <CategoryDisplay category={allCategory} />
       <HomeFilteringSearchingCard products={allProducts} fromShop="home" />
     </Container>

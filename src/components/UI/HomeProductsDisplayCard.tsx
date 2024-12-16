@@ -12,21 +12,12 @@ import SeeDetailButton from "./SeeDetailButton";
 import ProductUpdateButton from "./ProductUpdateButton";
 import ProductDeleteButton from "./ProductDeleteButton";
 import ShopRedirect from "./ShopRedirect";
+import ProductPaginationCard from "./ProductPaginationCard";
 import { useEffect, useState } from "react";
-import {
-  Button,
-  Pagination,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@nextui-org/react";
-import { queryParams } from "./OrderHistoryCard";
-import { getAllProducts } from "@/src/services/ProductService";
 import { useUser } from "@/src/context/user.provider";
-import { toast } from "sonner";
-import { confirmAlert } from "react-confirm-alert";
-import "react-confirm-alert/src/react-confirm-alert.css";
+import { Button } from "@nextui-org/button";
 import { addToCart } from "@/src/utils/addToCart";
+import { toast } from "sonner";
 import ShowPopup from "./ShowPopup";
 
 export interface IMeta {
@@ -36,24 +27,23 @@ export interface IMeta {
   totalPage: number;
 }
 
-const ShopProducts = ({
+const HomeProductsDisplayCard = ({
   products,
-  shopId,
+  category,
+  fromShop,
 }: {
   products: { meta: IMeta; data: IProduct[] };
-  shopId: string;
+  category?: string;
+  fromShop?: string;
 }) => {
   const [productData, setProductData] = useState(products);
-  const [currentPage, setCurrentPage] = useState(productData?.meta?.page);
-  const [limit, setLimit] = useState(10);
-  const [totalPage, setTotalPage] = useState(productData?.meta?.totalPage);
   const { user, isLoading } = useUser();
-  const [showPopup, setShowPopup] = useState(false);
   const [warning, setWarning] = useState<{
     message: string;
     productId: string;
     shopId: string;
   } | null>(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleShowPopup = (productId: string, shopId: string) => {
     addToCart(productId, shopId, (message, id, shop) => {
@@ -84,27 +74,13 @@ const ShopProducts = ({
     setShowPopup(false);
   };
 
-  useEffect(() => {
-    const query: queryParams[] = [];
-    if (limit) {
-      query.push({ name: "limit", value: limit });
-    }
-    if (currentPage) {
-      query.push({ name: "page", value: currentPage });
-    }
-
-    const fetchData = async () => {
-      const { data: allProducts } = await getAllProducts([
-        { name: "shop", value: shopId },
-      ]);
-      setProductData(allProducts);
-    };
-    fetchData();
-  }, [currentPage, totalPage]);
-
   // const handleAddToCart = (productId: string, shopId: string) => {
   //   addToCart(productId, shopId);
   // };
+
+  useEffect(() => {
+    setProductData(products);
+  }, [products]);
 
   if (isLoading) {
     <p>Loading...</p>;
@@ -114,12 +90,12 @@ const ShopProducts = ({
     <div>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-2 grow relative">
         {productData &&
-          productData?.data.length > 0 &&
+          productData?.data?.length > 0 &&
           productData?.data?.map((data: IProduct) => (
             <NextUiCard
               key={data.id}
               isFooterBlurred
-              className=" hover:shadow-2xl "
+              className=" hover:shadow-2xl"
             >
               <CardHeader className=" ">
                 {data?.img && (
@@ -183,11 +159,11 @@ const ShopProducts = ({
                     size="sm"
                     onClick={() => handleShowPopup(data.id, data.shopId)}
                   >
-                    Add to Card
+                    Add to Cart
                   </Button>
                 )}
 
-                <SeeDetailButton id={data?.id} fromShop="shop" />
+                <SeeDetailButton id={data?.id} fromShop={fromShop} />
               </CardFooter>
 
               {/* Popup Modal */}
@@ -200,21 +176,17 @@ const ShopProducts = ({
             </NextUiCard>
           ))}
       </div>
-      <div>
-        {productData?.data?.length > 0 ? (
-          <Pagination
-            total={totalPage}
-            page={currentPage}
-            showControls
-            onChange={(page) => setCurrentPage(page)}
-            className="flex justify-center my-2"
-          />
-        ) : (
-          "No products to show!"
-        )}
-      </div>
+      {/* {productData?.data?.length > 0 ? (
+        <ProductPaginationCard
+          productData={productData}
+          setProductData={setProductData}
+          category={category}
+        />
+      ) : (
+        "No products to show!"
+      )} */}
     </div>
   );
 };
 
-export default ShopProducts;
+export default HomeProductsDisplayCard;

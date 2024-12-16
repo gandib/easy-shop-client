@@ -24,7 +24,7 @@ const CouponDisplayCard = ({ coupon }: { coupon: ICoupon }) => {
   //     };
   //     updateCategory(couponData);
   //   };
-  console.log(coupon);
+
   return (
     <div>
       {coupon ? (

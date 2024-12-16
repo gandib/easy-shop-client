@@ -28,9 +28,8 @@ const CouponManagementCard = ({
   const [code, setCode] = useState(coupon?.code || "");
   const [percentage, setPercentage] = useState(coupon?.percentage || "");
   const [expiryDate, setExpiryDate] = useState(coupon?.expiryDate);
-  console.log(coupon);
+
   const onSubmit = (data: FieldValues) => {
-    console.log(data);
     if (title === "Create") {
       const createData = {
         ...data,
@@ -52,7 +51,7 @@ const CouponManagementCard = ({
               : dateToISO(data.expiryDate),
         },
       };
-      console.log(couponData);
+
       updateCoupon(couponData);
     }
   };

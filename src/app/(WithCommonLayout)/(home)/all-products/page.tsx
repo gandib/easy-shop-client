@@ -2,14 +2,21 @@ import AllProductsFilteringSearching from "@/src/components/UI/AllProductsFilter
 import Container from "@/src/components/UI/Container";
 import { getAllProducts } from "@/src/services/ProductService";
 
-const AllProducts = async () => {
-  const { data: allProducts } = await getAllProducts([]);
+const AllProducts = async ({
+  searchParams,
+}: {
+  searchParams: { category: string };
+}) => {
+  const { data: allProducts } = await getAllProducts([
+    { name: "category", value: searchParams?.category },
+  ]);
 
   return (
     <Container>
       <AllProductsFilteringSearching
         products={allProducts}
         fromShop="allProducts"
+        category={searchParams?.category}
       />
     </Container>
   );

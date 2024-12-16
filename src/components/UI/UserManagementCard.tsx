@@ -23,12 +23,11 @@ const UserManagementCard = ({ users }: { users: IUser[] }) => {
   const { mutate: updateStatus } = useUpdateUserStatus();
 
   const onSubmit = (data: FieldValues) => {
-    console.log({ data });
     const statusData = {
       id,
       status: data.status,
     };
-    console.log(statusData);
+
     updateStatus(statusData);
     setOpen(true);
   };

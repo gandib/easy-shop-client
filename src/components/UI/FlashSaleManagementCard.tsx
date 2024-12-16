@@ -35,7 +35,6 @@ const FlashSaleManagementCard = ({
   const [productId, setProductId] = useState(flashSale?.productId || "");
   const [percentage, setPercentage] = useState(flashSale?.percentage || "");
   const [expiryDate, setExpiryDate] = useState(flashSale?.expiryDate);
-  console.log(flashSale);
 
   const productOptions = shop?.product?.map((product: IProduct) => ({
     key: product?.id,
@@ -43,7 +42,6 @@ const FlashSaleManagementCard = ({
   }));
 
   const onSubmit = (data: FieldValues) => {
-    console.log(data);
     if (title === "Create") {
       const createData = {
         ...data,
@@ -65,7 +63,7 @@ const FlashSaleManagementCard = ({
               : dateToISO(data.expiryDate),
         },
       };
-      console.log(couponData);
+
       updateFlashSale(couponData);
     }
   };

@@ -23,7 +23,7 @@ const FlashSaleDisplayCard = ({ flashSale }: { flashSale: IFlashSale }) => {
   //     };
   //     updateCategory(couponData);
   //   };
-  console.log(flashSale);
+
   return (
     <div>
       {flashSale ? (

@@ -41,13 +41,13 @@ export const Navbar = () => {
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
             <Logo />
-            <p className="font-bold text-inherit">EasyShop</p>
+            <p className="font-bold text-base text-inherit">EasyShop</p>
           </NextLink>
         </NavbarBrand>
-        <ul className="hidden lg:flex gap-4 justify-start ml-2">
+        <ul className="hidden lg:flex gap-4 justify-start items-center ml-2">
           <NavbarItem>
             <NextLink
-              className={`text-lg ${pathname === "/recent-products" ? "text-primary-500" : ""}`}
+              className={`text-sm font-bold ${pathname === "/recent-products" ? "text-primary-500" : ""}`}
               href="/recent-products"
             >
               Recent Products
@@ -73,7 +73,7 @@ export const Navbar = () => {
                         ? "/admin-dashboard"
                         : "/vendor-dashboard"
                   }
-                  className={`text-lg ${pathname === "/user-dashboard" ? "text-primary-500" : ""} ${pathname === "/admin-dashboard" ? "text-primary-500" : ""} ${pathname === "/vendor-dashboard" ? "text-primary-500" : ""}`}
+                  className={`text-sm font-bold ${pathname === "/user-dashboard" ? "text-primary-500" : ""} ${pathname === "/admin-dashboard" ? "text-primary-500" : ""} ${pathname === "/vendor-dashboard" ? "text-primary-500" : ""}`}
                 >
                   Dashboard
                 </NextLink>
@@ -85,7 +85,8 @@ export const Navbar = () => {
               <Link
                 color={pathname === item.href ? "primary" : "foreground"}
                 href={item.href}
-                size="lg"
+                size="sm"
+                className="font-bold"
               >
                 {item.label}
               </Link>

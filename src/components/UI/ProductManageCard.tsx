@@ -75,8 +75,6 @@ const ProductManageCard = ({
       handleUpdateProduct(updatedProductData);
     }
 
-    console.log(productData);
-
     formData.append("data", JSON.stringify(productData));
 
     formData.append("file", imageFiles[0]);

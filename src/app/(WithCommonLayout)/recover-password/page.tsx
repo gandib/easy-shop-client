@@ -31,7 +31,6 @@ const RecoverPassword = () => {
         password: data.newPassword,
       },
     };
-    console.log(recoverData);
 
     handleRecoverPassword(recoverData);
     setIsLoading(true);

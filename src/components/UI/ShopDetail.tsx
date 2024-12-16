@@ -20,7 +20,6 @@ const ShopDetail = ({ shop }: { shop: IShop }) => {
   const { mutate: createFollow } = useCreateFollow();
   const { mutate: unFollow } = useUnFollow();
   const [products, setProducts] = useState();
-  console.log({ shop });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,7 +30,6 @@ const ShopDetail = ({ shop }: { shop: IShop }) => {
     };
     fetchData();
   }, [shop]);
-  console.log(products);
 
   const handleFollow = (shopId: string) => {
     const followData = {
@@ -51,9 +49,6 @@ const ShopDetail = ({ shop }: { shop: IShop }) => {
     <p>Loading...</p>;
   }
 
-  // console.log(
-  //   shop?.follow?.map((follower) => follower?.userId === user?.id)[0]
-  // );
   return (
     <div className="">
       {shop && (

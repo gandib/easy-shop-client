@@ -55,7 +55,6 @@ export const getShopById = async (id: string) => {
     });
 
     const data = await res.json();
-    console.log({ data });
     return data;
   } catch (error) {
     console.error("Error fetching my recipes:", error);
