@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardFooter,
   CardBody,
-} from "@nextui-org/card";
+} from "@nextui-org/react";
 import Image from "next/image";
 import { useUser } from "@/src/context/user.provider";
 import { useState } from "react";
@@ -18,7 +18,7 @@ import {
   Plus,
   Star,
 } from "lucide-react";
-import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/react";
 import ESForm from "../form/ESForm";
 import ESTextarea from "../form/FXTextarea";
 import { FieldValues } from "react-hook-form";

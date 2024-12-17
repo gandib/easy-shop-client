@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardFooter,
   CardBody,
-} from "@nextui-org/card";
+} from "@nextui-org/react";
 import Image from "next/image";
 import SeeDetailButton from "./SeeDetailButton";
 import ProductUpdateButton from "./ProductUpdateButton";
@@ -14,7 +14,7 @@ import ProductDeleteButton from "./ProductDeleteButton";
 import ShopRedirect from "./ShopRedirect";
 import { useEffect, useState } from "react";
 import { useUser } from "@/src/context/user.provider";
-import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/react";
 import { addToCart } from "@/src/utils/addToCart";
 import { toast } from "sonner";
 import ShowPopup from "./ShowPopup";
@@ -157,8 +157,8 @@ const FlashSaleCard = ({
               <CardFooter className=" bottom-0 gap-2 justify-around border-t-1 border-zinc-100/50 bg-white/30">
                 {user?.role === "VENDOR" && (
                   <>
-                    <ProductUpdateButton id={data.id} />
-                    <ProductDeleteButton id={data?.id} />
+                    {/* <ProductUpdateButton id={data.id} />
+                    <ProductDeleteButton id={data?.id} /> */}
                   </>
                 )}
 

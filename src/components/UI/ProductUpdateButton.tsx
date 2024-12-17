@@ -1,6 +1,6 @@
 "use client";
 import { useUser } from "@/src/context/user.provider";
-import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { use } from "react";
 

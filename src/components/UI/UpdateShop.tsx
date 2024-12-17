@@ -4,7 +4,7 @@ import ESInput from "@/src/components/form/ESInput";
 import ESTextarea from "@/src/components/form/FXTextarea";
 import { useUpdateShopById } from "@/src/hooks/shop.hook";
 import { IShop } from "@/src/types";
-import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FieldValues } from "react-hook-form";

@@ -6,19 +6,22 @@ import {
   CardHeader,
   CardFooter,
   CardBody,
-} from "@nextui-org/card";
+  Pagination,
+} from "@nextui-org/react";
 import Image from "next/image";
 import SeeDetailButton from "./SeeDetailButton";
 import ProductUpdateButton from "./ProductUpdateButton";
 import ProductDeleteButton from "./ProductDeleteButton";
 import ShopRedirect from "./ShopRedirect";
 import ProductPaginationCard from "./ProductPaginationCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUser } from "@/src/context/user.provider";
-import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/react";
 import { addToCart } from "@/src/utils/addToCart";
 import { toast } from "sonner";
 import ShowPopup from "./ShowPopup";
+import { queryParams } from "./OrderHistoryCard";
+import { getAllProducts } from "@/src/services/ProductService";
 
 export interface IMeta {
   page: number;
@@ -44,6 +47,33 @@ const RealtedProductsDisplayCard = ({
     productId: string;
     shopId: string;
   } | null>(null);
+  const [currentPage, setCurrentPage] = useState(productData?.meta?.page);
+  const [limit, setLimit] = useState(9);
+  const [totalPage, setTotalPage] = useState(productData?.meta?.totalPage);
+
+  useEffect(() => {
+    const query: queryParams[] = [];
+    if (limit) {
+      query.push({ name: "limit", value: limit });
+    }
+    if (currentPage) {
+      query.push({ name: "page", value: currentPage });
+    }
+    if (category) {
+      query.push({ name: "category", value: category! });
+    }
+
+    const fetchRelatedProducts = async () => {
+      try {
+        const { data } = await getAllProducts(query);
+        setProductData(data);
+      } catch (error) {
+        console.error("Failed to fetch related products:", error);
+      }
+    };
+
+    fetchRelatedProducts();
+  }, [currentPage, totalPage, category]);
 
   const handleShowPopup = (productId: string, shopId: string) => {
     addToCart(productId, shopId, (message, id, shop) => {
@@ -144,8 +174,8 @@ const RealtedProductsDisplayCard = ({
               <CardFooter className=" bottom-0 gap-2 justify-around border-t-1 border-zinc-100/50 bg-white/30">
                 {user?.role === "VENDOR" && (
                   <>
-                    <ProductUpdateButton id={data.id} />
-                    <ProductDeleteButton id={data?.id} />
+                    {/* <ProductUpdateButton id={data.id} />
+                    <ProductDeleteButton id={data?.id} /> */}
                   </>
                 )}
 
@@ -172,10 +202,12 @@ const RealtedProductsDisplayCard = ({
           ))}
       </div>
       {productData?.data?.length > 0 ? (
-        <ProductPaginationCard
-          productData={productData}
-          setProductData={setProductData}
-          category={category}
+        <Pagination
+          total={totalPage}
+          page={currentPage}
+          showControls
+          onChange={(page) => setCurrentPage(page)}
+          className="flex justify-center my-2"
         />
       ) : (
         "No products to show!"

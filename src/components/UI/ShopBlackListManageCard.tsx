@@ -1,7 +1,7 @@
 "use client";
 
 import { IShop } from "@/src/types";
-import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/react";
 import {
   Table,
   TableBody,
@@ -9,7 +9,7 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
-} from "@nextui-org/table";
+} from "@nextui-org/react";
 import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
 import { useState } from "react";
 import ESForm from "../form/ESForm";

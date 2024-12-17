@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardFooter,
   CardBody,
-} from "@nextui-org/card";
+} from "@nextui-org/react";
 import Image from "next/image";
 import SeeDetailButton from "./SeeDetailButton";
 import ProductUpdateButton from "./ProductUpdateButton";
@@ -15,7 +15,7 @@ import ShopRedirect from "./ShopRedirect";
 import ProductPaginationCard from "./ProductPaginationCard";
 import { useState } from "react";
 import { useUser } from "@/src/context/user.provider";
-import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/react";
 import { addToCart } from "@/src/utils/addToCart";
 import { toast } from "sonner";
 import ShowPopup from "./ShowPopup";

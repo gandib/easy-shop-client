@@ -7,17 +7,14 @@ import {
   NavbarBrand,
   NavbarItem,
   NavbarMenuItem,
-} from "@nextui-org/navbar";
-import { Link } from "@nextui-org/link";
-import { link as linkStyles } from "@nextui-org/theme";
+} from "@nextui-org/react";
+import { Link } from "@nextui-org/react";
 import NextLink from "next/link";
-import clsx from "clsx";
 import { siteConfig } from "@/src/config/site";
 import { Logo } from "@/src/components/icons";
 import NavbarDropDown from "./navbarDropDown";
 import { ThemeSwitch } from "./theme-switch";
 import { useUser } from "@/src/context/user.provider";
-import { Button } from "@nextui-org/button";
 import { usePathname, useRouter } from "next/navigation";
 import { logout } from "@/src/services/AuthService";
 import { protectedRoutes } from "@/src/utils/constant";

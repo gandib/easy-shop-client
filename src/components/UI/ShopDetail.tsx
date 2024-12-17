@@ -4,13 +4,13 @@ import { useUser } from "@/src/context/user.provider";
 import { useCreateFollow, useUnFollow } from "@/src/hooks/follow.hook";
 import { getAllProducts } from "@/src/services/ProductService";
 import { IShop } from "@/src/types";
-import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/react";
 import {
   Card as NextUiCard,
   CardHeader,
   CardFooter,
   CardBody,
-} from "@nextui-org/card";
+} from "@nextui-org/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import ShopProducts from "./ShopProducts";

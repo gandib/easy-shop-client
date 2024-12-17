@@ -3,7 +3,7 @@
 import { useUser } from "@/src/context/user.provider";
 import { useOrderPayment } from "@/src/hooks/payment.hook";
 import { IOrder } from "@/src/types";
-import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/react";
 
 const PayNowCard = ({ order }: { order: IOrder }) => {
   const { user, isLoading } = useUser();

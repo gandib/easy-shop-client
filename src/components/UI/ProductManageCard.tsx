@@ -7,7 +7,7 @@ import { useUser } from "@/src/context/user.provider";
 import { useCreateProduct, useUpdateProduct } from "@/src/hooks/product.hook";
 import { ICategory, IProduct, IShop } from "@/src/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
 import { FieldValues } from "react-hook-form";
@@ -65,7 +65,7 @@ const ProductManageCard = ({
         data: {
           name: name,
           category: data?.category,
-          description: description,
+          description: data.description || description,
           price: Number(price),
           quantity: Number(quantity),
           discount: Number(discount),

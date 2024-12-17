@@ -2,13 +2,13 @@
 
 import { useUpdateCouponById } from "@/src/hooks/couponAndFlashSale.hook";
 import { ICoupon } from "@/src/types";
-import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/react";
 import {
   Card as NextUiCard,
   CardHeader,
   CardFooter,
   CardBody,
-} from "@nextui-org/card";
+} from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 
 const CouponDisplayCard = ({ coupon }: { coupon: ICoupon }) => {

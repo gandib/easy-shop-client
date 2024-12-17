@@ -4,7 +4,7 @@ import ESForm from "@/src/components/form/ESForm";
 import ESInput from "@/src/components/form/ESInput";
 import { useUser } from "@/src/context/user.provider";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/react";
 import { FieldValues } from "react-hook-form";
 import { useChangePassword } from "@/src/hooks/auth.hook";
 import { useRouter } from "next/navigation";

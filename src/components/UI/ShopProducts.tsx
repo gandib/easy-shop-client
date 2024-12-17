@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardFooter,
   CardBody,
-} from "@nextui-org/card";
+} from "@nextui-org/react";
 import Image from "next/image";
 import SeeDetailButton from "./SeeDetailButton";
 import ProductUpdateButton from "./ProductUpdateButton";
@@ -173,8 +173,8 @@ const ShopProducts = ({
               <CardFooter className=" bottom-0 gap-2 justify-around border-t-1 border-zinc-100/50 bg-white/30">
                 {user?.role === "VENDOR" && (
                   <>
-                    <ProductUpdateButton id={data.id} />
-                    <ProductDeleteButton id={data?.id} />
+                    {/* <ProductUpdateButton id={data.id} />
+                    <ProductDeleteButton id={data?.id} /> */}
                   </>
                 )}
 

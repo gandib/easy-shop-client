@@ -3,7 +3,7 @@
 import { IProduct } from "@/src/types";
 import FlashSaleCard from "./FlashSaleCard";
 import { IMeta } from "./VendorProductCard";
-import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getAllProducts } from "@/src/services/ProductService";

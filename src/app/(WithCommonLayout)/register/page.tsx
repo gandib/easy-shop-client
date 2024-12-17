@@ -4,7 +4,7 @@ import ESForm from "@/src/components/form/ESForm";
 import ESInput from "@/src/components/form/ESInput";
 import { useUserRegistration } from "@/src/hooks/user.hook";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { FieldValues } from "react-hook-form";
 import { ChangeEvent, useEffect, useState } from "react";

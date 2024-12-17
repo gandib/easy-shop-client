@@ -1,12 +1,9 @@
 "use client";
-import { Button } from "@nextui-org/button";
-import Link from "next/link";
+
 import { useUser } from "@/src/context/user.provider";
-import { Spinner } from "@nextui-org/spinner";
-import Image from "next/image";
+import { Spinner } from "@nextui-org/react";
 import VendorSidebarOptions from "./VendorSidebarOptions";
 import { vendorLinks } from "./constant";
-import { useEffect } from "react";
 
 const VendorSidebar = () => {
   const { user: userData, isLoading } = useUser();

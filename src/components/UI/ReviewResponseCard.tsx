@@ -4,12 +4,12 @@ import {
   CardHeader,
   CardFooter,
   CardBody,
-} from "@nextui-org/card";
+} from "@nextui-org/react";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
 import ESForm from "../form/ESForm";
 import ESTextarea from "../form/FXTextarea";
-import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/react";
 import { IReview } from "@/src/types";
 import { usecreateReviewResponse } from "@/src/hooks/rating-review.hook";
 

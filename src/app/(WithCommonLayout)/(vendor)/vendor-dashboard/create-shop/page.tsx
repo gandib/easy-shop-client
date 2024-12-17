@@ -6,7 +6,7 @@ import { useUser } from "@/src/context/user.provider";
 import { useCreateShop } from "@/src/hooks/shop.hook";
 import createShopValidationSchema from "@/src/schemas/create-shop.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 import { FieldValues } from "react-hook-form";

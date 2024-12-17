@@ -1,6 +1,6 @@
 import PayNowCard from "@/src/components/UI/PayNowCard";
 import { getOrderById } from "@/src/services/OrderService";
-import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/react";
 
 const CheckoutPage = async ({ params }: { params: { orderId: string } }) => {
   const { data: order } = await getOrderById(params.orderId);

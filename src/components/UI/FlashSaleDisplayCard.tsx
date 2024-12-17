@@ -1,13 +1,13 @@
 "use client";
 
 import { IFlashSale } from "@/src/types";
-import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/react";
 import {
   Card as NextUiCard,
   CardHeader,
   CardFooter,
   CardBody,
-} from "@nextui-org/card";
+} from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 
 const FlashSaleDisplayCard = ({ flashSale }: { flashSale: IFlashSale }) => {

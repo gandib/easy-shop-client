@@ -2,13 +2,13 @@
 import { useUser } from "@/src/context/user.provider";
 import { logout } from "@/src/services/AuthService";
 import { protectedRoutes } from "@/src/utils/constant";
-import { Avatar } from "@nextui-org/avatar";
+import { Avatar } from "@nextui-org/react";
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-} from "@nextui-org/dropdown";
+} from "@nextui-org/react";
 import { usePathname, useRouter } from "next/navigation";
 
 const NavbarDropDown = () => {

@@ -46,10 +46,10 @@ Easy Shop is your go-to platform for browsing a wide variety of Easy Shops. Our 
 1. **Clone the repository:**
 
    ```bash
-   git clone https://Easy Shop-sharing-community-client-silk.vercel.app/
+   git clone https://easy-shop-client.vercel.app/
    cd Easy Shop-sharing-community-client
-   git clone https://Easy Shop-sharing-community-server-beryl.vercel.app/
-   cd Easy Shop-sharing-community-server
+   git clone https://easy-shop-server-puce.vercel.app
+   cd easy-shop-server-puce
    ```
 
 2. **Install dependencies:**
@@ -75,7 +75,7 @@ Easy Shop is your go-to platform for browsing a wide variety of Easy Shops. Our 
    **Frontend .env:**
 
    ```env
-   REACT_APP_API_URL=http://localhost:3000
+   REACT_APP_API_URL=https://easy-shop-client.vercel.app/
    ```
 
    **Backend .env:**
@@ -104,7 +104,7 @@ Easy Shop is your go-to platform for browsing a wide variety of Easy Shops. Our 
 ## Usage
 
 1. **Access the website:**
-   Open your web browser and navigate to Live client site `https://Easy Shop-sharing-community-client.vercel.app`. and live backend site `https://Easy Shop-sharing-community-server.vercel.app`
+   Open your web browser and navigate to Live client site `https://easy-shop-client.vercel.app`. and live backend site `easy-shop-server-puce`
 
 2. **Browse Easy Shop:**
    Explore the Easy Shop and view detailed information.

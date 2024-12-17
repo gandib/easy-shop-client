@@ -2,10 +2,10 @@
 
 import { useUser } from "@/src/context/user.provider";
 import { useEffect, useState } from "react";
-import { Pagination } from "@nextui-org/pagination";
+import { Pagination } from "@nextui-org/react";
 import { FieldValues, useForm } from "react-hook-form";
 import useDebounce from "@/src/hooks/debounce.hook";
-import { Input } from "@nextui-org/input";
+import { Input } from "@nextui-org/react";
 import { SearchIcon } from "lucide-react";
 import { ICategory, IProduct } from "@/src/types";
 import { getAllProducts } from "@/src/services/ProductService";

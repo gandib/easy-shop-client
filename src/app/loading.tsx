@@ -1,4 +1,4 @@
-import { Spinner } from "@nextui-org/spinner";
+import { Spinner } from "@nextui-org/react";
 import { Navbar } from "../components/UI/navbar";
 
 export default function loading() {

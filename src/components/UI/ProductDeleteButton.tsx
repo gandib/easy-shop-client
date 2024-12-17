@@ -1,7 +1,7 @@
 "use client";
 
 import { useDeleteProduct } from "@/src/hooks/product.hook";
-import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/react";
 
 const ProductDeleteButton = ({ id }: { id: string }) => {
   const { mutate: deleteProduct, isPending } = useDeleteProduct();

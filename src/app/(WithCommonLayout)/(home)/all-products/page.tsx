@@ -9,7 +9,7 @@ const AllProducts = async ({
 }) => {
   const { data: allProducts } = await getAllProducts([
     { name: "category", value: searchParams?.category },
-    { name: "lomit", value: 9 },
+    { name: "limit", value: 9 },
   ]);
 
   return (
