@@ -4,11 +4,10 @@ import { useUser } from "@/src/context/user.provider";
 import { useEffect, useState, useCallback } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import useDebounce from "@/src/hooks/debounce.hook";
-import { Input } from "@nextui-org/input";
 import { SearchIcon } from "lucide-react";
 import { ICategory, IProduct } from "@/src/types";
 import { getAllProducts } from "@/src/services/ProductService";
-import { RadioGroup, Radio } from "@nextui-org/react";
+import { RadioGroup, Radio, Input } from "@nextui-org/react";
 import { getAllCategory } from "@/src/services/CategoryService";
 import HomeProductsDisplayCard from "./HomeProductsDisplayCard";
 import Loading from "./Loading";
@@ -36,7 +35,7 @@ const HomeFilteringSearchingCard = ({
 }) => {
   const { user, isLoading } = useUser();
   const [limit, setLimit] = useState(9);
-  const [sort, setSort] = useState("-createdAt"); // Default descending order
+  const [sort, setSort] = useState("-createdAt");
   const [currentPage, setCurrentPage] = useState(1);
   const { register, handleSubmit, watch } = useForm();
   const [productData, setProductData] = useState<IProduct[]>([]);
@@ -50,19 +49,17 @@ const HomeFilteringSearchingCard = ({
 
   const searchText = useDebounce(watch("search"));
 
-  // Reset and Fetch Products on Category Change
   const handleCategoryChange = (newCategory: string) => {
-    setResetting(true); // Lock fetching during reset
+    setResetting(true);
     setCategories(newCategory);
     setCurrentPage(1);
-    setProductData([]); // Clear product data
-    setTotalPage(1); // Reset pagination
-    setTimeout(() => setResetting(false), 300); // Unlock fetching after reset
+    setProductData([]);
+    setTotalPage(1);
+    setTimeout(() => setResetting(false), 300);
   };
 
-  // Fetch Products Function
   const fetchProducts = useCallback(async () => {
-    if (loading || resetting || currentPage > totalPage) return; // Prevent over-fetching
+    if (loading || resetting || currentPage > totalPage) return;
 
     setLoading(true);
     const query: queryParams[] = [];
@@ -80,7 +77,7 @@ const HomeFilteringSearchingCard = ({
 
       setProductData((prev) =>
         currentPage === 1 ? allProducts.data : [...prev, ...allProducts.data]
-      ); // Replace or append products based on the page
+      );
       setTotalPage(allProducts.meta.totalPage);
     } finally {
       setLoading(false);
@@ -99,9 +96,8 @@ const HomeFilteringSearchingCard = ({
     resetting,
   ]);
 
-  // Infinite Scroll Handler
   const handleScroll = useCallback(() => {
-    if (resetting) return; // Block fetching during reset
+    if (resetting) return;
     if (
       window.innerHeight + document.documentElement.scrollTop >=
       document.documentElement.offsetHeight - 300
@@ -121,7 +117,6 @@ const HomeFilteringSearchingCard = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-  // Fetch Categories
   useEffect(() => {
     const fetchCategories = async () => {
       const { data: allCategory } = await getAllCategory();
@@ -130,7 +125,6 @@ const HomeFilteringSearchingCard = ({
     fetchCategories();
   }, []);
 
-  // Scroll to Top on Category Change
   useEffect(() => {
     if (categories) {
       window.scrollTo(0, 0);
