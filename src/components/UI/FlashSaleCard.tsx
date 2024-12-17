@@ -12,13 +12,13 @@ import SeeDetailButton from "./SeeDetailButton";
 import ProductUpdateButton from "./ProductUpdateButton";
 import ProductDeleteButton from "./ProductDeleteButton";
 import ShopRedirect from "./ShopRedirect";
-import ProductPaginationCard from "./ProductPaginationCard";
 import { useEffect, useState } from "react";
 import { useUser } from "@/src/context/user.provider";
 import { Button } from "@nextui-org/button";
 import { addToCart } from "@/src/utils/addToCart";
 import { toast } from "sonner";
 import ShowPopup from "./ShowPopup";
+import { Pagination } from "@nextui-org/react";
 
 export interface IMeta {
   page: number;
@@ -29,11 +29,9 @@ export interface IMeta {
 
 const FlashSaleCard = ({
   products,
-  category,
   fromShop,
 }: {
   products: { meta: IMeta; data: IProduct[] };
-  category?: string;
   fromShop?: string;
 }) => {
   const [productData, setProductData] = useState<{
@@ -48,6 +46,9 @@ const FlashSaleCard = ({
     productId: string;
     shopId: string;
   } | null>(null);
+  const [currentPage, setCurrentPage] = useState(productData?.meta?.page);
+  const [limit, setLimit] = useState(9);
+  const [totalPage, setTotalPage] = useState(productData?.meta?.totalPage);
 
   const handleShowPopup = (productId: string, shopId: string) => {
     addToCart(productId, shopId, (message, id, shop) => {
@@ -78,34 +79,20 @@ const FlashSaleCard = ({
     setShowPopup(false);
   };
 
-  // const handleAddToCart = (productId: string, shopId: string) => {
-  //   addToCart(productId, shopId);
-  // };
-
   useEffect(() => {
     setProductData(products);
   }, [products]);
 
-  const flashSaleProducts = {
-    meta: {
-      ...products?.meta,
-      total: products?.data?.some(
-        (product: IProduct) => product?.flashSale?.length > 0
-      )
-        ? 1
-        : 0,
-    },
-    data: products?.data?.filter(
-      (product: IProduct) => product?.flashSale?.length > 0
-    ),
-  };
+  if (isLoading) {
+    <p>Loading...</p>;
+  }
 
   return (
     <div className="mb-10">
       <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-2 grow relative">
-        {flashSaleProducts &&
-          flashSaleProducts?.data?.length > 0 &&
-          flashSaleProducts?.data?.map((data: IProduct) => (
+        {products &&
+          products?.data?.length > 0 &&
+          products?.data?.map((data: IProduct) => (
             <NextUiCard
               key={data.id}
               isFooterBlurred
@@ -197,11 +184,13 @@ const FlashSaleCard = ({
             </NextUiCard>
           ))}
       </div>
-      {productData?.data?.length > 0 && fromShop !== "homeFlash" ? (
-        <ProductPaginationCard
-          productData={productData}
-          setProductData={setProductData}
-          category={category}
+      {products?.data?.length > 0 && fromShop !== "homeFlash" ? (
+        <Pagination
+          total={totalPage}
+          page={currentPage}
+          showControls
+          onChange={(page) => setCurrentPage(page)}
+          className="flex justify-center my-2"
         />
       ) : (
         ""

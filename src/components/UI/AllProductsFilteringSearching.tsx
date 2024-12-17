@@ -35,7 +35,7 @@ const AllProductsFilteringSearching = ({
   fromShop?: string;
 }) => {
   const { user, isLoading } = useUser();
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(9);
   const [sort, setSort] = useState("-upvote");
   const [currentPage, setCurrentPage] = useState(1);
   const { register, handleSubmit, watch } = useForm();
@@ -56,7 +56,9 @@ const AllProductsFilteringSearching = ({
     if (searchText || categories) {
       setCurrentPage(1);
     }
+  }, [searchText, categories, minPrice, maxPrice]);
 
+  useEffect(() => {
     const query: queryParams[] = [];
     if (limit) {
       query.push({ name: "limit", value: limit });
@@ -119,7 +121,7 @@ const AllProductsFilteringSearching = ({
   if (isLoading) {
     <p>Loading...</p>;
   }
-
+  console.log(currentPage, products, productData);
   return (
     <div className="grid lg:grid-cols-4 md:grid-cols-3">
       <div className="col-span-1">
@@ -188,15 +190,14 @@ const AllProductsFilteringSearching = ({
 
         {productData?.data?.length > 0 || products?.data?.length > 0 ? (
           <div className="mt-5 flex justify-center items-center">
-            {products?.data?.length > 0 ||
-              (productData?.data?.length > 0 && (
-                <Pagination
-                  total={totalPage}
-                  page={currentPage}
-                  showControls
-                  onChange={(page) => setCurrentPage(page)}
-                />
-              ))}
+            {productData?.data?.length > 0 && (
+              <Pagination
+                total={totalPage}
+                page={currentPage}
+                showControls
+                onChange={(page) => setCurrentPage(page)}
+              />
+            )}
           </div>
         ) : (
           ""

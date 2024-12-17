@@ -4,6 +4,10 @@ import { IProduct } from "@/src/types";
 import { IMeta } from "./VendorProductCard";
 import { useUser } from "@/src/context/user.provider";
 import AllProductsDisplayCard from "./AllProductsDisplayCard";
+import { Pagination } from "@nextui-org/react";
+import { useEffect, useState } from "react";
+import { queryParams } from "./OrderHistoryCard";
+import { getAllProductsByFollowedUser } from "@/src/services/ProductService";
 
 const PrioritizeProducts = ({
   products,
@@ -11,16 +15,71 @@ const PrioritizeProducts = ({
   products: { meta: IMeta; data: IProduct[] };
 }) => {
   const { user, isLoading } = useUser();
+  const [limit, setLimit] = useState(9);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(products?.meta?.totalPage);
+  const [productData, setProductData] = useState<{
+    meta: IMeta;
+    data: IProduct[];
+  }>({
+    meta: { page: 1, limit: 1, total: 1, totalPage: 1 },
+    data: [],
+  });
+
+  useEffect(() => {
+    const query: queryParams[] = [];
+    if (limit) {
+      query.push({ name: "limit", value: limit });
+    }
+
+    if (currentPage) {
+      query.push({ name: "page", value: currentPage });
+    }
+
+    const fetchData = async () => {
+      const { data: allPrioritizeProducts } =
+        await getAllProductsByFollowedUser(query);
+      setProductData(allPrioritizeProducts);
+      setTotalPage(allPrioritizeProducts?.meta?.totalPage);
+    };
+
+    if (query.length > 0) {
+      fetchData();
+    }
+  }, [user, currentPage, totalPage]);
+
+  console.log(products, productData, currentPage);
 
   if (isLoading) {
     <p>Loading...</p>;
   }
   return (
     <>
-      {user && (
+      {user?.role === "USER" && (
         <div>
           <h1 className="text-2xl font-bold mb-8">Prioritize Products</h1>
-          <AllProductsDisplayCard products={products} fromShop="prioritize" />
+          {products?.data?.length > 0 || productData?.data?.length > 0 ? (
+            <AllProductsDisplayCard
+              products={productData}
+              fromShop="prioritize"
+            />
+          ) : (
+            ""
+          )}
+          {products?.data?.length > 0 ? (
+            <div className="mt-5 flex justify-center items-center">
+              {products?.data?.length > 0 && (
+                <Pagination
+                  showControls
+                  total={totalPage}
+                  page={currentPage}
+                  onChange={(page) => setCurrentPage(page)}
+                />
+              )}
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       )}
     </>

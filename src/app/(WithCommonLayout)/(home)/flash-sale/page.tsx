@@ -4,24 +4,13 @@ import { getAllProducts } from "@/src/services/ProductService";
 import { IProduct } from "@/src/types";
 
 const FlashSale = async () => {
-  const { data: allProducts } = await getAllProducts([]);
-  const flashSaleProducts = {
-    meta: {
-      ...allProducts?.meta,
-      total: allProducts?.data?.some(
-        (product: IProduct) => product?.flashSale?.length
-      )
-        ? 1
-        : 0,
-    },
-    data: allProducts?.data?.filter(
-      (product: IProduct) => product?.flashSale?.length > 0
-    ),
-  };
+  const { data: allProducts } = await getAllProducts([
+    { name: "flash", value: "flash" },
+  ]);
 
   return (
     <Container>
-      <FlashSaleCard products={flashSaleProducts} fromShop="flash" />
+      <FlashSaleCard products={allProducts} fromShop="flash" />
     </Container>
   );
 };

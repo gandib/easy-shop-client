@@ -34,7 +34,7 @@ const HomeFilteringSearchingCard = ({
   fromShop?: string;
 }) => {
   const { user, isLoading } = useUser();
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(9);
   const [sort, setSort] = useState("-upvote");
   const [currentPage, setCurrentPage] = useState(1);
   const { register, handleSubmit, watch } = useForm();

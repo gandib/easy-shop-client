@@ -19,7 +19,7 @@ const ProductPaginationCard = ({
   category?: string;
 }) => {
   const [currentPage, setCurrentPage] = useState(productData?.meta?.page);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(9);
   const [totalPage, setTotalPage] = useState(productData?.meta?.totalPage);
 
   useEffect(() => {

@@ -10,35 +10,20 @@ import {
   getAllProducts,
   getAllProductsByFollowedUser,
 } from "@/src/services/ProductService";
-import { IProduct } from "@/src/types";
 
 const Home = async () => {
-  const { data: allProducts } = await getAllProducts([]);
+  const { data: allProducts } = await getAllProducts([
+    { name: "limit", value: 9 },
+  ]);
   const { data: allCategory } = await getAllCategory();
-  const { data: allPrioritizeProducts } = await getAllProductsByFollowedUser(
-    []
-  );
-
-  let flashSaleProducts = {
-    meta: {
-      ...allProducts?.meta,
-      total: allProducts?.data?.some(
-        (product: IProduct) => product?.flashSale?.length
-      )
-        ? 1
-        : 0,
-    },
-    data: allProducts?.data?.filter(
-      (product: IProduct) => product?.flashSale?.length > 0
-    ),
-  };
-
-  flashSaleProducts.data = flashSaleProducts?.data?.slice(0, 3);
+  const { data: allPrioritizeProducts } = await getAllProductsByFollowedUser([
+    { name: "limit", value: 9 },
+  ]);
 
   return (
     <Container>
       <PrioritizeProducts products={allPrioritizeProducts} />
-      <HomeFlashSale flashSale={flashSaleProducts} />
+      <HomeFlashSale />
       <CategoryDisplay category={allCategory} />
       <HomeFilteringSearchingCard products={allProducts} fromShop="home" />
       <ScrollToTop />
