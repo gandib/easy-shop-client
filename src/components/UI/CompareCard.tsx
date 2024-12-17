@@ -12,11 +12,33 @@ import {
 } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { queryParams } from "./OrderHistoryCard";
+import { getAllProducts } from "@/src/services/ProductService";
+import { IMeta } from "./VendorProductCard";
 
-const CompareCard = ({ products }: { products: { data: IProduct[] } }) => {
+const CompareCard = ({
+  products,
+}: {
+  products: { meta: IMeta; data: IProduct[] };
+}) => {
   const [firstProductId, setFirstProductId] = useState({ id: "", catId: "" });
   const [secondProductId, setSecondProductId] = useState({ id: "", catId: "" });
   const [thirdProductId, setThirdProductId] = useState({ id: "", catId: "" });
+  const [productData, setProductData] = useState(products);
+  const [limit, setLimit] = useState(products?.meta?.total);
+
+  useEffect(() => {
+    const query: queryParams[] = [];
+    if (limit) {
+      query.push({ name: "limit", value: limit });
+    }
+
+    const fetchData = async () => {
+      const { data: allProducts } = await getAllProducts(query);
+      setProductData(allProducts);
+    };
+    fetchData();
+  }, [limit]);
 
   const validateProductSelection = (catId: string) => {
     if (
@@ -59,13 +81,13 @@ const CompareCard = ({ products }: { products: { data: IProduct[] } }) => {
     setThirdProductId({ id, catId });
   };
 
-  const firstProduct = products?.data?.filter(
+  const firstProduct = productData?.data?.filter(
     (product) => product.id === firstProductId.id
   );
-  const secondProduct = products?.data?.filter(
+  const secondProduct = productData?.data?.filter(
     (product) => product.id === secondProductId.id
   );
-  const thirdProduct = products?.data?.filter(
+  const thirdProduct = productData?.data?.filter(
     (product) => product.id === thirdProductId.id
   );
 
@@ -101,7 +123,7 @@ const CompareCard = ({ products }: { products: { data: IProduct[] } }) => {
       <div className="grid sm:grid-cols-3 mb-2">
         <div>
           <Select className="max-w-xs" label="Select Product">
-            {products?.data?.map((product: IProduct) => (
+            {productData?.data?.map((product: IProduct) => (
               <SelectItem
                 onClick={() =>
                   handleFirstSelect(product.id, product.categoryId)
@@ -115,7 +137,7 @@ const CompareCard = ({ products }: { products: { data: IProduct[] } }) => {
         </div>
         <div>
           <Select className="max-w-xs" label="Select Product">
-            {products?.data?.map((product: IProduct) => (
+            {productData?.data?.map((product: IProduct) => (
               <SelectItem
                 onClick={() =>
                   handleSecondSelect(product.id, product.categoryId)
@@ -129,7 +151,7 @@ const CompareCard = ({ products }: { products: { data: IProduct[] } }) => {
         </div>
         <div>
           <Select className="max-w-xs" label="Select Product">
-            {products?.data?.map((product: IProduct) => (
+            {productData?.data?.map((product: IProduct) => (
               <SelectItem
                 onClick={() =>
                   handleThirdSelect(product.id, product.categoryId)

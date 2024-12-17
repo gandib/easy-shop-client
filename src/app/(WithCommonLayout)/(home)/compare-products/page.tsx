@@ -4,6 +4,7 @@ import { getAllProducts } from "@/src/services/ProductService";
 
 const CompareProducts = async () => {
   const { data: products } = await getAllProducts([]);
+
   return (
     <Container>
       <CompareCard products={products} />

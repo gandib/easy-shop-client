@@ -8,6 +8,10 @@ import { adminLinks } from "./constant";
 const AdminSidebar = () => {
   const { user: userData, isLoading } = useUser();
 
+  if (isLoading) {
+    <p>Loading</p>;
+  }
+
   return (
     <div className="">
       <div className="mt-3 w-4 space-y-2 min-h-screen rounded-xl bg-default-100">

@@ -7,7 +7,7 @@ type TLinkItem = {
 const UserSidebarOptions = ({ links }: { links: TLinkItem[] }) => {
   return (
     <div className="flex flex-col gap-1 fixed">
-      {links.map((link) => (
+      {links?.map((link) => (
         <Link
           key={link?.href}
           href={link?.href}

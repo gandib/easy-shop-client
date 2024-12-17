@@ -45,12 +45,12 @@ const SidebarMenu = ({ links }: { links: TLinks[] }) => {
             <div className="grid grid-cols-1">
               {links?.map((link) => (
                 <Link
-                  key={link.href}
+                  key={link?.href}
                   onClick={handleClose}
                   className="p-2 text-white"
-                  href={link.href}
+                  href={link?.href}
                 >
-                  {link.label}
+                  {link?.label}
                 </Link>
               ))}
             </div>

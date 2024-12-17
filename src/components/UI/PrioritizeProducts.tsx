@@ -53,33 +53,34 @@ const PrioritizeProducts = ({
   }
   return (
     <>
-      {user?.role === "USER" && (
-        <div>
-          <h1 className="text-2xl font-bold mb-8">Prioritize Products</h1>
-          {products?.data?.length > 0 || productData?.data?.length > 0 ? (
-            <AllProductsDisplayCard
-              products={productData}
-              fromShop="prioritize"
-            />
-          ) : (
-            ""
-          )}
-          {products?.data?.length > 0 ? (
-            <div className="mt-5 flex justify-center items-center">
-              {products?.data?.length > 0 && (
-                <Pagination
-                  showControls
-                  total={totalPage}
-                  page={currentPage}
-                  onChange={(page) => setCurrentPage(page)}
-                />
-              )}
-            </div>
-          ) : (
-            ""
-          )}
-        </div>
-      )}
+      {user?.role === "USER" &&
+        (products?.data?.length > 0 || productData?.data?.length > 0) && (
+          <div>
+            <h1 className="text-2xl font-bold mb-8">Prioritize Products</h1>
+            {products?.data?.length > 0 || productData?.data?.length > 0 ? (
+              <AllProductsDisplayCard
+                products={productData}
+                fromShop="prioritize"
+              />
+            ) : (
+              ""
+            )}
+            {products?.data?.length > 0 ? (
+              <div className="mt-5 flex justify-center items-center">
+                {products?.data?.length > 0 && (
+                  <Pagination
+                    showControls
+                    total={totalPage}
+                    page={currentPage}
+                    onChange={(page) => setCurrentPage(page)}
+                  />
+                )}
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
+        )}
     </>
   );
 };

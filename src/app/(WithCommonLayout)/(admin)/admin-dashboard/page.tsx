@@ -7,9 +7,11 @@ const AdminDashboard = async () => {
 
   return (
     <div className="grid grid-cols-2 gap-2">
-      {allCategories?.map((category: ICategory) => (
-        <CategoryDisplayCard category={category} key={category?.id} />
-      ))}
+      {allCategories && allCategories?.length > 0
+        ? allCategories?.map((category: ICategory) => (
+            <CategoryDisplayCard category={category} key={category?.id} />
+          ))
+        : "No category to show!"}
     </div>
   );
 };

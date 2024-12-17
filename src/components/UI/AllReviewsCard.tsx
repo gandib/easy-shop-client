@@ -10,14 +10,15 @@ const AllReviewsCard = ({
 }) => {
   return (
     <div className="grid grid-cols-2 gap-2">
-      {reviews &&
-        reviews?.map((review: IReview) => (
-          <ReviewResponseCard
-            key={review?.id}
-            review={review}
-            viewAs={viewAs}
-          />
-        ))}
+      {reviews && reviews.length > 0
+        ? reviews?.map((review: IReview) => (
+            <ReviewResponseCard
+              key={review?.id}
+              review={review}
+              viewAs={viewAs}
+            />
+          ))
+        : "No review to show!"}
     </div>
   );
 };
