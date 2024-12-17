@@ -121,7 +121,7 @@ const AllProductsFilteringSearching = ({
   if (isLoading) {
     <p>Loading...</p>;
   }
-  console.log(currentPage, products, productData);
+
   return (
     <div className="grid lg:grid-cols-4 md:grid-cols-3">
       <div className="col-span-1">

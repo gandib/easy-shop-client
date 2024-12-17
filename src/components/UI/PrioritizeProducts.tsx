@@ -48,8 +48,6 @@ const PrioritizeProducts = ({
     }
   }, [user, currentPage, totalPage]);
 
-  console.log(products, productData, currentPage);
-
   if (isLoading) {
     <p>Loading...</p>;
   }
