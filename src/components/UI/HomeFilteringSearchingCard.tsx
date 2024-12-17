@@ -55,7 +55,9 @@ const HomeFilteringSearchingCard = ({
     if (searchText || categories) {
       setCurrentPage(1);
     }
+  }, [searchText, categories]);
 
+  useEffect(() => {
     const query: queryParams[] = [];
     if (limit) {
       query.push({ name: "limit", value: limit });
