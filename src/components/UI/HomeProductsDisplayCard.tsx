@@ -32,7 +32,7 @@ const HomeProductsDisplayCard = ({
   category,
   fromShop,
 }: {
-  products: { meta: IMeta; data: IProduct[] };
+  products: IProduct[];
   category?: string;
   fromShop?: string;
 }) => {
@@ -90,8 +90,8 @@ const HomeProductsDisplayCard = ({
     <div>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-2 grow relative">
         {productData &&
-          productData?.data?.length > 0 &&
-          productData?.data?.map((data: IProduct) => (
+          productData?.length > 0 &&
+          productData?.map((data: IProduct) => (
             <NextUiCard
               key={data.id}
               isFooterBlurred

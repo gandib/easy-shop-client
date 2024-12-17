@@ -1,16 +1,17 @@
 "use client";
 
 import { useUser } from "@/src/context/user.provider";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import useDebounce from "@/src/hooks/debounce.hook";
-import { Input } from "@nextui-org/react";
+import { Input } from "@nextui-org/input";
 import { SearchIcon } from "lucide-react";
 import { ICategory, IProduct } from "@/src/types";
 import { getAllProducts } from "@/src/services/ProductService";
 import { RadioGroup, Radio } from "@nextui-org/react";
 import { getAllCategory } from "@/src/services/CategoryService";
 import HomeProductsDisplayCard from "./HomeProductsDisplayCard";
+import Loading from "./Loading";
 
 export type queryParams = {
   name: string;
@@ -35,92 +36,112 @@ const HomeFilteringSearchingCard = ({
 }) => {
   const { user, isLoading } = useUser();
   const [limit, setLimit] = useState(9);
-  const [sort, setSort] = useState("-upvote");
+  const [sort, setSort] = useState("-createdAt"); // Default descending order
   const [currentPage, setCurrentPage] = useState(1);
   const { register, handleSubmit, watch } = useForm();
-  const [productData, setProductData] = useState<TProductMeta>({
-    meta: { page: 1, limit: 1, total: 1, totalPage: 1 },
-    data: [],
-  });
+  const [productData, setProductData] = useState<IProduct[]>([]);
   const [totalPage, setTotalPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState("");
   const [allCategories, setAllCategories] = useState([]);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(0);
+  const [resetting, setResetting] = useState(false);
 
   const searchText = useDebounce(watch("search"));
 
-  useEffect(() => {
-    if (searchText || categories) {
-      setCurrentPage(1);
-    }
-  }, [searchText, categories]);
+  // Reset and Fetch Products on Category Change
+  const handleCategoryChange = (newCategory: string) => {
+    setResetting(true); // Lock fetching during reset
+    setCategories(newCategory);
+    setCurrentPage(1);
+    setProductData([]); // Clear product data
+    setTotalPage(1); // Reset pagination
+    setTimeout(() => setResetting(false), 300); // Unlock fetching after reset
+  };
 
-  useEffect(() => {
+  // Fetch Products Function
+  const fetchProducts = useCallback(async () => {
+    if (loading || resetting || currentPage > totalPage) return; // Prevent over-fetching
+
+    setLoading(true);
     const query: queryParams[] = [];
-    if (limit) {
-      query.push({ name: "limit", value: limit });
-    }
-    if (sort) {
-      query.push({ name: "sort", value: sort });
-    }
-    if (searchText) {
-      query.push({ name: "searchTerm", value: searchText });
-    }
-    if (currentPage) {
-      query.push({ name: "page", value: currentPage });
-    }
-    if (category || categories) {
-      query.push({ name: "category", value: category! || categories });
-    }
-    if (shopId) {
-      query.push({ name: "shop", value: shopId! });
-    }
-
-    if (minPrice && maxPrice) {
+    query.push({ name: "limit", value: limit });
+    query.push({ name: "sort", value: sort });
+    if (searchText) query.push({ name: "searchTerm", value: searchText });
+    if (currentPage) query.push({ name: "page", value: currentPage });
+    if (categories) query.push({ name: "category", value: categories });
+    if (shopId) query.push({ name: "shop", value: shopId! });
+    if (minPrice && maxPrice)
       query.push({ name: "price", value: `${minPrice}-${maxPrice}` });
-    }
 
-    const fetchData = async () => {
+    try {
       const { data: allProducts } = await getAllProducts(query);
-      setProductData(allProducts);
-      setTotalPage(allProducts?.meta?.totalPage);
-    };
 
-    const categoryFetch = async () => {
+      setProductData((prev) =>
+        currentPage === 1 ? allProducts.data : [...prev, ...allProducts.data]
+      ); // Replace or append products based on the page
+      setTotalPage(allProducts.meta.totalPage);
+    } finally {
+      setLoading(false);
+    }
+  }, [
+    currentPage,
+    searchText,
+    limit,
+    sort,
+    categories,
+    shopId,
+    minPrice,
+    maxPrice,
+    totalPage,
+    loading,
+    resetting,
+  ]);
+
+  // Infinite Scroll Handler
+  const handleScroll = useCallback(() => {
+    if (resetting) return; // Block fetching during reset
+    if (
+      window.innerHeight + document.documentElement.scrollTop >=
+      document.documentElement.offsetHeight - 300
+    ) {
+      if (!loading && currentPage < totalPage) {
+        setCurrentPage((prev) => prev + 1);
+      }
+    }
+  }, [loading, resetting, currentPage, totalPage]);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
+
+  // Fetch Categories
+  useEffect(() => {
+    const fetchCategories = async () => {
       const { data: allCategory } = await getAllCategory();
       setAllCategories(allCategory);
     };
-    categoryFetch();
+    fetchCategories();
+  }, []);
 
-    if (query.length > 0) {
-      fetchData();
+  // Scroll to Top on Category Change
+  useEffect(() => {
+    if (categories) {
+      window.scrollTo(0, 0);
     }
-  }, [
-    user,
-    currentPage,
-    searchText,
-    sort,
-    totalPage,
-    loading,
-    category,
-    shopId,
-    categories,
-    minPrice,
-    maxPrice,
-  ]);
+  }, [categories]);
 
   const onSubmit = (data: FieldValues) => {};
 
   if (isLoading) {
     <p>Loading...</p>;
   }
-
-  const sortBy = [
-    { name: "Most Upvoted", value: "-upvote" },
-    { name: "Less Upvoted", value: "upvote" },
-  ];
 
   return (
     <div className="mb-10">
@@ -129,15 +150,13 @@ const HomeFilteringSearchingCard = ({
         <div className="col-span-1">
           <RadioGroup
             label="Select category"
-            onChange={(e) => setCategories(e.target.value)}
+            onChange={(e) => handleCategoryChange(e.target.value)}
           >
-            {allCategories &&
-              allCategories?.length > 0 &&
-              allCategories?.map((cat: ICategory) => (
-                <Radio key={cat?.id} value={cat?.name}>
-                  {cat?.name}
-                </Radio>
-              ))}
+            {allCategories?.map((cat: ICategory) => (
+              <Radio key={cat.id} value={cat.name}>
+                {cat.name}
+              </Radio>
+            ))}
             <Radio value="">All</Radio>
           </RadioGroup>
 
@@ -179,10 +198,9 @@ const HomeFilteringSearchingCard = ({
             </form>
           </div>
 
-          {products?.data?.length > 0 || productData?.data?.length > 0 ? (
+          {productData?.length > 0 ? (
             <HomeProductsDisplayCard
-              products={productData || products}
-              // setLoading={setLoading}
+              products={productData}
               category={category}
               fromShop={fromShop}
             />
@@ -190,21 +208,7 @@ const HomeFilteringSearchingCard = ({
             <p>No Product available!</p>
           )}
 
-          {/* {productData?.data?.length > 0 ? (
-            <div className="mt-5 flex justify-center items-center">
-              {products?.data?.length > 0 && (
-                <Pagination
-                  total={totalPage}
-                  page={currentPage}
-                  onChange={(page) => setCurrentPage(page)}
-                />
-              )}
-            </div>
-          ) : (
-            ""
-          )} */}
-          {products?.data?.length < 1 ||
-            (productData?.data?.length < 1 && <p>No Product available!</p>)}
+          {loading && <Loading />}
         </div>
       </div>
     </div>
