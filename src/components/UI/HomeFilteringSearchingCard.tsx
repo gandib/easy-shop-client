@@ -7,7 +7,7 @@ import useDebounce from "@/src/hooks/debounce.hook";
 import { SearchIcon } from "lucide-react";
 import { ICategory, IProduct } from "@/src/types";
 import { getAllProducts } from "@/src/services/ProductService";
-import { RadioGroup, Radio, Input, Button } from "@nextui-org/react";
+import { RadioGroup, Radio, Input, Button, Slider } from "@nextui-org/react";
 import { getAllCategory } from "@/src/services/CategoryService";
 import HomeProductsDisplayCard from "./HomeProductsDisplayCard";
 import Loading from "./Loading";
@@ -51,6 +51,22 @@ const HomeFilteringSearchingCard = ({
   // const [loadProducts, setLoadProducts] = useState(products?.data);
   const loadProducts: IProduct[] = [...products?.data];
   const searchText = useDebounce(watch("search"));
+  const [sliderValue, setSliderValue] = useState<number | number[]>([]);
+  const [debouncedValue, setDebouncedValue] = useState<number | number[]>(
+    sliderValue
+  );
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(sliderValue);
+    }, 500);
+    return () => clearTimeout(handler);
+  }, [sliderValue]);
+
+  useEffect(() => {
+    setMinPrice(Array.isArray(debouncedValue) ? debouncedValue[0] : 0);
+    setMaxPrice(Array.isArray(debouncedValue) ? debouncedValue[1] : 0);
+  }, [debouncedValue]);
 
   useEffect(() => {
     if (searchText || categories) {
@@ -67,7 +83,7 @@ const HomeFilteringSearchingCard = ({
       if (currentPage) query.push({ name: "page", value: currentPage });
       if (categories) query.push({ name: "category", value: categories });
       if (shopId) query.push({ name: "shop", value: shopId });
-      if (minPrice && maxPrice) {
+      if (minPrice || maxPrice) {
         query.push({ name: "price", value: `${minPrice}-${maxPrice}` });
       }
 
@@ -155,19 +171,18 @@ const HomeFilteringSearchingCard = ({
             <Radio value="">All</Radio>
           </RadioGroup>
 
-          <div className="my-2">
-            <p>Enter Price Range</p>
-            <input
-              className="border-1 rounded p-1 my-1"
-              type="text"
-              placeholder="Min Price"
-              onChange={(e) => setMinPrice(Number(e.target.value))}
-            />
-            <input
-              className="border-1 rounded p-1 my-1"
-              type="text"
-              placeholder="Max Price"
-              onChange={(e) => setMaxPrice(Number(e.target.value))}
+          <div className="pr-4 pt-4 text-xl">
+            <Slider
+              className="max-w-md text-xl"
+              defaultValue={[100, 100000]}
+              formatOptions={{ style: "currency", currency: "BDT" }}
+              label="Price Range"
+              maxValue={500000}
+              minValue={0}
+              step={50}
+              onChange={(value) => {
+                setSliderValue(value);
+              }}
             />
           </div>
         </div>

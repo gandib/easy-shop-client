@@ -38,7 +38,7 @@ const RelatedProduct = ({
 
   return (
     <div>
-      <h2 className="text-xl font-bold my-4">Related Products</h2>
+      <h2 className="text-xl font-bold my-4">Suggested Products</h2>
       <RealtedProductsDisplayCard
         products={relatedProducts!}
         category={categoryName}
