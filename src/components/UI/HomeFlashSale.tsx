@@ -44,7 +44,7 @@ const HomeFlashSale = () => {
           className="bg-primary-500 text-white"
           onPress={() => router.push("/flash-sale")}
         >
-          See All Flash Sale
+          See All Flash Sales
         </Button>
       </div>
     </div>
