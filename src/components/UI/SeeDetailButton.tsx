@@ -21,7 +21,7 @@ const SeeDetailButton = ({
           `/${fromShop && fromShop ? "shop" : "vendor-dashboard"}/detail-product/${id}`
         )
       }
-      className="bg-secondary-300 text-white"
+      className="bg-secondary-500 text-white"
     >
       See Detail
     </Button>

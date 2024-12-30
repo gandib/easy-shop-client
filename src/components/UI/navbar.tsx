@@ -19,7 +19,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { logout } from "@/src/services/AuthService";
 import { protectedRoutes } from "@/src/utils/constant";
 import { useState } from "react";
-import { ShoppingCart } from "lucide-react";
+import { ChevronDown, ShoppingCart } from "lucide-react";
 
 export const Navbar = () => {
   const router = useRouter();
@@ -67,35 +67,34 @@ export const Navbar = () => {
         <ul className="hidden lg:flex gap-4 justify-start items-center ml-2">
           <NavbarItem>
             <div
-              className={`relative text-base font-bold cursor-pointer ${pathname === "/all-products" ? "text-primary-500" : ""}`}
+              className={`relative text-base font-bold cursor-pointer `}
               onMouseEnter={() => setShowMegaMenu(true)}
               onMouseLeave={() => setShowMegaMenu(false)}
             >
               {/* Single Link */}
-              <NextLink href="/all-products" legacyBehavior>
-                <a className="text-base font-bold">Products</a>
-              </NextLink>
+              {/* <NextLink href="/all-products" legacyBehavior>
+                <a className="text-base font-bold flex">
+                  Products
+                  <ChevronDown className="pt-1" />{" "}
+                </a>
+              </NextLink> */}
+              <h1 className="text-base font-bold flex">
+                Brows Categories <ChevronDown className="pt-1" />
+              </h1>
 
               {/* Mega Menu */}
               {showMegaMenu && (
                 <div className="absolute left-0 top-full pt-2 w-[300px] bg-white shadow-lg rounded-md p-4 z-50">
                   <div className="grid grid-cols-2 gap-4">
                     {/* Individual Links */}
-                    <NextLink href="/all-products" legacyBehavior>
-                      <a className="font-medium cursor-pointer hover:underline">
-                        All Products
-                      </a>
-                    </NextLink>
-                    <NextLink href="/viewed-products" legacyBehavior>
-                      <a className="font-medium cursor-pointer hover:underline">
-                        Viewed Products
-                      </a>
-                    </NextLink>
+
                     <NextLink
                       href="/all-products?category=Smarts Phone"
                       legacyBehavior
                     >
-                      <a className="font-medium cursor-pointer hover:underline">
+                      <a
+                        className={`font-medium cursor-pointer  hover:text-primary-500`}
+                      >
                         Smarts Phone
                       </a>
                     </NextLink>
@@ -103,7 +102,7 @@ export const Navbar = () => {
                       href="/all-products?category=Motor Cycle"
                       legacyBehavior
                     >
-                      <a className="font-medium cursor-pointer hover:underline">
+                      <a className="font-medium cursor-pointer hover:text-primary-500">
                         Motor Cycle
                       </a>
                     </NextLink>
@@ -111,7 +110,7 @@ export const Navbar = () => {
                       href="/all-products?category=Electronics"
                       legacyBehavior
                     >
-                      <a className="font-medium cursor-pointer hover:underline">
+                      <a className="font-medium cursor-pointer hover:text-primary-500">
                         Electronics
                       </a>
                     </NextLink>
@@ -119,7 +118,7 @@ export const Navbar = () => {
                       href="/all-products?category=Charger"
                       legacyBehavior
                     >
-                      <a className="font-medium cursor-pointer hover:underline">
+                      <a className="font-medium cursor-pointer hover:text-primary-500">
                         Charger
                       </a>
                     </NextLink>
@@ -140,7 +139,7 @@ export const Navbar = () => {
 
           {user?.email && (
             <>
-              <NavbarItem>
+              {/* <NavbarItem>
                 <NextLink
                   href={
                     user?.role === "USER"
@@ -153,7 +152,7 @@ export const Navbar = () => {
                 >
                   Dashboard
                 </NextLink>
-              </NavbarItem>
+              </NavbarItem> */}
             </>
           )}
           {siteConfig.navMenuItems.map((item, index) => (

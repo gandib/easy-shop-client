@@ -142,8 +142,8 @@ const AllProductsFilteringSearching = ({
   }
 
   return (
-    <div className="grid lg:grid-cols-4 md:grid-cols-3">
-      <div className="col-span-1">
+    <div className="grid xs:grid-cols-3 lg:grid-cols-4 md:grid-cols-3 gap-4">
+      <div className="col-span-1 border-2 rounded-lg p-2 h-[400px]">
         <RadioGroup
           label="Select category"
           onChange={(e) => setCategories(e.target.value)}
@@ -158,11 +158,11 @@ const AllProductsFilteringSearching = ({
           <Radio value="">All</Radio>
         </RadioGroup>
 
-        <div className="pr-4 pt-4 text-xl">
+        <div className="pr-4 pt-4 text-base">
           <Slider
-            className="max-w-md text-xl"
+            className="max-w-md text-base"
             defaultValue={[100, 100000]}
-            formatOptions={{ style: "currency", currency: "BDT" }}
+            // formatOptions={{ style: "currency", currency: "BDT" }}
             label="Price Range"
             maxValue={500000}
             minValue={0}
@@ -173,7 +173,7 @@ const AllProductsFilteringSearching = ({
           />
         </div>
       </div>
-      <div className="lg:col-span-3 md:col-span-2">
+      <div className="lg:col-span-3 md:col-span-2 xs:col-span-2">
         <div className="my-2">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex-1">

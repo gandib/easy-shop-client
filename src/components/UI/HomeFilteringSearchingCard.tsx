@@ -34,7 +34,7 @@ const HomeFilteringSearchingCard = ({
   fromShop?: string;
 }) => {
   const { user, isLoading } = useUser();
-  const [limit, setLimit] = useState(9);
+  const [limit, setLimit] = useState(8);
   const [sort, setSort] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const { register, handleSubmit, watch } = useForm();
@@ -148,80 +148,22 @@ const HomeFilteringSearchingCard = ({
   // console.log(loadProducts);
 
   return (
-    <div className="pt-16">
-      <h1 className="text-2xl font-bold mt-10 mb-2">Product Listing</h1>
-      <div className="grid lg:grid-cols-4 md:grid-cols-3">
-        <div className="col-span-1">
-          <RadioGroup
-            label="Select category"
-            onChange={(e) => {
-              setCategories(e.target.value); // Update selected category
-              setCurrentPage(1); // Reset pagination
-              setProductData({
-                meta: { page: 1, limit: 9, total: 0, totalPage: 1 },
-                data: [], // Clear current product list
-              });
-            }}
-          >
-            {allCategories?.map((cat: ICategory) => (
-              <Radio key={cat.id} value={cat.name}>
-                {cat.name}
-              </Radio>
-            ))}
-            <Radio value="">All</Radio>
-          </RadioGroup>
-
-          <div className="pr-4 pt-4 text-xl">
-            <Slider
-              className="max-w-md text-xl"
-              defaultValue={[100, 100000]}
-              formatOptions={{ style: "currency", currency: "BDT" }}
-              label="Price Range"
-              maxValue={500000}
-              minValue={0}
-              step={50}
-              onChange={(value) => {
-                setSliderValue(value);
-              }}
-            />
-          </div>
-        </div>
-        <div className="lg:col-span-3 md:col-span-2">
-          <div className="my-2">
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="flex-1">
-                <Input
-                  {...register("search")}
-                  aria-label="Search"
-                  classNames={{
-                    inputWrapper: "bg-default-100",
-                    input: "text-sm",
-                  }}
-                  placeholder="Search Product..."
-                  size="lg"
-                  startContent={
-                    <SearchIcon className="pointer-events-none flex-shrink-0 text-base text-default-400" />
-                  }
-                  type="text"
-                />
-              </div>
-            </form>
-          </div>
-
-          {productData?.data?.length > 0 ? (
-            <HomeProductsDisplayCard
-              products={productData?.data}
-              category={category}
-              fromShop={fromShop}
-            />
-          ) : loading && productData?.data?.length < 1 ? (
-            <p>Loading...</p>
-          ) : (
-            <p>No Product available!</p>
-          )}
-        </div>
+    <div className="pt-8">
+      <h1 className="text-2xl font-bold mt-10 mb-2">Featured Products</h1>
+      <div className="">
+        {productData?.data?.length > 0 ? (
+          <HomeProductsDisplayCard
+            products={productData?.data}
+            category={category}
+            fromShop={fromShop}
+          />
+        ) : loading && productData?.data?.length < 1 ? (
+          <p>Loading...</p>
+        ) : (
+          <p>No Product available!</p>
+        )}
       </div>
-      <div className="flex justify-center my-8">
+      {/* <div className="flex justify-center my-8">
         {!loading &&
         productData?.data?.length > 0 &&
         currentPage !== totalPage ? (
@@ -242,7 +184,7 @@ const HomeFilteringSearchingCard = ({
           productData?.meta?.totalPage === totalPage &&
           "No more products to show!"
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

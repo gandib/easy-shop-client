@@ -23,14 +23,16 @@ const Home = async () => {
   ]);
 
   return (
-    <div className="containe mx-auto max-w-7xl px-6 flex-grow min-h-screen">
+    <div className=" ">
       <Hero />
-      <PrioritizeProducts products={allPrioritizeProducts} />
-      <HomeFlashSale />
-      <CategoryDisplay category={allCategory} />
-      <HomeFilteringSearchingCard products={allProducts} fromShop="home" />
-      <NewsLetter />
-      <ScrollToTop />
+      <div className="container mx-auto max-w-7xl pt-8 flex-grow px-6 min-h-screen">
+        <PrioritizeProducts products={allPrioritizeProducts} />
+        <HomeFlashSale />
+        <CategoryDisplay category={allCategory} />
+        <HomeFilteringSearchingCard products={allProducts} fromShop="home" />
+        <NewsLetter />
+        <ScrollToTop />
+      </div>
     </div>
   );
 };

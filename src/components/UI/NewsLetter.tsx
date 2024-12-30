@@ -17,7 +17,7 @@ const NewsLetter = () => {
 
     if (!regex.test(email)) {
       setError("Please enter a valid email!");
-      toast(error);
+      toast("Please enter a valid email!");
     } else {
       setError("");
       createNewsletter({ email });
@@ -32,7 +32,7 @@ const NewsLetter = () => {
 
   return (
     <div>
-      <section className="bg-gray-100 py-12">
+      <section className=" py-8">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-gray-800 mb-4">
             Stay Updated!

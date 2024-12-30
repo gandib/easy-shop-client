@@ -33,12 +33,63 @@ const NavbarDropDown = () => {
     }
   };
 
+  {
+    user?.email && (
+      <>
+        {/* <NavbarItem>
+        <NextLink
+          href={
+            user?.role === "USER"
+              ? "/user-dashboard"
+              : user?.role === "ADMIN"
+                ? "/admin-dashboard"
+                : "/vendor-dashboard"
+          }
+          className={`text-base font-bold ${pathname === "/user-dashboard" ? "text-primary-500" : ""} ${pathname === "/admin-dashboard" ? "text-primary-500" : ""} ${pathname === "/vendor-dashboard" ? "text-primary-500" : ""}`}
+        >
+          Dashboard
+        </NextLink>
+      </NavbarItem> */}
+      </>
+    );
+  }
+
+  const navigateDashboard = () => {
+    router.push(
+      `${
+        user?.role === "USER"
+          ? "/user-dashboard"
+          : user?.role === "ADMIN"
+            ? "/admin-dashboard"
+            : "/vendor-dashboard"
+      }`
+    );
+  };
+
+  const navigateViewedProducts = () => {
+    router.push(`/viewed-products`);
+  };
+
   return (
     <Dropdown>
       <DropdownTrigger>
         <Avatar className="cursor-pointer" />
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">
+        <DropdownItem
+          onPress={navigateDashboard} // Switch to onClick for testing
+          key="dashboard"
+          className=""
+        >
+          Dashboard
+        </DropdownItem>
+        <DropdownItem
+          onPress={navigateViewedProducts} // Switch to onClick for testing
+          key="Viewed-Products"
+          className=""
+        >
+          Viewed Products
+        </DropdownItem>
         <DropdownItem
           onPress={handleLogout} // Switch to onClick for testing
           key="delete"

@@ -15,7 +15,7 @@ const PrioritizeProducts = ({
   products: { meta: IMeta; data: IProduct[] };
 }) => {
   const { user, isLoading } = useUser();
-  const [limit, setLimit] = useState(8);
+  const [limit, setLimit] = useState(4);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(products?.meta?.totalPage);
   const [productData, setProductData] = useState<{
@@ -56,7 +56,7 @@ const PrioritizeProducts = ({
       {user?.role === "USER" &&
         (products?.data?.length > 0 || productData?.data?.length > 0) && (
           <div>
-            <h1 className="text-2xl font-bold mb-8">Prioritize Products</h1>
+            <h1 className="text-2xl font-bold mb-2">Prioritize Products</h1>
             {products?.data?.length > 0 || productData?.data?.length > 0 ? (
               <AllProductsDisplayCard
                 products={productData}
@@ -65,7 +65,7 @@ const PrioritizeProducts = ({
             ) : (
               ""
             )}
-            {productData?.data?.length > 0 ? (
+            {/* {productData?.data?.length > 0 ? (
               <div className="mt-5 flex justify-center items-center">
                 {productData?.data?.length > 0 && (
                   <Pagination
@@ -78,7 +78,7 @@ const PrioritizeProducts = ({
               </div>
             ) : (
               ""
-            )}
+            )} */}
           </div>
         )}
     </>

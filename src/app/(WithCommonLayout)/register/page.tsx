@@ -39,7 +39,7 @@ export default function Register() {
   }
 
   return (
-    <div className="flex mt-6 w-full flex-col items-center justify-center mb-12">
+    <div className="flex mt-6 w-full flex-col items-center justify-center mb-12 min-h-screen">
       <h3 className="my-2 text-2xl font-bold">Register with Easy Shop</h3>
       <div className="md:w-[50%] lg:w-[35%] w-[80%]">
         <ESForm

@@ -19,6 +19,7 @@ import { Button } from "@nextui-org/react";
 import { addToCart } from "@/src/utils/addToCart";
 import { toast } from "sonner";
 import ShowPopup from "./ShowPopup";
+import { StarIcon } from "lucide-react";
 
 export interface IMeta {
   page: number;
@@ -111,40 +112,117 @@ const ProductListing = ({
 
               <CardBody>
                 <div className=" w-full">
-                  <ShopRedirect shop={data?.shop} />
-                  <h4 className="mt-1 rounded  p-1 text-lg sm:text-xl md:text-xl font-medium text-purple-500">
-                    {data.name}
-                  </h4>
-                  <h4 className="mt-1 rounded  p-1 text-base md:text-base font-medium">
-                    {data?.price}
-                  </h4>
-                  {data.rating && data.rating.length > 0 ? (
-                    <h4 className="mt-2 rounded flex items-center  p-1 text-base md:text-base font-medium text-green-500">
-                      {`Rating:
-                    ${
-                      data?.rating?.length &&
-                      (
-                        data.rating.reduce(
-                          (pre, next) => pre + next.rating,
-                          0
-                        ) / data.rating.length
-                      ).toFixed(1)
-                    }/5`}
-                    </h4>
-                  ) : (
-                    <h4 className="mt-1 rounded  p-1 text-base md:text-base font-medium text-green-500">
-                      Rating: 0/5
-                    </h4>
-                  )}
-                </div>
-                <div className="my-1 rounded  p-1 lg:text-lg font-medium flex ">
-                  <div>
+                  {/* <ShopRedirect shop={data?.shop} /> */}
+
+                  <div className="pt-2 flex gap-3 items-center">
+                    <div className="flex ">
+                      <StarIcon
+                        size={"16px"}
+                        className={`${
+                          Number(
+                            data?.rating?.length &&
+                              (
+                                data.rating.reduce(
+                                  (pre, next) => pre + next.rating,
+                                  0
+                                ) / data.rating.length
+                              ).toFixed(1)
+                          ) > 0
+                            ? "text-yellow-400"
+                            : "text-gray-400"
+                        } `}
+                      />
+                      <StarIcon
+                        size={"16px"}
+                        className={`${
+                          Number(
+                            data?.rating?.length &&
+                              (
+                                data.rating.reduce(
+                                  (pre, next) => pre + next.rating,
+                                  0
+                                ) / data.rating.length
+                              ).toFixed(1)
+                          ) > 1
+                            ? "text-yellow-400"
+                            : "text-gray-400"
+                        } `}
+                      />
+                      <StarIcon
+                        size={"16px"}
+                        className={`${
+                          Number(
+                            data?.rating?.length &&
+                              (
+                                data.rating.reduce(
+                                  (pre, next) => pre + next.rating,
+                                  0
+                                ) / data.rating.length
+                              ).toFixed(1)
+                          ) > 2
+                            ? "text-yellow-400"
+                            : "text-gray-400"
+                        } `}
+                      />
+                      <StarIcon
+                        size={"16px"}
+                        className={`${
+                          Number(
+                            data?.rating?.length &&
+                              (
+                                data.rating.reduce(
+                                  (pre, next) => pre + next.rating,
+                                  0
+                                ) / data.rating.length
+                              ).toFixed(1)
+                          ) > 3
+                            ? "text-yellow-400"
+                            : "text-gray-400"
+                        } `}
+                      />
+                      <StarIcon
+                        size={"16px"}
+                        className={`${
+                          Number(
+                            data?.rating?.length &&
+                              (
+                                data.rating.reduce(
+                                  (pre, next) => pre + next.rating,
+                                  0
+                                ) / data.rating.length
+                              ).toFixed(1)
+                          ) > 4
+                            ? "text-yellow-400"
+                            : "text-gray-400"
+                        } `}
+                      />
+                    </div>
                     <p>
-                      {data.description.slice(0, 150) +
-                        `${data.description.length > 150 ? "..." : ""}`}
+                      {data?.rating?.length &&
+                        (
+                          data.rating.reduce(
+                            (pre, next) => pre + next.rating,
+                            0
+                          ) / data.rating.length
+                        ).toFixed(2)}
                     </p>
                   </div>
+
+                  <h4 className="rounded text-sm sm:text-base md:text-base font-bold">
+                    {data.name}
+                  </h4>
+                  <h4 className="rounded text-xl font-bold pt-2 text-secondary-500">
+                    ${data?.price}
+                  </h4>
                 </div>
+                {/* <div className="rounded text-base font-medium flex ">
+                  <div>
+                    <p>
+                      {data.description.slice(0, 100) +
+                        `${data.description.length > 100 ? "..." : ""}`}
+                    </p>
+                  </div>
+                </div> */}
               </CardBody>
 
               <CardFooter className=" bottom-0 gap-2 justify-around border-t-1 border-zinc-100/50 bg-white/30">
@@ -159,7 +237,7 @@ const ProductListing = ({
                   <Button
                     size="sm"
                     onPress={() => handleShowPopup(data.id, data.shopId)}
-                    className="bg-primary-300 text-white"
+                    className="bg-primary-500 text-white"
                   >
                     Add to Cart
                   </Button>
