@@ -69,7 +69,7 @@ const AllProductsFilteringSearching = ({
   const searchText = useDebounce(watch("search"));
 
   useEffect(() => {
-    if (searchText || categories) {
+    if (searchText || categories || minPrice || maxPrice) {
       setCurrentPage(1);
     }
   }, [searchText, categories, minPrice, maxPrice]);
