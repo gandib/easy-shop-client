@@ -1,6 +1,7 @@
 import CategoryDisplay from "@/src/components/UI/CategoryDisplay";
 import Container from "@/src/components/UI/Container";
 import FlashSaleCard from "@/src/components/UI/FlashSaleCard";
+import Hero from "@/src/components/UI/Hero";
 import HomeFilteringSearchingCard from "@/src/components/UI/HomeFilteringSearchingCard";
 import HomeFlashSale from "@/src/components/UI/HomeFlashSale";
 import PrioritizeProducts from "@/src/components/UI/PrioritizeProducts";
@@ -21,13 +22,14 @@ const Home = async () => {
   ]);
 
   return (
-    <Container>
+    <div className="containe mx-auto max-w-7xl px-6 flex-grow">
+      <Hero />
       <PrioritizeProducts products={allPrioritizeProducts} />
       <HomeFlashSale />
       <CategoryDisplay category={allCategory} />
       <HomeFilteringSearchingCard products={allProducts} fromShop="home" />
       <ScrollToTop />
-    </Container>
+    </div>
   );
 };
 
