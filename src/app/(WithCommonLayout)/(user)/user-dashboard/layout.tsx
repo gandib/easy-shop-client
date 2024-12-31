@@ -1,3 +1,4 @@
+"use client";
 import AdminSidebar from "@/src/components/UI/AdminSidebar";
 import Container from "@/src/components/UI/Container";
 import ProfileSidebar from "@/src/components/UI/VendorSidebar";
@@ -5,10 +6,14 @@ import SidebarMenu from "@/src/components/UI/SidebarMenu";
 import UserSidebar from "@/src/components/UI/UserSidebar";
 import { userLinks } from "@/src/components/UI/UserSidebar/constant";
 import React from "react";
+import { Home } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const UserLayout = ({ children }: { children: React.ReactNode }) => {
+  const router = useRouter();
   return (
     <Container>
+      <Home onClick={() => router.push("/")} />
       <div className="md:hidden">
         <SidebarMenu links={userLinks} />
       </div>

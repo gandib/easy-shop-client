@@ -10,7 +10,6 @@ const AllShopCard = ({ shop }: { shop: IShop[] }) => {
   const router = useRouter();
 
   const handleShop = (id: string) => {
-    console.log(id);
     router.push(`/shop/${id}`);
   };
   return (

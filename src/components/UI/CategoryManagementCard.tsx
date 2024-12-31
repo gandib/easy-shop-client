@@ -28,7 +28,7 @@ const CategoryManagementCard = ({
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
   const [imagePreviews, setImagePreviews] = useState<string[] | []>([]);
   const [imgError, setImgError] = useState("");
-  console.log(category);
+
   useEffect(() => {
     if (imageFiles[0]) {
       setImgError("");

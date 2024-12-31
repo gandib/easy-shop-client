@@ -145,8 +145,6 @@ const HomeFilteringSearchingCard = ({
     <p>Loading...</p>;
   }
 
-  // console.log(loadProducts);
-
   return (
     <div className="pt-8">
       <h1 className="text-2xl font-bold mt-10 mb-2">Featured Products</h1>

@@ -31,7 +31,7 @@ const ShopDetail = ({ shop }: { shop: IShop }) => {
     };
     fetchData();
   }, [shop]);
-  console.log(products);
+
   const handleFollow = (shopId: string) => {
     const followData = {
       shopId,

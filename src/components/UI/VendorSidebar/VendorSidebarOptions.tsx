@@ -6,7 +6,7 @@ type TLinkItem = {
 };
 const VendorSidebarOptions = ({ links }: { links: TLinkItem[] }) => {
   return (
-    <div className="flex flex-col gap-1 fixed">
+    <div className="flex flex-col gap-1">
       {links?.map((link) => (
         <Link
           key={link?.href}

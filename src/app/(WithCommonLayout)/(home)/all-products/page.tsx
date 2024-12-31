@@ -10,7 +10,7 @@ const AllProducts = async (searchParams: { searchParams: SearchParams }) => {
     { name: "category", value: category },
     { name: "limit", value: 9 },
   ]);
-  console.log(category);
+
   return (
     <Container>
       <h1 className="text-2xl font-bold mb-4">All Products</h1>

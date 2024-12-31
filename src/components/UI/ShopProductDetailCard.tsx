@@ -48,6 +48,7 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
   const [rate, setRate] = useState(5);
   const [commentError, setCommentError] = useState("");
   const router = useRouter();
+  const [imgLink, setImgLink] = useState(product?.img[0]);
 
   const handleRating = (productId: string) => {
     const ratingData = {
@@ -107,19 +108,34 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
     <div className="">
       {product && (
         <NextUiCard isFooterBlurred className="  ">
-          <CardHeader className="w-full flex-col items-start grid md:grid-cols-2">
+          <CardHeader className="w-full flex-col items-start grid md:grid-cols-2 gap-2">
             <div>
-              <div>
+              <div className="h-[400px] flex justify-center">
                 {product && (
                   <Image
-                    width={1000}
+                    width={400}
                     height={300}
-                    src={product?.img[0]}
+                    src={imgLink}
                     alt="Recipe image"
                   />
                 )}
               </div>
-              <div></div>
+              <div>
+                {product && product?.img?.length > 0 && (
+                  <div className="flex my-4 justify-center gap-2">
+                    {product?.img?.map((img, index) => (
+                      <Image
+                        key={index}
+                        onClick={() => setImgLink(img)}
+                        width={50}
+                        height={50}
+                        src={img}
+                        alt="Recipe image"
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
             <div>
               <h4 className="mt-1 rounded p-1 text-sm font-semibold text-gray-400 flex ">
@@ -159,17 +175,29 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
                   <p className="pl-2">{product?.rating?.length}</p>
                 </div>
 
-                <h4 className="mt-1 rounded  p-1 text-xl font-bold text-secondary-500">
-                  ${product?.price}
-                </h4>
-                <h4 className="mt-1 rounded  p-1 text-base md:text-base font-medium">
-                  Quantity: {product?.quantity}
-                </h4>
+                <div className="flex justify-between">
+                  <h4 className="mt-1 rounded  p-1 text-xl font-bold text-secondary-500">
+                    ${product?.price}
+                  </h4>
+                  {product?.quantity > 0 ? (
+                    <h4 className="mt-1 rounded  p-1 text-xl text-secondary-500 font-bold">
+                      In Stock
+                    </h4>
+                  ) : (
+                    <p className="text-danger-500 text-xl font-bold">
+                      Out of Stock
+                    </p>
+                  )}
+                </div>
                 {product?.discount > 0 && (
-                  <h4 className="mt-1 rounded  p-1 text-base md:text-base font-medium">
+                  <h4 className="mt-1 rounded  p-1 text-xl font-medium">
                     Discount: {product?.discount}
                   </h4>
                 )}
+                <h4 className="mt-1 rounded  p-1 text-xl font-medium">
+                  Short Description: {product?.description.slice(0, 300)}
+                  {product?.description.length > 300 && "..."}
+                </h4>
               </div>
             </div>
           </CardHeader>
