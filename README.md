@@ -31,7 +31,8 @@ Easy Shop is your go-to platform for browsing a wide variety of Easy Shops. Our 
 - Node.js
 - Express
 - TypeScript
-- Mongoose
+- Prisma
+- SQL
 
 ## Installation Guideline
 

@@ -99,13 +99,22 @@ const FlashSaleCard = ({
               isFooterBlurred
               className=" hover:shadow-2xl "
             >
-              <CardHeader className="h-[150px] flex justify-center">
+              <CardHeader className="h-[150px] relative flex justify-center items-center ">
+                {/* Percentage Badge */}
+                {data?.flashSale[0].percentage && (
+                  <div className="absolute top-2 left-2 bg-primary-500 text-white text-xs font-bold px-2 py-1 rounded z-10">
+                    {data.flashSale[0].percentage}%
+                  </div>
+                )}
+
+                {/* Product Image */}
                 {data?.img && (
                   <Image
                     width={150}
                     height={150}
-                    src={data?.img}
+                    src={data.img}
                     alt="Product image"
+                    className="object-cover rounded"
                   />
                 )}
               </CardHeader>
@@ -212,7 +221,12 @@ const FlashSaleCard = ({
                     {data.name}
                   </h4>
                   <h4 className="rounded text-xl font-bold pt-2 text-secondary-500">
-                    ${data?.price}
+                    $
+                    {data?.price -
+                      (data?.price * data?.flashSale[0]?.percentage) / 100}{" "}
+                    <span className="text-gray-500 text-sm line-through">
+                      ${data?.price}
+                    </span>
                   </h4>
                 </div>
                 {/* <div className="rounded text-base font-medium flex ">
