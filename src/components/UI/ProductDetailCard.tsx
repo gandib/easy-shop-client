@@ -95,7 +95,7 @@ const ProductDetailCard = ({ product }: { product: IProduct }) => {
               <Image
                 width={1000}
                 height={300}
-                src={product?.img}
+                src={product?.img[0]}
                 alt="Recipe image"
               />
             )}

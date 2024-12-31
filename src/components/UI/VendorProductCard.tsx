@@ -82,6 +82,7 @@ const VendorProductCard = ({
   if (isLoading) {
     <p>Loading...</p>;
   }
+  console.log(productData);
   return (
     <div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2 grow relative">
@@ -96,9 +97,9 @@ const VendorProductCard = ({
               <CardHeader className=" flex items-center justify-center">
                 {data?.img && (
                   <Image
-                    width={150}
+                    width={200}
                     height={200}
-                    src={data?.img}
+                    src={data?.img[0]}
                     alt="Product image"
                   />
                 )}

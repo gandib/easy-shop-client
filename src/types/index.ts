@@ -65,7 +65,7 @@ export interface IProduct {
   price: number;
   categoryId: string;
   description: string;
-  img: string;
+  img: string[];
   quantity: number;
   discount: number;
   isDeleted: boolean;

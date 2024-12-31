@@ -10,6 +10,7 @@ const FlashSale = async () => {
 
   return (
     <Container>
+      <h1 className="text-2xl font-bold mb-4">Flash Sale</h1>
       <FlashSaleCard products={allProducts} fromShop="flash" />
     </Container>
   );

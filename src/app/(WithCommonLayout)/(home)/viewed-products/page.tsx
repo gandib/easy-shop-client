@@ -8,6 +8,7 @@ const RecentProducts = async () => {
   return (
     <Container>
       <div className="mb-8">
+        <h1 className="text-2xl font-bold mb-4">Viewed Products</h1>
         <RecentProductsCard products={products} />
       </div>
     </Container>

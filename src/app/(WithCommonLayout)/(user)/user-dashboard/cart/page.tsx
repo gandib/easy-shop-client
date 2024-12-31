@@ -177,10 +177,12 @@ const CartPage = () => {
     createOrder(orderData);
   };
 
-  if (isSuccess) {
-    localStorage.removeItem("cart");
-    router.push(`/user-dashboard/checkout/${data?.data?.id}`);
-  }
+  useEffect(() => {
+    if (isSuccess) {
+      localStorage.removeItem("cart");
+      router.push(`/user-dashboard/checkout/${data?.data?.id}`);
+    }
+  }, [isSuccess]);
 
   return (
     <div>

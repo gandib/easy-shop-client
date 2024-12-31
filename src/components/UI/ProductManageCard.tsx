@@ -37,6 +37,7 @@ const ProductManageCard = ({
   const [description, setDescription] = useState(product?.description || "");
   const [quantity, setQuantity] = useState(product?.quantity || "");
   const [discount, setDiscount] = useState(product?.discount || "");
+  const [img, setImg] = useState(product?.img[0] || "");
   const { mutate: handleUpdateProduct, isSuccess: productUpSuccess } =
     useUpdateProduct();
 
@@ -69,6 +70,12 @@ const ProductManageCard = ({
           price: Number(price),
           quantity: Number(quantity),
           discount: Number(discount),
+          img: [...product?.img!, data.img || img],
+          // img: [
+          //   "https://res.cloudinary.com/dvka5l5tj/image/upload/v1735657254/28383704_7391866_gb7xtu.jpg",
+          //   "https://res.cloudinary.com/dvka5l5tj/image/upload/v1735658035/hero_3_akwy3t.webp",
+          //   "https://res.cloudinary.com/dvka5l5tj/image/upload/v1735657254/5069_qqsju0.jpg",
+          // ],
         },
       };
 
@@ -77,8 +84,10 @@ const ProductManageCard = ({
 
     formData.append("data", JSON.stringify(productData));
 
-    formData.append("file", imageFiles[0]);
-
+    // formData.append("file", imageFiles[0]);
+    for (let image of imageFiles) {
+      formData.append("file", image);
+    }
     if (title === "Add" || title === "Duplicate") {
       handleCreateProduct(formData);
     }
@@ -86,14 +95,13 @@ const ProductManageCard = ({
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0];
-
-    setImageFiles([file]);
+    setImageFiles((prev) => [...prev, file]);
 
     if (file) {
       const reader = new FileReader();
 
       reader.onloadend = () => {
-        setImagePreviews([reader.result as string]);
+        setImagePreviews((prev) => [...prev, reader.result as string]);
       };
 
       reader.readAsDataURL(file);
@@ -109,7 +117,7 @@ const ProductManageCard = ({
   }
 
   if (isSuccess || productUpSuccess) {
-    router.push("/vendor-dashboard");
+    router.push("/vendor-dashboard/all-products");
   }
   return (
     <div>
@@ -174,6 +182,18 @@ const ProductManageCard = ({
               />
             </div>
 
+            {title === "Update" && (
+              <div className="py-3">
+                <ESInput
+                  name="img"
+                  label="Image link"
+                  size="sm"
+                  value={img}
+                  onChange={(e) => setImg(e.target.value)}
+                />
+              </div>
+            )}
+
             {(title === "Add" || title === "Duplicate") && (
               <div className="min-w-fit flex-1 h-12">
                 <label
@@ -192,13 +212,18 @@ const ProductManageCard = ({
             )}
             {imagePreviews.length > 0 && (
               <div className="flex flex-wrap gap-5 my-5">
-                <div className="relative size-48 rounded-xl border-2 border-dashed border-default-300 p-2">
-                  <img
-                    src={imagePreviews[0] as string}
-                    //   alt="item"
-                    className="h-full w-full object-cover object-center rounded-md"
-                  />
-                </div>
+                {imagePreviews?.map((image, index) => (
+                  <div
+                    key={index}
+                    className="relative size-48 rounded-xl border-2 border-dashed border-default-300 p-2"
+                  >
+                    <img
+                      src={image as string}
+                      //   alt="item"
+                      className="h-full w-full object-cover object-center rounded-md"
+                    />
+                  </div>
+                ))}
               </div>
             )}
 

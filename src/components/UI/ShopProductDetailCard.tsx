@@ -9,6 +9,7 @@ import {
   Tab,
   Card,
   Avatar,
+  Divider,
 } from "@nextui-org/react";
 import Image from "next/image";
 import { useUser } from "@/src/context/user.provider";
@@ -38,6 +39,7 @@ import { useRouter } from "next/navigation";
 import RelatedProduct from "./RelatedProduct";
 import { recentViewedProductsStore } from "@/src/utils/recentViewedProductsStore";
 import moment from "moment";
+import ShopRedirect from "./ShopRedirect";
 
 const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
   const { user, isLoading } = useUser();
@@ -105,133 +107,74 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
     <div className="">
       {product && (
         <NextUiCard isFooterBlurred className="  ">
-          <CardHeader className="w-full flex-col items-start">
-            {product && (
-              <Image
-                width={1000}
-                height={300}
-                src={product?.img}
-                alt="Recipe image"
-              />
-            )}
-            <h4 className="mt-1 rounded p-1 text-base md:text-lg font-medium flex ">
-              Brand:
-              <p
-                onClick={() => router.push(`/shop/${product?.shopId}`)}
-                className="cursor-pointer hover:text-green-500 ml-2"
-              >
-                {product?.shop?.name}
-              </p>
-            </h4>
-            <div className=" w-full">
-              <h4 className="mt-2 rounded  p-1 text-lg sm:text-xl md:text-xl font-medium text-purple-500">
-                {product.name}
-              </h4>
-              <h4 className="mt-1 rounded  p-1 text-base md:text-base font-medium">
-                Category: {product?.category?.name}
-              </h4>
-              <h4 className="mt-1 rounded  p-1 text-base md:text-base font-medium">
-                Price: {product?.price}
-              </h4>
-              <h4 className="mt-1 rounded  p-1 text-base md:text-base font-medium">
-                Quantity: {product?.quantity}
-              </h4>
-              {product?.discount > 0 && (
-                <h4 className="mt-1 rounded  p-1 text-base md:text-base font-medium">
-                  Discount: {product?.discount}
-                </h4>
-              )}
-              <h4 className="mt-2 rounded flex items-center p-1 text-base md:text-base font-medium text-green-500">
-                Rating: {averageRating}/5
-              </h4>
-            </div>
-            <div className="my-2 rounded  p-1 lg:text-lg font-medium flex justify-center ">
-              <p>{product?.description}</p>
-            </div>
-
+          <CardHeader className="w-full flex-col items-start grid md:grid-cols-2">
             <div>
-              <p className="text-green-500"> Reviews:</p>
-              {product?.review?.length < 1 && "No Reviews"}
-              {product?.review &&
-                product?.review?.length > 0 &&
-                product?.review?.map((review) => (
-                  <div key={review.id} className="my-2">
-                    <p className="flex gap-2">
-                      Comment as: {review?.user?.name}{" "}
-                      {/* {user?.id === review.user.id && (
-                        <DeleteIcon
-                          className="text-red-500"
-                          onClick={() => handleDeleteReview(review.id)}
-                        />
-                      )} */}
-                    </p>
-                    <p key={review.id} className="flex items-center">
-                      {" "}
-                      <CornerDownRight /> {review.comment}
-                    </p>
+              <div>
+                {product && (
+                  <Image
+                    width={1000}
+                    height={300}
+                    src={product?.img[0]}
+                    alt="Recipe image"
+                  />
+                )}
+              </div>
+              <div></div>
+            </div>
+            <div>
+              <h4 className="mt-1 rounded p-1 text-sm font-semibold text-gray-400 flex ">
+                {product?.category?.name}
+              </h4>
+              <div className=" w-full">
+                <h4 className="mt-1 rounded text-xl font-bold">
+                  <ShopRedirect shop={product?.shop} />
+                </h4>
+                <h4 className="mt-1 rounded text-xl font-bold">
+                  {product.name}
+                </h4>
 
-                    <div className="my-1 rounded  p-1 lg:text-lg font-medium flex">
-                      {review?.shopResponse[0]?.response && (
-                        <p className="ml-2 flex">
-                          <span className="text-lg text-purple-500 flex">
-                            <CornerDownRight />{" "}
-                            {`${review?.shopResponse[0]?.shop?.name}: `}
-                          </span>
-                          {review?.shopResponse[0]?.response}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                ))}
+                <div className="flex items-center pt-2">
+                  <p className="flex">
+                    <StarIcon
+                      size={16}
+                      className={`${Number(averageRating) > 0 ? "text-yellow-400" : "text-gray-400"}`}
+                    />
+                    <StarIcon
+                      size={16}
+                      className={`${Number(averageRating) > 1 ? "text-yellow-400" : "text-gray-400"}`}
+                    />
+                    <StarIcon
+                      size={16}
+                      className={`${Number(averageRating) > 2 ? "text-yellow-400" : "text-gray-400"}`}
+                    />
+                    <StarIcon
+                      size={16}
+                      className={`${Number(averageRating) > 3 ? "text-yellow-400" : "text-gray-400"}`}
+                    />
+                    <StarIcon
+                      size={16}
+                      className={`${Number(averageRating) > 4 ? "text-yellow-400" : "text-gray-400"}`}
+                    />
+                  </p>
+                  <p className="pl-2">{product?.rating?.length}</p>
+                </div>
+
+                <h4 className="mt-1 rounded  p-1 text-xl font-bold text-secondary-500">
+                  ${product?.price}
+                </h4>
+                <h4 className="mt-1 rounded  p-1 text-base md:text-base font-medium">
+                  Quantity: {product?.quantity}
+                </h4>
+                {product?.discount > 0 && (
+                  <h4 className="mt-1 rounded  p-1 text-base md:text-base font-medium">
+                    Discount: {product?.discount}
+                  </h4>
+                )}
+              </div>
             </div>
           </CardHeader>
+
           <CardBody>
-            <div className="my-6 flex items-center">
-              <Minus
-                onClick={() => {
-                  if (rate !== 1) {
-                    setRate(rate - 1);
-                  }
-                }}
-                className="mr-2"
-              />
-              <p className="text-purple-500 font-bold flex justify-center items-center gap-1">
-                {rate} <Star size={"18"} />
-              </p>
-              <Plus
-                onClick={() => {
-                  if (rate !== 5) {
-                    setRate(rate + 1);
-                  }
-                }}
-                className="mx-2"
-              />
-              <Button
-                onPress={() => handleRating(product?.id)}
-                size="sm"
-                variant="flat"
-              >
-                Rate Now
-              </Button>
-            </div>
-
-            {user?.role === "USER" &&
-              product?.review?.find((review) => review?.userId === user?.id)
-                ?.userId !== user?.id && (
-                <div className="my-6 ">
-                  <h1>Leave a review</h1>
-                  <div className="">
-                    <ESForm onSubmit={onSubmit}>
-                      <ESTextarea label="Type a comment" name="comment" />
-                      <p className="text-sm text-red-500">{commentError}</p>
-                      <Button className="my-4" type="submit" variant="bordered">
-                        Submit
-                      </Button>
-                    </ESForm>
-                  </div>
-                </div>
-              )}
-
             <div className="flex w-full flex-col">
               <Tabs aria-label="Dynamic tabs" items={tabs}>
                 <Tab key={"description"} title={"Description"}>
@@ -268,9 +211,37 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
                                 </p>
                               )}
                             </div>
+                            <Divider />
                           </div>
                         ))}
                       </div>
+
+                      {user?.role === "USER" &&
+                        product?.review?.find(
+                          (review) => review?.userId === user?.id
+                        )?.userId !== user?.id && (
+                          <div className="my-6 ">
+                            <h1>Leave a review</h1>
+                            <div className="">
+                              <ESForm onSubmit={onSubmit}>
+                                <ESTextarea
+                                  label="Type a comment"
+                                  name="comment"
+                                />
+                                <p className="text-sm text-red-500">
+                                  {commentError}
+                                </p>
+                                <Button
+                                  className="my-4"
+                                  type="submit"
+                                  variant="bordered"
+                                >
+                                  Submit
+                                </Button>
+                              </ESForm>
+                            </div>
+                          </div>
+                        )}
                     </CardBody>
                   </div>
                 </Tab>
@@ -310,6 +281,35 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
                           </div>
                         </div>
                         <div></div>
+                      </div>
+
+                      <div className="my-6 flex items-center">
+                        <Minus
+                          onClick={() => {
+                            if (rate !== 1) {
+                              setRate(rate - 1);
+                            }
+                          }}
+                          className="mr-2"
+                        />
+                        <p className="text-purple-500 font-bold flex justify-center items-center gap-1">
+                          {rate} <Star size={"18"} />
+                        </p>
+                        <Plus
+                          onClick={() => {
+                            if (rate !== 5) {
+                              setRate(rate + 1);
+                            }
+                          }}
+                          className="mx-2"
+                        />
+                        <Button
+                          onPress={() => handleRating(product?.id)}
+                          size="sm"
+                          variant="flat"
+                        >
+                          Rate Now
+                        </Button>
                       </div>
                     </CardBody>
                   </div>

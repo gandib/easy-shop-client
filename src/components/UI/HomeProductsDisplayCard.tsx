@@ -103,9 +103,9 @@ const HomeProductsDisplayCard = ({
               <CardHeader className="h-[150px] flex justify-center">
                 {data?.img && (
                   <Image
-                    width={150}
+                    width={200}
                     height={150}
-                    src={data?.img}
+                    src={data?.img[0]}
                     alt="Product image"
                   />
                 )}

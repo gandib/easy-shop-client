@@ -104,7 +104,7 @@ const ProductListing = ({
                   <Image
                     width={150}
                     height={200}
-                    src={data?.img}
+                    src={data?.img[0]}
                     alt="Product image"
                   />
                 )}

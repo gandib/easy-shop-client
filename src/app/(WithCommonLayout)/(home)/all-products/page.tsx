@@ -13,7 +13,7 @@ const AllProducts = async (searchParams: { searchParams: SearchParams }) => {
   console.log(category);
   return (
     <Container>
-      <h1 className="text-xl font-bold mb-4">All Products</h1>
+      <h1 className="text-2xl font-bold mb-4">All Products</h1>
       <AllProductsFilteringSearching
         products={allProducts}
         fromShop="allProducts"

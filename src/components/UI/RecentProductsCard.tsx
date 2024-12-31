@@ -91,7 +91,7 @@ const RecentProductsCard = ({
                     <Image
                       width={150}
                       height={150}
-                      src={data?.img}
+                      src={data?.img[0]}
                       alt="Product image"
                     />
                   )}
@@ -126,14 +126,14 @@ const RecentProductsCard = ({
                       </h4>
                     )}
                   </div>
-                  <div className="rounded text-base font-medium flex ">
+                  {/* <div className="rounded text-base font-medium flex ">
                     <div>
                       <p>
                         {data.description.slice(0, 100) +
                           `${data.description.length > 100 ? "..." : ""}`}
                       </p>
                     </div>
-                  </div>
+                  </div> */}
                 </CardBody>
 
                 <CardFooter className=" bottom-0 gap-2 justify-around border-t-1 border-zinc-100/50 bg-white/30">

@@ -126,7 +126,7 @@ const ShopProducts = ({
                   <Image
                     width={150}
                     height={150}
-                    src={data?.img}
+                    src={data?.img[0]}
                     alt="Product image"
                   />
                 )}
