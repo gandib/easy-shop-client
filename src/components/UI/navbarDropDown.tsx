@@ -66,6 +66,18 @@ const NavbarDropDown = () => {
     );
   };
 
+  const navigateProfile = () => {
+    router.push(
+      `${
+        user?.role === "USER"
+          ? "/user-dashboard/profile"
+          : user?.role === "ADMIN"
+            ? "/admin-dashboard/profile"
+            : "/vendor-dashboard/profile"
+      }`
+    );
+  };
+
   const navigateViewedProducts = () => {
     router.push(`/viewed-products`);
   };
@@ -82,6 +94,13 @@ const NavbarDropDown = () => {
           className=""
         >
           Dashboard
+        </DropdownItem>
+        <DropdownItem
+          onPress={navigateProfile} // Switch to onClick for testing
+          key="profile"
+          className=""
+        >
+          Profile
         </DropdownItem>
         <DropdownItem
           onPress={navigateViewedProducts} // Switch to onClick for testing

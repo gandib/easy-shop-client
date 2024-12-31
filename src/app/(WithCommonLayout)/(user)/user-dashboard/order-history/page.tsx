@@ -6,6 +6,7 @@ const OrderHistory = async () => {
 
   return (
     <div>
+      <h1 className="text-2xl font-bold mb-4">Order History</h1>
       <OrderHistoryCard orders={orders} />
     </div>
   );

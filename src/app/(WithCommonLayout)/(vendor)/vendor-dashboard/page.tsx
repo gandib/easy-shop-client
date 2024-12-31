@@ -1,9 +1,7 @@
-import UserProfile from "@/src/components/UI/UserProfile";
-
 const VendorDashboard = async () => {
   return (
     <div>
-      <UserProfile />
+      <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
     </div>
   );
 };

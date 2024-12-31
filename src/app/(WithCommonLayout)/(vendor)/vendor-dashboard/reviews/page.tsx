@@ -6,6 +6,7 @@ const ReviewsPage = async () => {
 
   return (
     <div>
+      <h1 className="text-2xl font-bold mb-4">Reviews</h1>
       <AllReviewsCard reviews={allReviews} />
     </div>
   );

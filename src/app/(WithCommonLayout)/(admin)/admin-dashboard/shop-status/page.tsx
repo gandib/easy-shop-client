@@ -6,6 +6,7 @@ const ShopStatus = async () => {
 
   return (
     <div>
+      <h1 className="text-2xl font-bold mb-4">Shop Status</h1>
       <ShopBlackListManageCard shops={allShops} />
     </div>
   );
