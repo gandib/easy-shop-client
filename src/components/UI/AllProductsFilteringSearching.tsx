@@ -2,16 +2,20 @@
 
 import { useUser } from "@/src/context/user.provider";
 import { useEffect, useState } from "react";
-import { Pagination, Slider } from "@nextui-org/react";
+import {
+  Pagination,
+  Slider,
+  RadioGroup,
+  Radio,
+  Input,
+} from "@nextui-org/react";
 import { FieldValues, useForm } from "react-hook-form";
 import useDebounce from "@/src/hooks/debounce.hook";
-import { Input } from "@nextui-org/react";
 import { SearchIcon } from "lucide-react";
 import { ICategory, IProduct } from "@/src/types";
 import { getAllProducts } from "@/src/services/ProductService";
-import { RadioGroup, Radio } from "@nextui-org/react";
-import AllProductsDisplayCard from "./AllProductsDisplayCard";
 import { getAllCategory } from "@/src/services/CategoryService";
+import AllProductsDisplayCard from "./AllProductsDisplayCard";
 
 export type queryParams = {
   name: string;
@@ -39,34 +43,22 @@ const AllProductsFilteringSearching = ({
   const [sort, setSort] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const { register, handleSubmit, watch } = useForm();
-  const [productData, setProductData] = useState<TProductMeta>({
-    meta: { page: 1, limit: 1, total: 1, totalPage: 1 },
-    data: [],
-  });
-  const [totalPage, setTotalPage] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const [productData, setProductData] = useState<TProductMeta>(products);
+  const [totalPage, setTotalPage] = useState(products.meta.totalPage);
   const [categories, setCategories] = useState("");
-  const [allCategories, setAllCategories] = useState([]);
+  const [allCategories, setAllCategories] = useState<ICategory[]>([]);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(0);
   const [sliderValue, setSliderValue] = useState<number | number[]>([]);
-  const [debouncedValue, setDebouncedValue] = useState<number | number[]>(
-    sliderValue
-  );
+  const searchText = useDebounce(watch("search"));
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      setDebouncedValue(sliderValue);
+      setMinPrice(Array.isArray(sliderValue) ? sliderValue[0] : 0);
+      setMaxPrice(Array.isArray(sliderValue) ? sliderValue[1] : 0);
     }, 500);
     return () => clearTimeout(handler);
   }, [sliderValue]);
-
-  useEffect(() => {
-    setMinPrice(Array.isArray(debouncedValue) ? debouncedValue[0] : 0);
-    setMaxPrice(Array.isArray(debouncedValue) ? debouncedValue[1] : 0);
-  }, [debouncedValue]);
-
-  const searchText = useDebounce(watch("search"));
 
   useEffect(() => {
     if (searchText || categories || minPrice || maxPrice) {
@@ -76,137 +68,103 @@ const AllProductsFilteringSearching = ({
 
   useEffect(() => {
     const query: queryParams[] = [];
-    if (limit) {
-      query.push({ name: "limit", value: limit });
+    if (limit) query.push({ name: "limit", value: limit });
+    if (sort) query.push({ name: "sort", value: sort });
+    if (searchText) query.push({ name: "searchTerm", value: searchText });
+    if (currentPage) query.push({ name: "page", value: currentPage });
+    if (categories || category) {
+      query.push({ name: "category", value: categories || category! });
     }
-    if (sort) {
-      query.push({ name: "sort", value: sort });
-    }
-    if (searchText) {
-      query.push({ name: "searchTerm", value: searchText });
-    }
-    if (currentPage) {
-      query.push({ name: "page", value: currentPage });
-    }
-    if (category || categories) {
-      if (categories) {
-        query.push({ name: "category", value: categories });
-      } else {
-        query.push({ name: "category", value: category! });
-      }
-    }
-    if (shopId) {
-      query.push({ name: "shop", value: shopId! });
-    }
-
+    if (shopId) query.push({ name: "shop", value: shopId! });
     if (minPrice || maxPrice) {
-      query.push({
-        name: "price",
-        value: `${minPrice}-${maxPrice}`,
-      });
+      query.push({ name: "price", value: `${minPrice}-${maxPrice}` });
     }
 
     const fetchData = async () => {
       const { data: allProducts } = await getAllProducts(query);
       setProductData(allProducts);
-      setTotalPage(allProducts?.meta?.totalPage);
+      setTotalPage(allProducts.meta.totalPage);
     };
 
     const categoryFetch = async () => {
       const { data: allCategory } = await getAllCategory();
       setAllCategories(allCategory);
     };
-    categoryFetch();
 
-    if (query.length > 0) {
-      fetchData();
-    }
-  }, [
-    user,
-    currentPage,
-    searchText,
-    sort,
-    totalPage,
-    loading,
-    category,
-    shopId,
-    categories,
-    minPrice,
-    maxPrice,
-  ]);
+    categoryFetch();
+    if (query.length > 0) fetchData();
+  }, [currentPage, searchText, sort, categories, minPrice, maxPrice]);
 
   const onSubmit = (data: FieldValues) => {};
 
-  if (isLoading) {
-    <p>Loading...</p>;
-  }
+  if (isLoading) return <p>Loading...</p>;
 
   return (
     <div className="grid xs:grid-cols-3 lg:grid-cols-4 md:grid-cols-3 gap-4">
-      <div className="col-span-1 border-2 rounded-lg p-2 h-[400px]">
-        <RadioGroup
-          label="Select category"
-          onChange={(e) => setCategories(e.target.value)}
-        >
-          {allCategories &&
-            allCategories?.length > 0 &&
-            allCategories?.map((cat: ICategory) => (
-              <Radio key={cat?.id} value={cat?.name}>
-                {cat?.name}
+      <div className="col-span-1">
+        <div className="sticky top-4 bg-gray-100 rounded-lg p-4 shadow-md h-full">
+          <div className="mb-6">
+            <h2 className="text-lg font-semibold mb-2">Filter by Category</h2>
+            <RadioGroup
+              label="Categories"
+              orientation="vertical"
+              className="space-y-2"
+              onChange={(e) => setCategories(e.target.value)}
+            >
+              {allCategories.map((cat) => (
+                <Radio key={cat.id} value={cat.name} className="text-sm">
+                  {cat.name}
+                </Radio>
+              ))}
+              <Radio value="" className="text-sm">
+                All
               </Radio>
-            ))}
-          <Radio value="">All</Radio>
-        </RadioGroup>
-
-        <div className="pr-4 pt-4 text-base">
-          <Slider
-            className="max-w-md text-base"
-            defaultValue={[100, 100000]}
-            // formatOptions={{ style: "currency", currency: "BDT" }}
-            label="Price Range"
-            maxValue={500000}
-            minValue={0}
-            step={50}
-            onChange={(value) => {
-              setSliderValue(value);
-            }}
-          />
+            </RadioGroup>
+          </div>
+          <div>
+            <h2 className="text-lg font-semibold mb-2">Filter by Price</h2>
+            <Slider
+              className="max-w-full"
+              defaultValue={[100, 100000]}
+              label="Price Range"
+              maxValue={500000}
+              minValue={0}
+              step={50}
+              onChange={(value) => setSliderValue(value)}
+            />
+            <div className="flex justify-between mt-2 text-sm">
+              <span>Min: {minPrice}</span>
+              <span>Max: {maxPrice}</span>
+            </div>
+          </div>
         </div>
       </div>
+
       <div className="lg:col-span-3 md:col-span-2 xs:col-span-2">
         <div className="my-2">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex-1">
-              <Input
-                {...register("search")}
-                aria-label="Search"
-                classNames={{
-                  inputWrapper: "bg-default-100",
-                  input: "text-sm",
-                }}
-                placeholder="Search Product..."
-                size="lg"
-                startContent={
-                  <SearchIcon className="pointer-events-none flex-shrink-0 text-base text-default-400" />
-                }
-                type="text"
-              />
-            </div>
+            <Input
+              {...register("search")}
+              aria-label="Search"
+              placeholder="Search Product..."
+              size="lg"
+              startContent={
+                <SearchIcon className="pointer-events-none flex-shrink-0 text-base text-default-400" />
+              }
+              type="text"
+            />
           </form>
         </div>
-
-        {products?.data?.length > 0 || productData?.data?.length > 0 ? (
+        {productData.data.length > 0 ? (
           <AllProductsDisplayCard
-            products={productData || products}
-            // setLoading={setLoading}
+            products={productData}
             category={category}
             fromShop={fromShop}
           />
         ) : (
           <p>No Product available!</p>
         )}
-
-        {productData?.data?.length > 0 && (
+        {productData.data.length > 0 && (
           <div className="mt-5 flex justify-center items-center">
             <Pagination
               total={totalPage}

@@ -18,7 +18,11 @@ const ProductUpdateButton = ({ id }: { id: string }) => {
   }
 
   return (
-    <Button size="sm" onPress={() => handleUpdate()}>
+    <Button
+      className="bg-primary-500 text-white"
+      size="sm"
+      onPress={() => handleUpdate()}
+    >
       Update
     </Button>
   );

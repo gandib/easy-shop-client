@@ -36,7 +36,7 @@ export const getAllProducts = async (query: queryParams[]) => {
       method: "GET",
       cache: "no-store",
       //   headers: {
-      //     Authorization: `${token}`,
+      //     Authorization: `Bearer ${token}`,
       //   },
     });
 
@@ -63,7 +63,7 @@ export const getAllProductsByFollowedUser = async (query: queryParams[]) => {
       method: "GET",
       cache: "no-store",
       headers: {
-        Authorization: `${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -90,7 +90,7 @@ export const getAllProductsByShopId = async (query: queryParams[]) => {
       method: "GET",
       cache: "no-store",
       headers: {
-        Authorization: `${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -123,7 +123,7 @@ export const getSingleProduct = async (id: string) => {
   fetchOptions = {
     cache: "no-store",
     headers: {
-      Authorization: `${token}`,
+      Authorization: `Bearer ${token}`,
     },
   };
   const res = await fetch(`${envConfig.baseApi}/product/${id}`, fetchOptions);

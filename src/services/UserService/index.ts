@@ -34,7 +34,7 @@ export const getAllUser = async () => {
       method: "GET",
       cache: "no-store",
       headers: {
-        Authorization: `${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -55,7 +55,7 @@ export const getUserByEmail = async () => {
       method: "GET",
       cache: "no-store",
       headers: {
-        Authorization: `${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 

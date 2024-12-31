@@ -1,14 +1,9 @@
-import VendorProductCard from "@/src/components/UI/VendorProductCard";
-import { getAllProductsByShopId } from "@/src/services/ProductService";
+import UserProfile from "@/src/components/UI/UserProfile";
 
 const VendorDashboard = async () => {
-  const { data: allProducts } = await getAllProductsByShopId([
-    { name: "limit", value: 10 },
-  ]);
-
   return (
     <div>
-      <VendorProductCard products={allProducts} />
+      <UserProfile />
     </div>
   );
 };

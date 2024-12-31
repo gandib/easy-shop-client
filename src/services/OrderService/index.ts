@@ -37,7 +37,7 @@ export const getAllOrder = async (query: queryParams[]) => {
       method: "GET",
       cache: "no-store",
       headers: {
-        Authorization: `${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -58,7 +58,7 @@ export const getOrderById = async (id: string) => {
       method: "GET",
       cache: "no-store",
       headers: {
-        Authorization: `${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 

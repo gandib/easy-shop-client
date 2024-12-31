@@ -29,7 +29,7 @@ export const getAllCategory = async () => {
       method: "GET",
       cache: "no-store",
       //   headers: {
-      //     Authorization: `${token}`,
+      //     Authorization: `Bearer ${token}`,
       //   },
     });
 
@@ -50,7 +50,7 @@ export const getCategoryById = async (id: string) => {
       method: "GET",
       cache: "no-store",
       headers: {
-        Authorization: `${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 

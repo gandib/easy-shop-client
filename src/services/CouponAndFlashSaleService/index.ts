@@ -45,7 +45,7 @@ export const getAllCoupon = async () => {
       method: "GET",
       cache: "no-store",
       headers: {
-        Authorization: `${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -66,7 +66,7 @@ export const getAllFlashSale = async () => {
       method: "GET",
       cache: "no-store",
       headers: {
-        Authorization: `${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -85,7 +85,7 @@ export const getSingleCoupon = async (id: string) => {
   fetchOptions = {
     cache: "no-store",
     headers: {
-      Authorization: `${token}`,
+      Authorization: `Bearer ${token}`,
     },
   };
   const res = await fetch(`${envConfig.baseApi}/coupon/${id}`, fetchOptions);
@@ -103,7 +103,7 @@ export const getSingleFlashSale = async (id: string) => {
   fetchOptions = {
     cache: "no-store",
     headers: {
-      Authorization: `${token}`,
+      Authorization: `Bearer ${token}`,
     },
   };
   const res = await fetch(

@@ -84,7 +84,7 @@ const VendorProductCard = ({
   }
   return (
     <div>
-      <div className="grid lg:grid-cols-2 gap-2 grow relative">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2 grow relative">
         {productData &&
           productData?.data?.length > 0 &&
           productData?.data?.map((data: IProduct) => (
@@ -93,10 +93,10 @@ const VendorProductCard = ({
               isFooterBlurred
               className=" hover:shadow-2xl "
             >
-              <CardHeader className=" ">
+              <CardHeader className=" flex items-center justify-center">
                 {data?.img && (
                   <Image
-                    width={500}
+                    width={150}
                     height={200}
                     src={data?.img}
                     alt="Product image"

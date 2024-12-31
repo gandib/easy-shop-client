@@ -99,10 +99,10 @@ const ProductListing = ({
               isFooterBlurred
               className=" hover:shadow-2xl "
             >
-              <CardHeader className=" ">
+              <CardHeader className=" flex items-center justify-center">
                 {data?.img && (
                   <Image
-                    width={500}
+                    width={150}
                     height={200}
                     src={data?.img}
                     alt="Product image"

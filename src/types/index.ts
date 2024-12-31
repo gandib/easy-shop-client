@@ -162,6 +162,7 @@ export interface IRating {
 export interface ICategory {
   id: string;
   name: string;
+  img: string;
   isDeleted: boolean;
   createdAt: string;
   updatedAt: string;
