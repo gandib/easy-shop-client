@@ -39,12 +39,12 @@ export const DashboardNavbar = () => {
   }
 
   return (
-    <NextUINavbar className="bg-primary-50" maxWidth="2xl" position="sticky">
+    <NextUINavbar className="bg-gray-700" maxWidth="full" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
-            <Logo />
-            <p className="font-bold text-base  text-inherit text-secondary-900">
+            <Logo className="text-white" />
+            <p className="font-bold text-base  text-inherit text-white">
               EasyShop
             </p>
           </NextLink>
@@ -68,7 +68,7 @@ export const DashboardNavbar = () => {
               className="text-primary-800 font-bold text-base"
               href="/user-dashboard/cart"
             >
-              <ShoppingCart />
+              <ShoppingCart className="text-white" />
             </Link>
           </NavbarItem>
         )}

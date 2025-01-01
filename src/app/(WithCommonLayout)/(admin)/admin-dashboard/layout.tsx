@@ -6,7 +6,7 @@ import { DashboardNavbar } from "@/src/components/UI/DashboardNavbar";
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="container mx-auto max-w-7xl px-6 flex-grow min-h-screen">
+    <div className="container mx-auto  px-6 flex-grow min-h-screen">
       <DashboardNavbar />
       <div className="md:hidden">
         <SidebarMenu links={adminLinks} />
