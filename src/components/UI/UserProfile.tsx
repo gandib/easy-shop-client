@@ -7,7 +7,7 @@ const UserProfile = async () => {
     <div className="p-8 bg-gray-50 min-h-screen">
       <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
         <h2 className="text-3xl font-semibold text-gray-800 mb-6">
-          User Profile
+          My Profile
         </h2>
 
         <div className="flex items-center space-x-8 border-b pb-6 mb-6">

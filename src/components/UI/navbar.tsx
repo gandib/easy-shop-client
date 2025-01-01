@@ -24,7 +24,7 @@ import { ChevronDown, ShoppingCart } from "lucide-react";
 export const Navbar = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const { user, setIsLoading } = useUser();
+  const { user, setIsLoading, isLoading } = useUser();
   const [showMegaMenu, setShowMegaMenu] = useState(false);
 
   // const handleLogout = () => {
@@ -52,6 +52,10 @@ export const Navbar = () => {
       console.error("Error during logout:", error);
     }
   };
+
+  if (isLoading) {
+    <p>Loading...</p>;
+  }
 
   return (
     <NextUINavbar className="bg-primary-50" maxWidth="2xl" position="sticky">

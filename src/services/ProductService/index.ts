@@ -43,7 +43,7 @@ export const getAllProducts = async (query: queryParams[]) => {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error fetching my recipes:", error);
+    console.error("Error fetching:", error);
     throw error;
   }
 };
@@ -70,7 +70,7 @@ export const getAllProductsByFollowedUser = async (query: queryParams[]) => {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error fetching my recipes:", error);
+    console.error("Error fetching:", error);
     throw error;
   }
 };
@@ -97,7 +97,7 @@ export const getAllProductsByShopId = async (query: queryParams[]) => {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error fetching my recipes:", error);
+    console.error("Error fetching:", error);
     throw error;
   }
 };

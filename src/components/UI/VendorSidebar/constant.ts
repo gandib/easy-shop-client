@@ -1,5 +1,5 @@
 export const vendorLinks = [
-  { href: "/vendor-dashboard", label: "Dashboard" },
+  { href: "/vendor-dashboard", label: "Overview" },
   { href: "/vendor-dashboard/create-shop", label: "Create Shop" },
   { href: "/vendor-dashboard/update-shop", label: "Update Shop" },
   { href: "/vendor-dashboard/all-products", label: "All Products" },

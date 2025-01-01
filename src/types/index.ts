@@ -204,3 +204,7 @@ export interface IPayment {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface INewsletter {
+  email: string;
+}

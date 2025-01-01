@@ -195,7 +195,8 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
                   </h4>
                 )}
                 <h4 className="mt-1 rounded  p-1 text-xl font-medium">
-                  Short Description: {product?.description.slice(0, 300)}
+                  <span className="font-bold">Short Description:</span>{" "}
+                  {product?.description.slice(0, 300)}
                   {product?.description.length > 300 && "..."}
                 </h4>
               </div>

@@ -23,40 +23,42 @@ const SidebarMenu = ({ links }: { links: TLinks[] }) => {
   };
 
   return (
-    <div>
-      <Popover
-        isOpen={isOpen}
-        onOpenChange={setIsOpen}
-        placement="bottom-start"
-        color="secondary"
-      >
-        <PopoverTrigger>
-          <Button
-            color="secondary"
-            variant="flat"
-            className="capitalize"
-            onPress={handleMenuClick}
-          >
-            <Menu />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent>
-          <div className="px-1 py-2 text-black">
-            <div className="grid grid-cols-1">
-              {links?.map((link) => (
-                <Link
-                  key={link?.href}
-                  onClick={handleClose}
-                  className="p-2 text-white"
-                  href={link?.href}
-                >
-                  {link?.label}
-                </Link>
-              ))}
+    <div className="">
+      <div>
+        <Popover
+          isOpen={isOpen}
+          onOpenChange={setIsOpen}
+          placement="bottom-start"
+          color="secondary"
+        >
+          <PopoverTrigger>
+            <Button
+              color="secondary"
+              variant="flat"
+              className="capitalize"
+              // onPress={handleMenuClick}
+            >
+              <Menu />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent>
+            <div className="px-1 py-2 text-black">
+              <div className="grid grid-cols-1">
+                {links?.map((link) => (
+                  <Link
+                    key={link?.href}
+                    // onClick={handleClose}
+                    className="p-2 text-white"
+                    href={link?.href}
+                  >
+                    {link?.label}
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
-        </PopoverContent>
-      </Popover>
+          </PopoverContent>
+        </Popover>
+      </div>
     </div>
   );
 };

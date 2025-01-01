@@ -22,6 +22,27 @@ export const createNewsletter = async (newsletterData: FieldValues) => {
   }
 };
 
+export const getAllNewsletter = async () => {
+  const url = `${envConfig.baseApi}/newsletter`;
+  const token = (await cookies()).get("accessToken")?.value;
+
+  try {
+    const res = await fetch(url, {
+      method: "GET",
+      cache: "no-store",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching:", error);
+    throw error;
+  }
+};
+
 export const deleteNewsletterByEmail = async (email: string) => {
   try {
     const { data } = await axiosInstance.delete(`/newsletter/${email}`);

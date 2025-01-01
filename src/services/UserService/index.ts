@@ -41,7 +41,7 @@ export const getAllUser = async () => {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error fetching my recipes:", error);
+    console.error("Error fetching:", error);
     throw error;
   }
 };
@@ -62,7 +62,7 @@ export const getUserByEmail = async () => {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error fetching my recipes:", error);
+    console.error("Error fetching:", error);
     throw error;
   }
 };

@@ -44,7 +44,7 @@ export const getAllOrder = async (query: queryParams[]) => {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error fetching my recipes:", error);
+    console.error("Error fetching:", error);
     throw error;
   }
 };
@@ -65,7 +65,7 @@ export const getOrderById = async (id: string) => {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error fetching my recipes:", error);
+    console.error("Error fetching:", error);
     throw error;
   }
 };

@@ -270,7 +270,7 @@ const CartPage = () => {
           </div>
 
           <div className="flex justify-end">
-            <Button onClick={() => handleCheckout()}>
+            <Button onPress={() => handleCheckout()}>
               Proceed to Checkout
             </Button>
           </div>

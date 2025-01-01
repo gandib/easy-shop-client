@@ -1,18 +1,13 @@
-"use client";
 import AdminSidebar from "@/src/components/UI/AdminSidebar";
 import { adminLinks } from "@/src/components/UI/AdminSidebar/constant";
-import Container from "@/src/components/UI/Container";
-import ProfileSidebar from "@/src/components/UI/VendorSidebar";
 import SidebarMenu from "@/src/components/UI/SidebarMenu";
 import React from "react";
-import { useRouter } from "next/navigation";
-import { Home } from "lucide-react";
+import { DashboardNavbar } from "@/src/components/UI/DashboardNavbar";
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
-  const router = useRouter();
   return (
-    <Container>
-      <Home onClick={() => router.push("/")} />
+    <div className="container mx-auto max-w-7xl px-6 flex-grow min-h-screen">
+      <DashboardNavbar />
       <div className="md:hidden">
         <SidebarMenu links={adminLinks} />
       </div>
@@ -24,7 +19,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
         <div className="w-11/12 md:5/6">{children}</div>
       </div>
-    </Container>
+    </div>
   );
 };
 

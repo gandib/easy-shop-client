@@ -52,7 +52,7 @@ export const getAllCoupon = async () => {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error fetching my recipes:", error);
+    console.error("Error fetching:", error);
     throw error;
   }
 };
@@ -73,7 +73,7 @@ export const getAllFlashSale = async () => {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error fetching my recipes:", error);
+    console.error("Error fetching:", error);
     throw error;
   }
 };
