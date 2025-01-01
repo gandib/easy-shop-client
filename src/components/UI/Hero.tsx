@@ -87,11 +87,11 @@ const Hero = () => {
                     key={product.id}
                     className="flex hover:bg-primary-100 cursor-pointer items-center justify-between py-2 border-b"
                   >
-                    <p className="text-gray-800 hover:text-white  font-semibold">
+                    <p className="text-gray-800  font-semibold">
                       {product.name}
                     </p>
-                    <Eye className="hidden" />
-                    <span className="text-gray-600 hover:text-white ">{`$${product.price}`}</span>
+                    <Eye className=" text-white hover:text-primary-500" />
+                    <span className="text-gray-600  ">{`$${product.price}`}</span>
                   </div>
                 ))
               ) : (
