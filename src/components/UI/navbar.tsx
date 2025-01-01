@@ -7,6 +7,7 @@ import {
   NavbarBrand,
   NavbarItem,
   NavbarMenuItem,
+  Input,
 } from "@nextui-org/react";
 import { Link } from "@nextui-org/react";
 import NextLink from "next/link";
