@@ -121,7 +121,7 @@ const ShopProducts = ({
               isFooterBlurred
               className=" hover:shadow-2xl "
             >
-              <CardHeader className="h-[250px] px-0 py-0 w-full flex justify-center">
+              <CardHeader className="h-[200px] px-0 py-0 w-full flex justify-center">
                 {data?.img && (
                   <Image
                     width={500}

@@ -32,7 +32,7 @@ const Home = async () => {
   return (
     <div className=" ">
       <Hero />
-      <div className="container mx-auto max-w-7xl pt-8 flex-grow px-6 min-h-screen">
+      <div className="container mx-auto max-w-7xl flex-grow px-6 min-h-screen">
         <PrioritizeProducts products={allPrioritizeProducts} />
         <HomeFlashSale />
         <CategoryDisplay category={allCategory} />

@@ -52,10 +52,10 @@ const PrioritizeProducts = ({
     <p>Loading...</p>;
   }
   return (
-    <>
+    <div className="">
       {user?.role === "USER" &&
         (products?.data?.length > 0 || productData?.data?.length > 0) && (
-          <div>
+          <div className="pt-8">
             <h1 className="text-2xl font-bold my-6">Prioritize Products</h1>
             {products?.data?.length > 0 || productData?.data?.length > 0 ? (
               <AllProductsDisplayCard
@@ -81,7 +81,7 @@ const PrioritizeProducts = ({
             )} */}
           </div>
         )}
-    </>
+    </div>
   );
 };
 
