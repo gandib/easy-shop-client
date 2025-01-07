@@ -7,7 +7,7 @@ import { getAllOrder } from "@/src/services/OrderService";
 
 const UserDashboard = async () => {
   const { data: allOrder } = await getAllOrder([{ name: "limit", value: 10 }]);
-  console.log(allOrder?.data[0]?.orderItem);
+
   return (
     <Container>
       <h1 className="text-2xl font-bold mb-4">Overview</h1>

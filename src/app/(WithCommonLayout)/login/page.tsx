@@ -13,6 +13,8 @@ import { useUser } from "@/src/context/user.provider";
 import { useEffect, useState } from "react";
 import loginValidationSchema from "@/src/schemas/login.schemas";
 import "../../../../src/styles/animation.css";
+import loginPic from "@/src/assets/login2.jpg";
+import Image from "next/image";
 
 const Login = () => {
   const searchParams = useSearchParams();
@@ -57,9 +59,12 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen">
-      {isPending && <Loading />}
+    <div className="min-h-screen flex justify-center items-center">
+      <div className="hidden lg:flex">
+        <Image src={loginPic} width={1000} height={1000} alt="login" />
+      </div>
       <div className="flex h-[calc(100vh-200px)] w-full flex-col items-center justify-center">
+        {isPending && <Loading />}
         <h3 className="my-2 text-2xl font-bold">Login with Easy Shop</h3>
         <p>Welcome Back! Let&lsquo;s Get Started</p>
         <div className="flex p-2">
@@ -95,7 +100,7 @@ const Login = () => {
             Admin
           </Button>
         </div>
-        <div className="md:w-[50%] lg:w-[35%] w-[80%]">
+        <div className="md:w-[50%] lg:w-[60%] w-[80%]">
           <ESForm onSubmit={handleSubmit(onSubmit)}>
             <div className="py-3">
               <ESInput
