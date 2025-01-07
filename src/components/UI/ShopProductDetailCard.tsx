@@ -108,7 +108,7 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
     <div className="">
       {product && (
         <NextUiCard isFooterBlurred className="  ">
-          <CardHeader className="w-full flex-col items-start grid md:grid-cols-2 gap-2">
+          <CardHeader className="w-full flex-col items-start grid md:grid-cols-2 gap-4">
             <div>
               <div className="h-[400px] px-0 py-0 w-full flex justify-center">
                 {product && (
