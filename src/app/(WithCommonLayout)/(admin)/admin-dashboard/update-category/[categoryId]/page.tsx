@@ -1,4 +1,5 @@
 import CategoryManagementCard from "@/src/components/UI/CategoryManagementCard";
+import Container from "@/src/components/UI/Container";
 import { getCategoryById } from "@/src/services/CategoryService";
 
 type Params = Promise<{ categoryId: string }>;
@@ -8,9 +9,9 @@ const UpdateCategory = async (params: { params: Params }) => {
   const { data: category } = await getCategoryById(categoryId);
 
   return (
-    <div>
+    <Container>
       <CategoryManagementCard title="Update" category={category} />
-    </div>
+    </Container>
   );
 };
 

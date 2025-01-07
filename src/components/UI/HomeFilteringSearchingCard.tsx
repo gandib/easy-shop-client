@@ -147,7 +147,7 @@ const HomeFilteringSearchingCard = ({
 
   return (
     <div className="pt-8">
-      <h1 className="text-2xl font-bold mt-10 mb-2">Featured Products</h1>
+      <h1 className="text-2xl font-bold mt-10 my-6">Featured Products</h1>
       <div className="">
         {productData?.data?.length > 0 ? (
           <HomeProductsDisplayCard

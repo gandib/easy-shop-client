@@ -14,9 +14,9 @@ const AdminSidebar = () => {
 
   return (
     <div className="">
-      <div className="mt-3 w-4 space-y-2 min-h-screen rounded-xl bg-default-100">
+      <div className="mt-3 w-4 space-y-2 min-h-screen rounded-xl text-white">
         {isLoading && (
-          <div className="  fixed w-1/4 h-14 rounded-md  flex justify-center items-center">
+          <div className="fixed w-1/4 h-14 rounded-md  flex justify-center items-center">
             <Spinner />
           </div>
         )}

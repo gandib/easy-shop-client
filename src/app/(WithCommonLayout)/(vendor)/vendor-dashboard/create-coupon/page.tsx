@@ -1,10 +1,11 @@
+import Container from "@/src/components/UI/Container";
 import CouponManagementCard from "@/src/components/UI/CouponManagementCard";
 
 const CreateCoupon = () => {
   return (
-    <div>
+    <Container>
       <CouponManagementCard title="Create" />
-    </div>
+    </Container>
   );
 };
 

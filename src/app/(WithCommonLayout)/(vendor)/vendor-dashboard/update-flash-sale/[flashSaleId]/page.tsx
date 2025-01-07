@@ -1,3 +1,4 @@
+import Container from "@/src/components/UI/Container";
 import FlashSaleManagementCard from "@/src/components/UI/FlashSaleManagementCard";
 import { getSingleFlashSale } from "@/src/services/CouponAndFlashSaleService";
 
@@ -7,9 +8,9 @@ const UpdateFlashSale = async (params: { params: Params }) => {
   const flashSaleId = (await params.params).flashSaleId;
   const { data: flashSale } = await getSingleFlashSale(flashSaleId);
   return (
-    <div>
+    <Container>
       <FlashSaleManagementCard title="Update" flashSale={flashSale} />
-    </div>
+    </Container>
   );
 };
 

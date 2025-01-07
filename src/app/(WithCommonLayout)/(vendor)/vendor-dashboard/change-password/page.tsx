@@ -8,6 +8,7 @@ import { Button } from "@nextui-org/react";
 import { FieldValues } from "react-hook-form";
 import { useChangePassword } from "@/src/hooks/auth.hook";
 import { useRouter } from "next/navigation";
+import Container from "@/src/components/UI/Container";
 
 export default function ChangePassword() {
   const {
@@ -35,29 +36,31 @@ export default function ChangePassword() {
   }
 
   return (
-    <div className="flex mt-6 w-full flex-col items-center justify-center ">
-      <h3 className="my-2 text-2xl font-bold">Update Password</h3>
-      <div className="w-full md:w-[80%]">
-        <ESForm
-          onSubmit={onSubmit}
-          // resolver={zodResolver(userValidationSchema)}
-        >
-          <div className="py-3">
-            <ESInput name="oldPassword" label="Old Password" size="sm" />
-          </div>
-          <div className="py-3">
-            <ESInput name="newPassword" label="New Password" size="sm" />
-          </div>
-
-          <Button
-            className="my-3 w-full rounded-md bg-default-900 font-semibold text-default"
-            size="lg"
-            type="submit"
+    <Container>
+      <div className="flex w-full flex-col items-center justify-center ">
+        <h3 className="my-2 text-2xl font-bold">Update Password</h3>
+        <div className="w-full md:w-[80%]">
+          <ESForm
+            onSubmit={onSubmit}
+            // resolver={zodResolver(userValidationSchema)}
           >
-            Update
-          </Button>
-        </ESForm>
+            <div className="py-3">
+              <ESInput name="oldPassword" label="Old Password" size="sm" />
+            </div>
+            <div className="py-3">
+              <ESInput name="newPassword" label="New Password" size="sm" />
+            </div>
+
+            <Button
+              className="my-3 w-full rounded-md bg-default-900 font-semibold text-default"
+              size="lg"
+              type="submit"
+            >
+              Update
+            </Button>
+          </ESForm>
+        </div>
       </div>
-    </div>
+    </Container>
   );
 }

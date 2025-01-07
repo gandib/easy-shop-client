@@ -120,6 +120,7 @@ const CompareCard = ({
 
   return (
     <div>
+      <h1 className="text-2xl font-bold mb-6">Compare Products</h1>
       <div className="grid sm:grid-cols-3 mb-2">
         <div>
           <Select className="max-w-xs" label="Select Product">

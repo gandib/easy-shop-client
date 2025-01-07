@@ -1,3 +1,4 @@
+import Container from "@/src/components/UI/Container";
 import PayNowCard from "@/src/components/UI/PayNowCard";
 import { getOrderById } from "@/src/services/OrderService";
 import { Button } from "@nextui-org/react";
@@ -9,7 +10,7 @@ const CheckoutPage = async (params: { params: Params }) => {
   const { data: order } = await getOrderById(orderId);
 
   return (
-    <div>
+    <Container>
       {order && order?.paymentStatus !== "PAID" ? (
         <div>
           <h1 className="flex justify-center items-center text-2xl font-bold">
@@ -26,7 +27,7 @@ const CheckoutPage = async (params: { params: Params }) => {
       ) : (
         <p className="text-xl">No payment pending</p>
       )}
-    </div>
+    </Container>
   );
 };
 

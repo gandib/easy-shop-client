@@ -1,3 +1,4 @@
+import Container from "@/src/components/UI/Container";
 import VendorProductCard from "@/src/components/UI/VendorProductCard";
 import { getAllProductsByShopId } from "@/src/services/ProductService";
 
@@ -7,10 +8,10 @@ const AllProducts = async () => {
   ]);
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-4">All Products</h1>
+    <Container>
+      <h1 className="text-2xl font-bold mb-6">All Products</h1>
       <VendorProductCard products={allProducts} />
-    </div>
+    </Container>
   );
 };
 

@@ -37,7 +37,7 @@ const HomeFlashSale = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold pt-8 mb-2">Flash Sale</h1>
+      <h1 className="text-2xl font-bold pt-8 my-6">Flash Sale</h1>
       <FlashSaleCard products={flashSale!} fromShop="homeFlash" />
       <div className="flex justify-center items-center">
         <Button

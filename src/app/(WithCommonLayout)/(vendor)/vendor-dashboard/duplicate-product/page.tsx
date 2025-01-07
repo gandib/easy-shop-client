@@ -1,3 +1,4 @@
+import Container from "@/src/components/UI/Container";
 import ProductManageCard from "@/src/components/UI/ProductManageCard";
 import { getAllCategory } from "@/src/services/CategoryService";
 import { getSingleProduct } from "@/src/services/ProductService";
@@ -9,14 +10,14 @@ const DuplicateProductPage = async () => {
   const { data: product } = await getSingleProduct(user?.shop?.product[0]?.id);
 
   return (
-    <div>
+    <Container>
       <ProductManageCard
         category={allCategory}
         shop={user?.shop}
         title="Duplicate"
         product={product}
       />
-    </div>
+    </Container>
   );
 };
 

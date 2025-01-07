@@ -32,16 +32,20 @@ const ShopDetail = ({ shop }: { shop: IShop }) => {
     fetchData();
   }, [shop]);
 
+  const matchedFollower = shop?.follow?.find(
+    (follower) => follower?.userId === user?.id
+  )?.userId;
+
   const handleFollow = (shopId: string) => {
     const followData = {
       shopId,
     };
 
-    if (!shop?.follow?.map((follower) => follower?.userId === user?.id)[0]) {
+    if (matchedFollower !== user?.id) {
       createFollow(followData);
     }
 
-    if (shop?.follow?.map((follower) => follower?.userId === user?.id)[0]) {
+    if (matchedFollower === user?.id) {
       unFollow(followData);
     }
   };
@@ -102,8 +106,8 @@ const ShopDetail = ({ shop }: { shop: IShop }) => {
               <Button
                 onPress={() => handleFollow(shop?.id)}
                 size="md"
-                className="w-[20%] bg-green-500 text-white"
-              >{`${shop?.follow?.map((follower) => follower?.userId === user?.id)[0] ? "Unfollow" : "Follow"}`}</Button>
+                className=" bg-primary-500 text-white"
+              >{`${matchedFollower === user?.id ? "Unfollow" : "Follow"}`}</Button>
             ) : (
               ""
             )}

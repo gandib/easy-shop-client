@@ -1,3 +1,4 @@
+import Container from "@/src/components/UI/Container";
 import CouponManagementCard from "@/src/components/UI/CouponManagementCard";
 import { getSingleCoupon } from "@/src/services/CouponAndFlashSaleService";
 
@@ -7,9 +8,9 @@ const UpdateCoupon = async (params: { params: Params }) => {
   const couponId = (await params.params).couponId;
   const { data: coupon } = await getSingleCoupon(couponId);
   return (
-    <div>
+    <Container>
       <CouponManagementCard title="Update" coupon={coupon} />
-    </div>
+    </Container>
   );
 };
 

@@ -28,12 +28,12 @@ const Footer = () => {
           <Link href="/cart" className="hover:text-gray-400">
             Cart
           </Link>
-          <Link href="/about-us" className="hover:text-gray-400">
+          {/* <Link href="/about-us" className="hover:text-gray-400">
             About Us
           </Link>
           <Link href="/contact-us" className="hover:text-gray-400">
             Contact Us
-          </Link>
+          </Link> */}
         </nav>
 
         {/* Social Media Links */}

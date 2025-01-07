@@ -1,3 +1,4 @@
+import Container from "@/src/components/UI/Container";
 import ProductManageCard from "@/src/components/UI/ProductManageCard";
 import { getAllCategory } from "@/src/services/CategoryService";
 import { getUserByEmail } from "@/src/services/UserService";
@@ -7,9 +8,9 @@ const AddProductPage = async () => {
   const { data: user } = await getUserByEmail();
 
   return (
-    <div>
+    <Container>
       <ProductManageCard category={allCategory} shop={user?.shop} title="Add" />
-    </div>
+    </Container>
   );
 };
 

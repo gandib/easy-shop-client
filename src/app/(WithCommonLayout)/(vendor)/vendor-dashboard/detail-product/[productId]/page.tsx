@@ -1,3 +1,4 @@
+import Container from "@/src/components/UI/Container";
 import ProductDetailCard from "@/src/components/UI/ProductDetailCard";
 import { getSingleProduct } from "@/src/services/ProductService";
 
@@ -8,9 +9,9 @@ const DetailProduct = async (params: { params: Params }) => {
   const { data: product } = await getSingleProduct(productId);
 
   return (
-    <div>
+    <Container>
       <ProductDetailCard product={product} />
-    </div>
+    </Container>
   );
 };
 

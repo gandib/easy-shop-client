@@ -6,16 +6,16 @@ import { DashboardNavbar } from "@/src/components/UI/DashboardNavbar";
 
 const UserLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="container mx-auto w-full  px-6 flex-grow min-h-screen">
+    <div className=" mx-auto w-full flex-grow min-h-screen">
       <DashboardNavbar />
       <div className="md:hidden">
         <SidebarMenu links={userLinks} />
       </div>
-      <div className="my-3 flex w-full gap-6 justify-center">
-        <div className="md:w-2/6 hidden md:flex min-h-full bg-default-100">
+      <div className="flex w-full gap-6 justify-center">
+        <div className="w-1/12 md:w-2/6 lg:w-1/6 hidden md:flex min-h-full bg-gray-600">
           <UserSidebar />
         </div>
-        <div className="w-11/12 md:5/6">{children}</div>
+        <div className="w-11/12 md:w-4/6 lg:w-5/6">{children}</div>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 "use client";
+import Container from "@/src/components/UI/Container";
 import FlashSaleManagementCard from "@/src/components/UI/FlashSaleManagementCard";
 import { useUser } from "@/src/context/user.provider";
 import { getShopById } from "@/src/services/ShopService";
@@ -40,9 +41,9 @@ const CreateFlashSale = () => {
   }
 
   return (
-    <div>
+    <Container>
       <FlashSaleManagementCard title="Create" shop={shop} />
-    </div>
+    </Container>
   );
 };
 

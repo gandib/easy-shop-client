@@ -20,7 +20,7 @@ const LineChartComponent = ({ data }: { data: { data: IOrder[] } }) => {
   return (
     <div>
       <LineChart
-        width={300}
+        width={350}
         height={400}
         data={datas}
         margin={{ top: 20, right: 30, left: 20, bottom: 5 }}

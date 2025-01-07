@@ -103,7 +103,8 @@ const Login = () => {
                 name="email"
                 type="email"
                 label="Email"
-                value={email} // Make the input controlled
+                value={email}
+                onChange={(e) => setValue("email", e.target.value)}
               />
             </div>
             <span className="text-sm text-rose-600">{error}</span>
@@ -113,7 +114,8 @@ const Login = () => {
                 name="password"
                 type="password"
                 label="Password"
-                value={password} // Make the input controlled
+                value={password}
+                onChange={(e) => setValue("password", e.target.value)}
               />
             </div>
 

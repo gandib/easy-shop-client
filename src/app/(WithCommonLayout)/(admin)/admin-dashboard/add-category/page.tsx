@@ -1,10 +1,11 @@
 import CategoryManagementCard from "@/src/components/UI/CategoryManagementCard";
+import Container from "@/src/components/UI/Container";
 
 const AddCategoryPage = () => {
   return (
-    <div>
+    <Container>
       <CategoryManagementCard title="Add" />
-    </div>
+    </Container>
   );
 };
 

@@ -18,6 +18,7 @@ import { FieldValues } from "react-hook-form";
 import ESInput from "@/src/components/form/ESInput";
 import { useCreateOrder } from "@/src/hooks/order.hook";
 import { useRouter } from "next/navigation";
+import Container from "@/src/components/UI/Container";
 
 const CartPage = () => {
   const [cartData, setCartData] = useState<string | null>(null);
@@ -185,7 +186,7 @@ const CartPage = () => {
   }, [isSuccess]);
 
   return (
-    <div>
+    <Container>
       {products && products.length > 0 ? (
         <div>
           <h2>Products in Cart:</h2>
@@ -278,7 +279,7 @@ const CartPage = () => {
       ) : (
         !cartData && <p>Cart is empty!</p>
       )}
-    </div>
+    </Container>
   );
 };
 

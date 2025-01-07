@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { getAllProducts } from "@/src/services/ProductService";
 import { IProduct } from "@/src/types";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 type TProductMeta = {
   meta: { page: number; limit: number; total: number; totalPage: number };
@@ -71,7 +72,7 @@ const Hero = () => {
           {/* Conditionally render the product display section */}
           {searchText && productData?.data && (
             <div
-              className="bg-white absolute flex flex-col w-full max-w-md h-[300px] overflow-y-auto p-2"
+              className="bg-white absolute flex flex-col w-full max-w-md h-[200px] overflow-y-auto p-2"
               style={{
                 top: "10rem",
                 borderRadius: "8px",
@@ -87,11 +88,17 @@ const Hero = () => {
                     key={product.id}
                     className="flex hover:bg-primary-100 cursor-pointer items-center justify-between py-2 border-b"
                   >
+                    <Image
+                      src={product.img[0]}
+                      width={50}
+                      height={50}
+                      alt="product"
+                    />
                     <p className="text-gray-800  font-semibold">
                       {product.name}
                     </p>
                     <Eye className=" text-white hover:text-primary-500" />
-                    <span className="text-gray-600  ">{`$${product.price}`}</span>
+                    <span className="text-secondary-500 font-bold  ">{`$${product.price}`}</span>
                   </div>
                 ))
               ) : (

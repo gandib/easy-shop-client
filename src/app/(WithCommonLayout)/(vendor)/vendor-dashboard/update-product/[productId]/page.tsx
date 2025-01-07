@@ -1,3 +1,4 @@
+import Container from "@/src/components/UI/Container";
 import ProductManageCard from "@/src/components/UI/ProductManageCard";
 import { getAllCategory } from "@/src/services/CategoryService";
 import { getSingleProduct } from "@/src/services/ProductService";
@@ -12,14 +13,14 @@ const UpdateProductPage = async (params: { params: Params }) => {
   const { data: product } = await getSingleProduct(productId);
 
   return (
-    <div>
+    <Container>
       <ProductManageCard
         category={allCategory}
         shop={user?.shop}
         title="Update"
         product={product}
       />
-    </div>
+    </Container>
   );
 };
 

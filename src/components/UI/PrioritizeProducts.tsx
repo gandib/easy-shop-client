@@ -56,7 +56,7 @@ const PrioritizeProducts = ({
       {user?.role === "USER" &&
         (products?.data?.length > 0 || productData?.data?.length > 0) && (
           <div>
-            <h1 className="text-2xl font-bold mb-2">Prioritize Products</h1>
+            <h1 className="text-2xl font-bold my-6">Prioritize Products</h1>
             {products?.data?.length > 0 || productData?.data?.length > 0 ? (
               <AllProductsDisplayCard
                 products={productData}

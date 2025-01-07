@@ -7,7 +7,7 @@ const VendorDashboard = async () => {
   const { data: allOrder } = await getAllOrder([{ name: "limit", value: 10 }]);
   return (
     <Container>
-      <h1 className="text-2xl font-bold mb-4">Overview</h1>
+      <h1 className="text-2xl font-bold mb-6">Overview</h1>
       <div className="grid lg:grid-cols-2 gap-2">
         <div>
           <PieCharts data={allOrder} />

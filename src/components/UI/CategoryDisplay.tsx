@@ -14,7 +14,7 @@ const CategoryDisplay = ({ category }: { category: ICategory[] }) => {
 
   return (
     <div className="pt-8">
-      <h1 className="text-2xl font-bold mb-4">Categories</h1>
+      <h1 className="text-2xl font-bold my-6">Categories</h1>
 
       <div className="flex gap-4 overflow-x-auto scrollbar-hide">
         {category?.map((cat) => (

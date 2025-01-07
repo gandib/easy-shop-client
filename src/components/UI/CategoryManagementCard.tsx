@@ -94,7 +94,7 @@ const CategoryManagementCard = ({
   }, [isSuccess, updateSuccess]);
 
   return (
-    <div className="flex mt-6 w-full flex-col items-center justify-center mb-12">
+    <div className="flex w-full flex-col items-center justify-center">
       <h3 className="my-2 text-2xl font-bold">{title} Category</h3>
       <div className=" w-[80%]">
         <ESForm

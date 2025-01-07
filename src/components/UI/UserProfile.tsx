@@ -4,8 +4,8 @@ const UserProfile = async () => {
   const { data: userData } = await getUserByEmail();
 
   return (
-    <div className="p-8 bg-gray-50 min-h-screen">
-      <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
+    <div className=" bg-gray-50 min-h-screen">
+      <div className="w-full mx-auto bg-white rounded-xl shadow-lg p-8">
         <h2 className="text-3xl font-semibold text-gray-800 mb-6">
           My Profile
         </h2>

@@ -7,7 +7,7 @@ const AllShop = async () => {
 
   return (
     <Container>
-      <h1>Hello, AllShop!</h1>
+      <h1 className="text-2xl font-bold mb-6">All Shops</h1>
       <AllShopCard shop={allShop} />
     </Container>
   );

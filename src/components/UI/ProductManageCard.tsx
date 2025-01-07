@@ -9,7 +9,7 @@ import { ICategory, IProduct, IShop } from "@/src/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { FieldValues } from "react-hook-form";
 
 const ProductManageCard = ({
@@ -70,11 +70,11 @@ const ProductManageCard = ({
           price: Number(price),
           quantity: Number(quantity),
           discount: Number(discount),
-          img: [...product?.img!, data.img || img],
+          img: [data.img || img, ...product?.img!],
           // img: [
-          //   "https://res.cloudinary.com/dvka5l5tj/image/upload/v1735657254/28383704_7391866_gb7xtu.jpg",
-          //   "https://res.cloudinary.com/dvka5l5tj/image/upload/v1735658035/hero_3_akwy3t.webp",
-          //   "https://res.cloudinary.com/dvka5l5tj/image/upload/v1735657254/5069_qqsju0.jpg",
+          //   "https://res.cloudinary.com/dvka5l5tj/image/upload/v1735653089/Samsung%20A%2015%20New-1735653090284-3103265.jpg",
+          //   "https://res.cloudinary.com/dvka5l5tj/image/upload/v1735653088/Samsung%20A%2015%20New-1735653088979-358317269.jpg",
+          //   "https://res.cloudinary.com/dvka5l5tj/image/upload/v1735653090/Samsung%20A%2015%20New-1735653090957-249633208.jpg",
           // ],
         },
       };
@@ -116,12 +116,15 @@ const ProductManageCard = ({
     <p>Loading...</p>;
   }
 
-  if (isSuccess || productUpSuccess) {
-    router.push("/vendor-dashboard/all-products");
-  }
+  useEffect(() => {
+    if (isSuccess || productUpSuccess) {
+      router.push("/vendor-dashboard/all-products");
+    }
+  }, [isSuccess, productUpSuccess]);
+
   return (
     <div>
-      <div className="flex mt-6 w-full flex-col items-center justify-center mb-12">
+      <div className="flex w-full flex-col items-center justify-center">
         <h3 className="my-2 text-2xl font-bold">{title} Product</h3>
         <div className=" w-[80%]">
           <ESForm

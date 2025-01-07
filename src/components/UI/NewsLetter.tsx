@@ -32,7 +32,7 @@ const NewsLetter = () => {
 
   return (
     <div>
-      <section className=" py-8">
+      <section className="my-12">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-gray-800 mb-4">
             Stay Updated!

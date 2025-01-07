@@ -2,6 +2,7 @@
 import ESForm from "@/src/components/form/ESForm";
 import ESInput from "@/src/components/form/ESInput";
 import ESTextarea from "@/src/components/form/FXTextarea";
+import Container from "@/src/components/UI/Container";
 import { useUser } from "@/src/context/user.provider";
 import { useCreateShop } from "@/src/hooks/shop.hook";
 import createShopValidationSchema from "@/src/schemas/create-shop.schema";
@@ -61,8 +62,8 @@ const CreateShopPage = () => {
     router.push("/vendor-dashboard");
   }
   return (
-    <div>
-      <div className="flex mt-6 w-full flex-col items-center justify-center mb-12">
+    <Container>
+      <div className="flex w-full flex-col items-center justify-center mb-12">
         <h3 className="my-2 text-2xl font-bold">Create a Shop</h3>
         <div className=" w-[80%]">
           <ESForm
@@ -117,7 +118,7 @@ const CreateShopPage = () => {
           </ESForm>
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 
