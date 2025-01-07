@@ -7,7 +7,6 @@ import { DashboardNavbar } from "../components/UI/DashboardNavbar";
 export default function loading() {
   const pathname = usePathname();
 
-  console.log(pathname.includes("admin-dashboard"));
   return (
     <div>
       {pathname.includes("admin-dashboard") ? (
