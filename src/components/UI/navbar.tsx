@@ -96,13 +96,16 @@ export const Navbar = () => {
   }
 
   return (
-    <div className="relative">
+    <div className="mb-10">
       <NextUINavbar
         className="bg-primary-50 fixed"
         maxWidth="2xl"
         position="sticky"
       >
-        <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
+        <NavbarContent
+          className="basis-1/5 sm:basis-full relative"
+          justify="start"
+        >
           <NavbarBrand as="li" className="gap-3 max-w-fit">
             <NextLink
               className="flex justify-start items-center gap-1"
