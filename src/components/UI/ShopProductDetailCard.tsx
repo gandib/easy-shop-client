@@ -110,13 +110,14 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
         <NextUiCard isFooterBlurred className="  ">
           <CardHeader className="w-full flex-col items-start grid md:grid-cols-2 gap-2">
             <div>
-              <div className="h-[400px] flex justify-center">
+              <div className="h-[400px] px-0 py-0 w-full flex justify-center">
                 {product && (
                   <Image
-                    width={400}
-                    height={300}
+                    width={500}
+                    height={500}
                     src={imgLink}
                     alt="Recipe image"
+                    className="h-full w-full"
                   />
                 )}
               </div>

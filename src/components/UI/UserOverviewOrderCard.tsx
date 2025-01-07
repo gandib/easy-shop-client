@@ -8,13 +8,14 @@ const UserOverviewOrderCard = ({ order }: { order: any }) => {
   return (
     <div>
       <NextUiCard isFooterBlurred className=" hover:shadow-2xl ">
-        <CardHeader className="w-full h-[260px] flex items-center justify-center">
+        <CardHeader className="h-[250px] px-0 py-0 w-full flex justify-center">
           {order?.product?.img && (
             <Image
               width={500}
               height={500}
               src={order?.product?.img[0]}
               alt="Product image"
+              className="h-full"
             />
           )}
         </CardHeader>

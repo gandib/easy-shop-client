@@ -94,13 +94,14 @@ const VendorProductCard = ({
               isFooterBlurred
               className=" hover:shadow-2xl "
             >
-              <CardHeader className=" flex items-center justify-center">
+              <CardHeader className="h-[250px] px-0 py-0 w-full flex justify-center">
                 {data?.img && (
                   <Image
-                    width={200}
-                    height={200}
+                    width={500}
+                    height={500}
                     src={data?.img[0]}
                     alt="Product image"
+                    className="h-full"
                   />
                 )}
               </CardHeader>

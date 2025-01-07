@@ -97,6 +97,7 @@ const ProductDetailCard = ({ product }: { product: IProduct }) => {
                 height={300}
                 src={product?.img[0]}
                 alt="Recipe image"
+                className="h-full w-full"
               />
             )}
             <h4 className="mt-1 rounded p-1 text-base md:text-lg font-medium flex ">
