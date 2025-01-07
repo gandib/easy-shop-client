@@ -19,7 +19,7 @@ export default function loading() {
         <Navbar />
       )}
       {/* <Navbar /> */}
-      <div className="flex justify-center items-center mt-12">
+      <div className="flex justify-center items-center mt-20">
         <Spinner />
       </div>
     </div>
