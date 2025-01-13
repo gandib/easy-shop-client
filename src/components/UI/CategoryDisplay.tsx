@@ -16,7 +16,7 @@ const CategoryDisplay = ({ category }: { category: ICategory[] }) => {
     <div className="pt-8">
       <h1 className="text-2xl font-bold my-6">Categories</h1>
 
-      <div className="flex gap-4 overflow-x-auto scrollbar">
+      <div className="xs:grid xs:grid-cols-2 sm:grid sm:grid-cols-3 md:grid md:grid-cols-4 lg:grid lg:grid-cols-6 gap-2">
         {category?.map((cat) => (
           <div
             onClick={() => handleCategory(cat?.name)}

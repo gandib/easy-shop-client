@@ -8,7 +8,7 @@ type TLinkItem = {
 const VendorSidebarOptions = ({ links }: { links: TLinkItem[] }) => {
   const pathname = usePathname();
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-1 sticky top-20">
       {links?.map((link) => (
         <Link
           key={link?.href}
