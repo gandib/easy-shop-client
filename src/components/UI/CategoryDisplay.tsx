@@ -23,8 +23,8 @@ const CategoryDisplay = ({ category }: { category: ICategory[] }) => {
             key={cat?.id}
             className="w-30 p-4"
           >
-            <Card className="flex flex-col items-center cursor-pointer p-2 rounded-lg shadow hover:bg-gray-100 transition w-full h-[160px]">
-              <div className="h-[100px] w-full">
+            <Card className="flex flex-col items-center cursor-pointer p-2 rounded-lg shadow hover:bg-gray-100 transition w-full h-[170px]">
+              <div className="h-[100px] w-[120px]">
                 <Image
                   src={cat?.img}
                   width={150}
@@ -32,7 +32,7 @@ const CategoryDisplay = ({ category }: { category: ICategory[] }) => {
                   alt={cat?.name}
                   className="rounded-full h-full"
                 />
-                <p className="mt-2 text-sm font-medium">{cat?.name}</p>
+                <p className="my-2 text-sm font-medium p-1 ">{cat?.name}</p>
               </div>
             </Card>
           </div>
