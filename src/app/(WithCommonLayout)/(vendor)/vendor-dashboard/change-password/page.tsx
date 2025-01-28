@@ -9,6 +9,7 @@ import { FieldValues } from "react-hook-form";
 import { useChangePassword } from "@/src/hooks/auth.hook";
 import { useRouter } from "next/navigation";
 import Container from "@/src/components/UI/Container";
+import { useEffect } from "react";
 
 export default function ChangePassword() {
   const {
@@ -31,9 +32,11 @@ export default function ChangePassword() {
     //handle loading state
   }
 
-  if (isSuccess) {
-    router.push("/user-dashboard");
-  }
+  useEffect(() => {
+    if (!isPending && isSuccess) {
+      router.push("/user-dashboard");
+    }
+  }, [isPending, isSuccess, router]);
 
   return (
     <Container>

@@ -33,20 +33,25 @@ const HomeFlashSale = () => {
     fetchFlashSale();
   }, []);
 
-  flashSale.data = flashSale?.data?.slice(0, 4);
+  if (flashSale) {
+    flashSale.data = flashSale?.data?.slice(0, 4);
+  }
 
   return (
     <div>
       <h1 className="text-2xl font-bold pt-8 my-6">Flash Sale</h1>
       <FlashSaleCard products={flashSale!} fromShop="homeFlash" />
       <div className="flex justify-center items-center">
-        <Button
-          className="bg-primary-500 text-white"
-          onPress={() => router.push("/flash-sale")}
-        >
-          See All Flash Sale
-        </Button>
+        {flashSale?.data?.length > 0 && (
+          <Button
+            className="bg-primary-500 text-white"
+            onPress={() => router.push("/flash-sale")}
+          >
+            See All Flash Sale
+          </Button>
+        )}
       </div>
+      {!flashSale?.data?.length && "No products to show!"}
     </div>
   );
 };

@@ -7,15 +7,14 @@ import { getUserByEmail } from "@/src/services/UserService";
 const DuplicateProductPage = async () => {
   const { data: allCategory } = await getAllCategory();
   const { data: user } = await getUserByEmail();
-  const { data: product } = await getSingleProduct(user?.shop?.product[0]?.id);
-
+  // const { data: product } = await getSingleProduct(user?.shop?.product[0]?.id);
   return (
     <Container>
       <ProductManageCard
         category={allCategory}
         shop={user?.shop}
         title="Duplicate"
-        product={product}
+        product={user?.shop?.product[0]}
       />
     </Container>
   );

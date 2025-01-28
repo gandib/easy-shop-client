@@ -101,9 +101,9 @@ const FlashSaleCard = ({
             >
               <CardHeader className="h-[200px] px-0 py-0 w-full relative flex justify-center">
                 {/* Percentage Badge */}
-                {data?.flashSale[0].percentage && (
+                {data?.flashSale[0]?.percentage && (
                   <div className="absolute top-2 left-2 bg-primary-500 text-white text-xs font-bold px-2 py-1 rounded z-10">
-                    {data.flashSale[0].percentage}%
+                    {data?.flashSale[0]?.percentage}%
                   </div>
                 )}
 

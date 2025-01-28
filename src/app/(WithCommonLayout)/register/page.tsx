@@ -36,9 +36,11 @@ export default function Register() {
     //handle loading state
   }
 
-  if (isSuccess) {
-    router.push("/vendor-dashboard");
-  }
+  useEffect(() => {
+    if (!isPending && isSuccess) {
+      router.push("/vendor-dashboard");
+    }
+  }, [isPending, isSuccess, router]);
 
   return (
     <div className="flex min-h-screen justify-center items-center">

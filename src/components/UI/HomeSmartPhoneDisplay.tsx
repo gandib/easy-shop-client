@@ -237,7 +237,7 @@ const HomeSmartPhoneDisplay = ({
             </div> */}
               </CardBody>
 
-              <CardFooter className=" bottom-0 gap-2 justify-around border-t-1 border-zinc-100/50 bg-white/30">
+              <CardFooter className="bottom-0 gap-2 justify-around border-t-1 border-zinc-100/50 bg-white/30">
                 {user?.role === "VENDOR" && (
                   <>
                     {/* <ProductUpdateButton id={data.id} />
@@ -249,7 +249,7 @@ const HomeSmartPhoneDisplay = ({
                   <Button
                     size="sm"
                     onPress={() => handleShowPopup(data.id, data.shopId)}
-                    className="bg-primary-500 text-white"
+                    className="bg-primary-500 text-white "
                   >
                     Add to Cart
                   </Button>

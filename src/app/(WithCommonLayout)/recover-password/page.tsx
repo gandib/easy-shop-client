@@ -10,6 +10,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Loading from "@/src/components/UI/Loading";
 import { useUser } from "@/src/context/user.provider";
 import recoverPasswordValidationSchema from "@/src/schemas/recover-password.schemas";
+import { useEffect } from "react";
 
 const RecoverPassword = () => {
   const searchParams = useSearchParams();
@@ -36,13 +37,15 @@ const RecoverPassword = () => {
     setIsLoading(true);
   };
 
-  if (!isPending && isSuccess) {
-    if (redirect) {
-      router.push(redirect);
-    } else {
-      router.push("/");
+  useEffect(() => {
+    if (!isPending && isSuccess) {
+      if (redirect) {
+        router.push(redirect);
+      } else {
+        router.push("/");
+      }
     }
-  }
+  }, [isPending, isSuccess, router]);
 
   return (
     <div className="min-h-screen">

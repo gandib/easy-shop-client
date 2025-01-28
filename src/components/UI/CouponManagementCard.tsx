@@ -6,7 +6,7 @@ import ESInput from "../form/ESInput";
 import { useRouter } from "next/navigation";
 import { FieldValues } from "react-hook-form";
 import { ICoupon } from "@/src/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ESDatePicker from "../form/ESDatePicker";
 import dateToISO from "@/src/utils/dateToISO";
 import {
@@ -60,9 +60,11 @@ const CouponManagementCard = ({
     //handle loading state
   }
 
-  if (isSuccess || updateSuccess) {
-    router.push("/vendor-dashboard/all-coupon");
-  }
+  useEffect(() => {
+    if (isSuccess || updateSuccess) {
+      router.push("/vendor-dashboard/all-coupon");
+    }
+  }, [updateSuccess, isSuccess, router]);
   return (
     <div className="flex w-full flex-col items-center justify-center">
       <h3 className="my-2 text-2xl font-bold">{title} Coupon</h3>

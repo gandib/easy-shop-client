@@ -40,9 +40,12 @@ const UpdateShop = ({ shop }: { shop: IShop }) => {
     //handle loading state
   }
 
-  if (isSuccess) {
-    router.push("/vendor-dashboard");
-  }
+  useEffect(() => {
+    if (!isPending && isSuccess) {
+      router.push("/vendor-dashboard");
+    }
+  }, [isPending, isSuccess, router]);
+
   return (
     <div>
       <div className="flex w-full flex-col items-center justify-center mb-12">

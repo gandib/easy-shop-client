@@ -71,10 +71,17 @@ const ProductManageCard = ({
           quantity: Number(quantity),
           discount: Number(discount),
           img: [data.img || img, ...product?.img!],
+          // for samsung
           // img: [
           //   "https://res.cloudinary.com/dvka5l5tj/image/upload/v1735653089/Samsung%20A%2015%20New-1735653090284-3103265.jpg",
           //   "https://res.cloudinary.com/dvka5l5tj/image/upload/v1735653088/Samsung%20A%2015%20New-1735653088979-358317269.jpg",
           //   "https://res.cloudinary.com/dvka5l5tj/image/upload/v1735653090/Samsung%20A%2015%20New-1735653090957-249633208.jpg",
+          // ],
+          // for hero bike
+          // img: [
+          //   "https://res.cloudinary.com/dvka5l5tj/image/upload/v1735657254/28383704_7391866_gb7xtu.jpg",
+          //   "https://res.cloudinary.com/dvka5l5tj/image/upload/v1735657254/5069_qqsju0.jpg",
+          //   "https://res.cloudinary.com/dvka5l5tj/image/upload/v1735658035/hero_3_akwy3t.webp",
           // ],
         },
       };

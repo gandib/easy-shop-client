@@ -37,6 +37,8 @@ const CategoryDisplay = ({ category }: { category: ICategory[] }) => {
             </Card>
           </div>
         ))}
+
+        {!category.length && "No categories to show!"}
       </div>
     </div>
   );

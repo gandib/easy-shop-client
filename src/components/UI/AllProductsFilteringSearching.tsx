@@ -44,7 +44,7 @@ const AllProductsFilteringSearching = ({
   const [currentPage, setCurrentPage] = useState(1);
   const { register, handleSubmit, watch } = useForm();
   const [productData, setProductData] = useState<TProductMeta>(products);
-  const [totalPage, setTotalPage] = useState(products.meta.totalPage);
+  const [totalPage, setTotalPage] = useState(products?.meta?.totalPage);
   const [categories, setCategories] = useState("");
   const [allCategories, setAllCategories] = useState<ICategory[]>([]);
   const [minPrice, setMinPrice] = useState(0);
@@ -83,7 +83,7 @@ const AllProductsFilteringSearching = ({
     const fetchData = async () => {
       const { data: allProducts } = await getAllProducts(query);
       setProductData(allProducts);
-      setTotalPage(allProducts.meta.totalPage);
+      setTotalPage(allProducts?.meta?.totalPage);
     };
 
     const categoryFetch = async () => {
@@ -111,7 +111,7 @@ const AllProductsFilteringSearching = ({
               className="space-y-2"
               onChange={(e) => setCategories(e.target.value)}
             >
-              {allCategories.map((cat) => (
+              {allCategories?.map((cat) => (
                 <Radio key={cat.id} value={cat.name} className="text-sm">
                   {cat.name}
                 </Radio>
@@ -155,7 +155,7 @@ const AllProductsFilteringSearching = ({
             />
           </form>
         </div>
-        {productData.data.length > 0 ? (
+        {productData?.data?.length > 0 ? (
           <AllProductsDisplayCard
             products={productData}
             category={category}
@@ -164,8 +164,8 @@ const AllProductsFilteringSearching = ({
         ) : (
           <p>No Product available!</p>
         )}
-        {productData.data.length > 0 && (
-          <div className="mt-5 flex justify-center items-center">
+        {productData?.data?.length > 0 && (
+          <div className="mt-5 flex justify-center items-center mb-5">
             <Pagination
               total={totalPage}
               page={currentPage}

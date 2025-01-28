@@ -58,9 +58,12 @@ const CreateShopPage = () => {
     <p>Loading...</p>;
   }
 
-  if (isSuccess) {
-    router.push("/vendor-dashboard");
-  }
+  useEffect(() => {
+    if (!isPending && isSuccess) {
+      router.push("/vendor-dashboard");
+    }
+  }, [isPending, isSuccess, router]);
+
   return (
     <Container>
       <div className="flex w-full flex-col items-center justify-center mb-12">
