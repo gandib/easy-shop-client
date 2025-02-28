@@ -1,8 +1,14 @@
 "use client";
 
+import { useUser } from "@/src/context/user.provider";
 import Link from "next/link";
 
 const Footer = () => {
+  const { user, isLoading } = useUser();
+
+  if (isLoading) {
+    <p>Loading...</p>;
+  }
   return (
     <footer className="bg-gray-900 text-white py-10">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 px-6">
@@ -25,9 +31,11 @@ const Footer = () => {
           <Link href="/viewed-products" className="hover:text-gray-400">
             Viewed Products
           </Link>
-          <Link href="/cart" className="hover:text-gray-400">
-            Cart
-          </Link>
+          {user?.role === "USER" && (
+            <Link href="/user-dashboard/cart" className="hover:text-gray-400">
+              Cart
+            </Link>
+          )}
           {/* <Link href="/about-us" className="hover:text-gray-400">
             About Us
           </Link>
