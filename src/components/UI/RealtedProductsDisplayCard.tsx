@@ -123,7 +123,7 @@ const RealtedProductsDisplayCard = ({
             <NextUiCard
               key={data.id}
               isFooterBlurred
-              className="rounded-t-none shadow-xl p-4 border-1 border-t-0 rounded-md"
+              className="rounded-t-none shadow-xl p-4 border-1 border-t-0 rounded-md relative overflow-hidden"
               onMouseEnter={() => setHoveredId(data.id)}
               onMouseLeave={() => setHoveredId(null)}
             >
@@ -138,31 +138,39 @@ const RealtedProductsDisplayCard = ({
                   />
                 )}
 
-                {user?.role === "VENDOR" && hoveredId === data.id && (
+                {user?.role === "VENDOR" && (
                   <>
-                    <div className="absolute bottom-18 left-2">
+                    <div
+                      className={`absolute bottom-18 left-2 transition-all duration-300 ease-in-out 
+        ${hoveredId === data.id ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
+                    >
                       <ProductUpdateButton id={data.id} />
                     </div>
-                    <div className="absolute bottom-14 left-2">
+                    <div
+                      className={`absolute bottom-14 left-2 transition-all duration-300 ease-in-out 
+        ${hoveredId === data.id ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
+                    >
                       <ProductDeleteButton id={data?.id} />
                     </div>
                   </>
                 )}
 
-                {user?.role === "USER" && hoveredId === data.id && (
+                {user?.role === "USER" && (
                   <button
                     onClick={() => handleShowPopup(data.id, data.shopId)}
-                    className="bg-white text-black absolute bottom-14 left-2 p-2 rounded-md hover:bg-secondary-500 hover:text-white"
+                    className={`bg-white text-black absolute bottom-14 left-2 p-2 rounded-md hover:bg-secondary-500 hover:text-white transition-all duration-300 ease-in-out 
+        ${hoveredId === data.id ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
                   >
                     <ShoppingCart size={18} />
                   </button>
                 )}
 
-                {hoveredId === data.id && (
-                  <div className="absolute bottom-2 left-2 ">
-                    <SeeDetailButton id={data?.id} fromShop={fromShop} />
-                  </div>
-                )}
+                <div
+                  className={`absolute bottom-2 left-2 transition-all duration-300 ease-in-out 
+        ${hoveredId === data.id ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
+                >
+                  <SeeDetailButton id={data?.id} fromShop={fromShop} />
+                </div>
               </CardHeader>
 
               <CardBody>

@@ -94,7 +94,7 @@ const VendorProductCard = ({
             <NextUiCard
               key={data.id}
               isFooterBlurred
-              className="rounded-t-none shadow-xl p-4 border-1 border-t-0 rounded-md"
+              className="rounded-t-none shadow-xl p-4 border-1 border-t-0 rounded-md relative overflow-hidden"
               onMouseEnter={() => setHoveredId(data.id)}
               onMouseLeave={() => setHoveredId(null)}
             >
@@ -109,22 +109,27 @@ const VendorProductCard = ({
                   />
                 )}
 
-                {hoveredId === data.id && (
-                  <>
-                    <div className="absolute bottom-18 left-2">
-                      <ProductUpdateButton id={data.id} />
-                    </div>
-                    <div className="absolute bottom-14 left-2">
-                      <ProductDeleteButton id={data?.id} />
-                    </div>
-                  </>
-                )}
-
-                {hoveredId === data.id && (
-                  <div className="absolute bottom-2 left-2 ">
-                    <SeeDetailButton id={data?.id} fromShop={fromShop} />
+                <>
+                  <div
+                    className={`absolute bottom-18 left-2 transition-all duration-300 ease-in-out 
+        ${hoveredId === data.id ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
+                  >
+                    <ProductUpdateButton id={data.id} />
                   </div>
-                )}
+                  <div
+                    className={`absolute bottom-14 left-2 transition-all duration-300 ease-in-out 
+        ${hoveredId === data.id ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
+                  >
+                    <ProductDeleteButton id={data?.id} />
+                  </div>
+                </>
+
+                <div
+                  className={`absolute bottom-2 left-2 transition-all duration-300 ease-in-out 
+        ${hoveredId === data.id ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
+                >
+                  <SeeDetailButton id={data?.id} fromShop={fromShop} />
+                </div>
               </CardHeader>
 
               <CardBody>
