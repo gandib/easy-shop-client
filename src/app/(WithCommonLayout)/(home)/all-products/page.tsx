@@ -8,7 +8,7 @@ const AllProducts = async (searchParams: { searchParams: SearchParams }) => {
   const category = (await searchParams.searchParams).category;
   const { data: allProducts } = await getAllProducts([
     { name: "category", value: category },
-    { name: "limit", value: 9 },
+    { name: "limit", value: 8 },
   ]);
 
   return (

@@ -3,12 +3,23 @@
 import { CardBody, CardHeader, Card as NextUiCard } from "@nextui-org/react";
 import { StarIcon } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
+import SeeDetailButton from "./SeeDetailButton";
+import Link from "next/link";
 
 const UserOverviewOrderCard = ({ order }: { order: any }) => {
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+
   return (
     <div>
-      <NextUiCard isFooterBlurred className=" hover:shadow-2xl ">
-        <CardHeader className="h-[200px] px-0 py-0 w-full flex justify-center">
+      <NextUiCard
+        key={order?.product?.id}
+        isFooterBlurred
+        className="rounded-t-none shadow-xl p-4 border-1 border-t-0 rounded-md"
+        onMouseEnter={() => setHoveredId(order?.product?.id)}
+        onMouseLeave={() => setHoveredId(null)}
+      >
+        <CardHeader className="h-[230px] px-0 py-0 w-full flex justify-center relative">
           {order?.product?.img && (
             <Image
               width={500}
@@ -18,117 +29,59 @@ const UserOverviewOrderCard = ({ order }: { order: any }) => {
               className="h-full"
             />
           )}
+
+          {hoveredId === order?.product?.id && (
+            <div className="absolute bottom-2 left-2 ">
+              <SeeDetailButton id={order?.product?.id} fromShop={"fromShop"} />
+            </div>
+          )}
         </CardHeader>
 
         <CardBody>
-          <div className=" w-full">
+          <div className=" w-full flex flex-col justify-center items-center">
             {/* <ShopRedirect shop={data?.shop} /> */}
 
-            <div className="pt-2 flex gap-3 items-center">
-              <div className="flex ">
-                <StarIcon
-                  size={"16px"}
-                  className={`${
-                    Number(
-                      order?.product?.rating?.length &&
-                        (
-                          order?.product?.rating.reduce(
-                            (pre: any, next: { rating: any }) =>
-                              pre + next.rating,
-                            0
-                          ) / order?.product?.rating.length
-                        ).toFixed(1)
-                    ) > 0
-                      ? "text-yellow-400"
-                      : "text-gray-400"
-                  } `}
-                />
-                <StarIcon
-                  size={"16px"}
-                  className={`${
-                    Number(
-                      order?.product?.rating?.length &&
-                        (
-                          order?.product?.rating.reduce(
-                            (pre: any, next: { rating: any }) =>
-                              pre + next.rating,
-                            0
-                          ) / order?.product?.rating.length
-                        ).toFixed(1)
-                    ) > 1
-                      ? "text-yellow-400"
-                      : "text-gray-400"
-                  } `}
-                />
-                <StarIcon
-                  size={"16px"}
-                  className={`${
-                    Number(
-                      order?.product?.rating?.length &&
-                        (
-                          order?.product?.rating.reduce(
-                            (pre: any, next: { rating: any }) =>
-                              pre + next.rating,
-                            0
-                          ) / order?.product?.rating.length
-                        ).toFixed(1)
-                    ) > 2
-                      ? "text-yellow-400"
-                      : "text-gray-400"
-                  } `}
-                />
-                <StarIcon
-                  size={"16px"}
-                  className={`${
-                    Number(
-                      order?.product?.rating?.length &&
-                        (
-                          order?.product?.rating.reduce(
-                            (pre: any, next: { rating: any }) =>
-                              pre + next.rating,
-                            0
-                          ) / order?.product?.rating.length
-                        ).toFixed(1)
-                    ) > 3
-                      ? "text-yellow-400"
-                      : "text-gray-400"
-                  } `}
-                />
-                <StarIcon
-                  size={"16px"}
-                  className={`${
-                    Number(
-                      order?.product?.rating?.length &&
-                        (
-                          order?.product?.rating.reduce(
-                            (pre: any, next: { rating: any }) =>
-                              pre + next.rating,
-                            0
-                          ) / order?.product?.rating.length
-                        ).toFixed(1)
-                    ) > 4
-                      ? "text-yellow-400"
-                      : "text-gray-400"
-                  } `}
-                />
-              </div>
-              <p>
-                {order?.product?.rating?.length &&
-                  (
-                    order?.product?.rating.reduce(
-                      (pre: any, next: { rating: any }) => pre + next.rating,
-                      0
-                    ) / order?.product?.rating.length
-                  ).toFixed(2)}
-              </p>
-            </div>
-
-            <h4 className="rounded text-sm sm:text-base md:text-base font-bold">
+            <Link
+              href={`shop/detail-product/${order?.product?.id}`}
+              className="rounded text-sm sm:text-base md:text-base font-bold"
+            >
               {order?.product?.name}
-            </h4>
-            <h4 className="rounded text-xl font-bold pt-2 text-secondary-500">
+            </Link>
+            <h4 className="rounded text-xl  pt-2 text-secondary-500">
               ${order?.product?.price}
             </h4>
+
+            {/* <div className="pt-2 flex gap-3 items-center">
+              <div className="flex ">
+                <div className="flex">
+                  {[...Array(5)].map((_, index) => {
+                    const ratingValue =
+                      order?.product?.rating?.length &&
+                      order?.product?.rating.reduce(
+                        (pre: any, next: { rating: any }) => pre + next.rating,
+                        0
+                      ) / order?.product?.rating?.length;
+                    return (
+                      <StarIcon
+                        key={index}
+                        size={16}
+                        className={`${
+                          ratingValue > index
+                            ? "text-yellow-400 fill-yellow-400"
+                            : "text-yellow-400"
+                        }`}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+              <p>
+                (
+                {order?.product?.rating?.length &&
+                  order?.product?.rating?.length}
+                )
+              </p>
+            </div> */}
           </div>
         </CardBody>
       </NextUiCard>

@@ -34,7 +34,7 @@ const HomeFlashSale = () => {
   }, []);
 
   if (flashSale) {
-    flashSale.data = flashSale?.data?.slice(0, 4);
+    flashSale.data = flashSale?.data?.slice(0, 5);
   }
 
   return (

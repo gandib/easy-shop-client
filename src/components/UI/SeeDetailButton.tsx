@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@nextui-org/react";
+import { Eye } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const SeeDetailButton = ({
@@ -14,17 +15,16 @@ const SeeDetailButton = ({
   const router = useRouter();
 
   return (
-    <Button
-      size="sm"
-      onPress={() =>
+    <button
+      onClick={() =>
         router.push(
           `/${fromShop && fromShop ? "shop" : "vendor-dashboard"}/detail-product/${id}`
         )
       }
-      className="bg-secondary-500 text-white"
+      className="bg-white text-black p-2 rounded-md hover:bg-secondary-500 hover:text-white"
     >
-      See Detail
-    </Button>
+      <Eye size={18} />
+    </button>
   );
 };
 

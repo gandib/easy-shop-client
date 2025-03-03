@@ -152,26 +152,25 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
 
                 <div className="flex items-center pt-2">
                   <p className="flex">
-                    <StarIcon
-                      size={16}
-                      className={`${Number(averageRating) > 0 ? "text-yellow-400" : "text-gray-400"}`}
-                    />
-                    <StarIcon
-                      size={16}
-                      className={`${Number(averageRating) > 1 ? "text-yellow-400" : "text-gray-400"}`}
-                    />
-                    <StarIcon
-                      size={16}
-                      className={`${Number(averageRating) > 2 ? "text-yellow-400" : "text-gray-400"}`}
-                    />
-                    <StarIcon
-                      size={16}
-                      className={`${Number(averageRating) > 3 ? "text-yellow-400" : "text-gray-400"}`}
-                    />
-                    <StarIcon
-                      size={16}
-                      className={`${Number(averageRating) > 4 ? "text-yellow-400" : "text-gray-400"}`}
-                    />
+                    {[...Array(5)].map((_, index) => {
+                      const ratingValue =
+                        product?.rating?.length &&
+                        product.rating.reduce(
+                          (pre, next) => pre + next.rating,
+                          0
+                        ) / product.rating.length;
+                      return (
+                        <StarIcon
+                          key={index}
+                          size={16}
+                          className={`${
+                            ratingValue > index
+                              ? "text-yellow-400 fill-yellow-400"
+                              : "text-yellow-400"
+                          }`}
+                        />
+                      );
+                    })}
                   </p>
                   <p className="pl-2">{product?.rating?.length}</p>
                 </div>
@@ -292,21 +291,24 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
                           </h1>
                           <div className="pt-2">
                             <p className="flex pl-2">
-                              <StarIcon
-                                className={`${Number(averageRating) > 0 ? "text-yellow-400" : "text-gray-400"}`}
-                              />
-                              <StarIcon
-                                className={`${Number(averageRating) > 1 ? "text-yellow-400" : "text-gray-400"}`}
-                              />
-                              <StarIcon
-                                className={`${Number(averageRating) > 2 ? "text-yellow-400" : "text-gray-400"}`}
-                              />
-                              <StarIcon
-                                className={`${Number(averageRating) > 3 ? "text-yellow-400" : "text-gray-400"}`}
-                              />
-                              <StarIcon
-                                className={`${Number(averageRating) > 4 ? "text-yellow-400" : "text-gray-400"}`}
-                              />
+                              {[...Array(5)].map((_, index) => {
+                                const ratingValue =
+                                  product?.rating?.length &&
+                                  product.rating.reduce(
+                                    (pre, next) => pre + next.rating,
+                                    0
+                                  ) / product.rating.length;
+                                return (
+                                  <StarIcon
+                                    key={index}
+                                    className={`${
+                                      ratingValue > index
+                                        ? "text-yellow-400 fill-yellow-400"
+                                        : "text-yellow-400"
+                                    }`}
+                                  />
+                                );
+                              })}
                             </p>
                           </div>
                         </div>

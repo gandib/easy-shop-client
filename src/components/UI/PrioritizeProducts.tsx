@@ -51,21 +51,18 @@ const PrioritizeProducts = ({
   if (isLoading) {
     <p>Loading...</p>;
   }
+
   return (
     <div className="">
-      {user?.role === "USER" &&
-        (products?.data?.length > 0 || productData?.data?.length > 0) && (
-          <div className="pt-8">
-            <h1 className="text-2xl font-bold my-6">Prioritize Products</h1>
-            {products?.data?.length > 0 || productData?.data?.length > 0 ? (
-              <AllProductsDisplayCard
-                products={productData}
-                fromShop="prioritize"
-              />
-            ) : (
-              ""
-            )}
-            {/* {productData?.data?.length > 0 ? (
+      {user?.role === "USER" && products?.data?.length > 0 && (
+        <div className="pt-8">
+          <h1 className="text-2xl font-bold my-6">Prioritize Products</h1>
+          {products?.data?.length > 0 ? (
+            <AllProductsDisplayCard products={products} fromShop="prioritize" />
+          ) : (
+            ""
+          )}
+          {/* {productData?.data?.length > 0 ? (
               <div className="mt-5 flex justify-center items-center">
                 {productData?.data?.length > 0 && (
                   <Pagination
@@ -79,8 +76,8 @@ const PrioritizeProducts = ({
             ) : (
               ""
             )} */}
-          </div>
-        )}
+        </div>
+      )}
     </div>
   );
 };

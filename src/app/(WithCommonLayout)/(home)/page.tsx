@@ -17,18 +17,18 @@ import { IProduct } from "@/src/types";
 
 const Home = async () => {
   const { data: allProducts } = await getAllProducts([
-    { name: "limit", value: 8 },
+    { name: "limit", value: 10 },
   ]);
   const { data: allSmartsPhone } = await getAllProducts([
-    { name: "limit", value: 8 },
+    { name: "limit", value: 10 },
     { name: "category", value: "Smarts Phone" },
   ]);
 
   const { data: allCategory } = await getAllCategory();
   const { data: allPrioritizeProducts } = await getAllProductsByFollowedUser([
-    { name: "limit", value: 9 },
+    { name: "limit", value: 5 },
   ]);
-
+  console.log(allPrioritizeProducts);
   return (
     <div className=" ">
       <Hero />

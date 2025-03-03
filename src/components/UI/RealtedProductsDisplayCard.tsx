@@ -14,7 +14,7 @@ import ProductUpdateButton from "./ProductUpdateButton";
 import ProductDeleteButton from "./ProductDeleteButton";
 import ShopRedirect from "./ShopRedirect";
 import ProductPaginationCard from "./ProductPaginationCard";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useUser } from "@/src/context/user.provider";
 import { Button } from "@nextui-org/react";
 import { addToCart } from "@/src/utils/addToCart";
@@ -22,7 +22,8 @@ import { toast } from "sonner";
 import ShowPopup from "./ShowPopup";
 import { queryParams } from "./OrderHistoryCard";
 import { getAllProducts } from "@/src/services/ProductService";
-import { StarIcon } from "lucide-react";
+import { ShoppingCart, StarIcon } from "lucide-react";
+import Link from "next/link";
 
 export interface IMeta {
   page: number;
@@ -51,6 +52,7 @@ const RealtedProductsDisplayCard = ({
   const [currentPage, setCurrentPage] = useState(productData?.meta?.page);
   const [limit, setLimit] = useState(12);
   const [totalPage, setTotalPage] = useState(productData?.meta?.totalPage);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   useEffect(() => {
     const query: queryParams[] = [];
@@ -114,16 +116,18 @@ const RealtedProductsDisplayCard = ({
   }
   return (
     <div>
-      <div className="grid lg:grid-cols-4 md:grid-cols-3 gap-2 grow relative">
+      <div className="grid lg:grid-cols-5 md:grid-cols-3 gap-4 grow relative">
         {productData &&
           productData?.data?.length > 0 &&
           productData?.data?.map((data: IProduct) => (
             <NextUiCard
               key={data.id}
               isFooterBlurred
-              className=" hover:shadow-2xl "
+              className="rounded-t-none shadow-xl p-4 border-1 border-t-0 rounded-md"
+              onMouseEnter={() => setHoveredId(data.id)}
+              onMouseLeave={() => setHoveredId(null)}
             >
-              <CardHeader className="h-[200px] px-0 py-0 w-full flex justify-center">
+              <CardHeader className="h-[230px] px-0 py-0 w-full flex justify-center relative">
                 {data?.img && (
                   <Image
                     width={500}
@@ -133,112 +137,74 @@ const RealtedProductsDisplayCard = ({
                     className="h-full"
                   />
                 )}
+
+                {user?.role === "VENDOR" && hoveredId === data.id && (
+                  <>
+                    <div className="absolute bottom-18 left-2">
+                      <ProductUpdateButton id={data.id} />
+                    </div>
+                    <div className="absolute bottom-14 left-2">
+                      <ProductDeleteButton id={data?.id} />
+                    </div>
+                  </>
+                )}
+
+                {user?.role === "USER" && hoveredId === data.id && (
+                  <button
+                    onClick={() => handleShowPopup(data.id, data.shopId)}
+                    className="bg-white text-black absolute bottom-14 left-2 p-2 rounded-md hover:bg-secondary-500 hover:text-white"
+                  >
+                    <ShoppingCart size={18} />
+                  </button>
+                )}
+
+                {hoveredId === data.id && (
+                  <div className="absolute bottom-2 left-2 ">
+                    <SeeDetailButton id={data?.id} fromShop={fromShop} />
+                  </div>
+                )}
               </CardHeader>
 
               <CardBody>
-                <div className=" w-full">
+                <div className=" w-full flex flex-col justify-center items-center">
                   {/* <ShopRedirect shop={data?.shop} /> */}
+
+                  <Link
+                    href={`${data.id}`}
+                    className="rounded text-sm sm:text-base md:text-base font-bold"
+                  >
+                    {data.name}
+                  </Link>
+                  <h4 className="rounded text-xl  pt-2 text-secondary-500">
+                    ${data?.price}
+                  </h4>
 
                   <div className="pt-2 flex gap-3 items-center">
                     <div className="flex ">
-                      <StarIcon
-                        size={"16px"}
-                        className={`${
-                          Number(
+                      <div className="flex">
+                        {[...Array(5)].map((_, index) => {
+                          const ratingValue =
                             data?.rating?.length &&
-                              (
-                                data.rating.reduce(
-                                  (pre, next) => pre + next.rating,
-                                  0
-                                ) / data.rating.length
-                              ).toFixed(1)
-                          ) > 0
-                            ? "text-yellow-400"
-                            : "text-gray-400"
-                        } `}
-                      />
-                      <StarIcon
-                        size={"16px"}
-                        className={`${
-                          Number(
-                            data?.rating?.length &&
-                              (
-                                data.rating.reduce(
-                                  (pre, next) => pre + next.rating,
-                                  0
-                                ) / data.rating.length
-                              ).toFixed(1)
-                          ) > 1
-                            ? "text-yellow-400"
-                            : "text-gray-400"
-                        } `}
-                      />
-                      <StarIcon
-                        size={"16px"}
-                        className={`${
-                          Number(
-                            data?.rating?.length &&
-                              (
-                                data.rating.reduce(
-                                  (pre, next) => pre + next.rating,
-                                  0
-                                ) / data.rating.length
-                              ).toFixed(1)
-                          ) > 2
-                            ? "text-yellow-400"
-                            : "text-gray-400"
-                        } `}
-                      />
-                      <StarIcon
-                        size={"16px"}
-                        className={`${
-                          Number(
-                            data?.rating?.length &&
-                              (
-                                data.rating.reduce(
-                                  (pre, next) => pre + next.rating,
-                                  0
-                                ) / data.rating.length
-                              ).toFixed(1)
-                          ) > 3
-                            ? "text-yellow-400"
-                            : "text-gray-400"
-                        } `}
-                      />
-                      <StarIcon
-                        size={"16px"}
-                        className={`${
-                          Number(
-                            data?.rating?.length &&
-                              (
-                                data.rating.reduce(
-                                  (pre, next) => pre + next.rating,
-                                  0
-                                ) / data.rating.length
-                              ).toFixed(1)
-                          ) > 4
-                            ? "text-yellow-400"
-                            : "text-gray-400"
-                        } `}
-                      />
+                            data.rating.reduce(
+                              (pre, next) => pre + next.rating,
+                              0
+                            ) / data.rating.length;
+                          return (
+                            <StarIcon
+                              key={index}
+                              size={16}
+                              className={`${
+                                ratingValue > index
+                                  ? "text-yellow-400 fill-yellow-400"
+                                  : "text-yellow-400"
+                              }`}
+                            />
+                          );
+                        })}
+                      </div>
                     </div>
-                    <p>
-                      {data?.rating?.length &&
-                        (
-                          data.rating.reduce(
-                            (pre, next) => pre + next.rating,
-                            0
-                          ) / data.rating.length
-                        ).toFixed(2)}
-                    </p>
+                    <p>({data?.rating?.length && data.rating.length})</p>
                   </div>
-
-                  <h4 className="rounded text-sm sm:text-base md:text-base font-bold">
-                    {data.name}
-                  </h4>
-                  <h4 className="rounded text-xl font-bold pt-2 text-secondary-500">
-                    ${data?.price}
-                  </h4>
                 </div>
                 {/* <div className="rounded text-base font-medium flex ">
                   <div>
@@ -249,27 +215,6 @@ const RealtedProductsDisplayCard = ({
                   </div>
                 </div> */}
               </CardBody>
-
-              <CardFooter className=" bottom-0 gap-2 justify-around border-t-1 border-zinc-100/50 bg-white/30">
-                {user?.role === "VENDOR" && (
-                  <>
-                    {/* <ProductUpdateButton id={data.id} />
-                    <ProductDeleteButton id={data?.id} /> */}
-                  </>
-                )}
-
-                {user?.role === "USER" && (
-                  <Button
-                    size="sm"
-                    onPress={() => handleShowPopup(data.id, data.shopId)}
-                    className="bg-primary-500 text-white"
-                  >
-                    Add to Cart
-                  </Button>
-                )}
-
-                <SeeDetailButton id={data?.id} fromShop={fromShop} />
-              </CardFooter>
 
               {/* Popup Modal */}
               {showPopup && warning && warning.productId === data.id && (

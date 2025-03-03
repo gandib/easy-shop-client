@@ -39,7 +39,7 @@ const AllProductsFilteringSearching = ({
   fromShop?: string;
 }) => {
   const { user, isLoading } = useUser();
-  const [limit, setLimit] = useState(9);
+  const [limit, setLimit] = useState(8);
   const [sort, setSort] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const { register, handleSubmit, watch } = useForm();

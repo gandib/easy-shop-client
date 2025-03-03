@@ -1,6 +1,7 @@
 "use client";
 import { useUser } from "@/src/context/user.provider";
 import { Button } from "@nextui-org/react";
+import { Edit } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { use } from "react";
 
@@ -18,13 +19,12 @@ const ProductUpdateButton = ({ id }: { id: string }) => {
   }
 
   return (
-    <Button
-      className="bg-primary-500 text-white"
-      size="sm"
-      onPress={() => handleUpdate()}
+    <button
+      className="bg-white text-black hover:bg-secondary-500 hover:text-white p-2 rounded-md"
+      onClick={() => handleUpdate()}
     >
-      Update
-    </Button>
+      <Edit size={18} />
+    </button>
   );
 };
 
