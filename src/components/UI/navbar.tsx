@@ -137,7 +137,7 @@ export const Navbar = () => {
 
                 {/* Mega Menu */}
                 {showMegaMenu && (
-                  <div className="absolute left-0 top-full pt-2 w-[300px] bg-white shadow-lg rounded-md p-4 z-50">
+                  <div className="absolute left-0 top-full pt-2 w-[300px] bg-default-100 shadow-lg rounded-md p-4 z-50">
                     <div className="grid grid-cols-2 gap-4">
                       {/* Individual Links */}
 
@@ -375,7 +375,7 @@ export const Navbar = () => {
       </NextUINavbar>
       {searchText && (productData?.data || loading) && (
         <div
-          className="bg-white absolute flex flex-col w-full max-w-md h-[200px] overflow-y-auto p-2 z-50" // Added z-index
+          className="bg-default-100 absolute flex flex-col w-full max-w-md h-[200px] overflow-y-auto p-2 z-50" // Added z-index
           style={{
             top: "4rem", // Adjust based on your layout
             left: "50%",
@@ -385,31 +385,33 @@ export const Navbar = () => {
           }}
         >
           {loading && <p className="flex justify-center">Searching...</p>}
-          {productData?.data?.length! > 0 ? (
-            productData?.data.map((product: IProduct) => (
-              <div
-                onClick={() => {
-                  router.push(`/shop/detail-product/${product.id}`);
-                  setProductData(undefined);
-                  setValue("search", "");
-                }}
-                key={product.id}
-                className="flex hover:bg-primary-100 cursor-pointer items-center justify-between py-2 border-b"
-              >
-                <Image
-                  src={product.img[0]}
-                  width={50}
-                  height={50}
-                  alt="product"
-                />
-                <p className="text-gray-800 font-semibold">{product.name}</p>
-                <Eye className="text-white hover:text-primary-500" />
-                <span className="text-secondary-500 font-bold">{`$${product.price}`}</span>
-              </div>
-            ))
-          ) : (
-            <p className="text-center text-gray-500">No products found</p>
-          )}
+          {productData?.data?.length! > 0
+            ? productData?.data.map((product: IProduct) => (
+                <div
+                  onClick={() => {
+                    router.push(`/shop/detail-product/${product.id}`);
+                    setProductData(undefined);
+                    setValue("search", "");
+                  }}
+                  key={product.id}
+                  className="flex hover:bg-primary-100 cursor-pointer items-center justify-between py-2 border-b bg-default-100"
+                >
+                  <Image
+                    src={product.img[0]}
+                    width={50}
+                    height={50}
+                    alt="product"
+                  />
+                  <p className="text-default-800 font-semibold">
+                    {product.name}
+                  </p>
+                  <Eye className="text-default-100 hover:text-primary-500" />
+                  <span className="text-secondary-500 font-bold">{`$${product.price}`}</span>
+                </div>
+              ))
+            : !loading && (
+                <p className="text-center text-gray-500">No products found</p>
+              )}
         </div>
       )}
     </div>

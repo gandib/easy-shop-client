@@ -102,7 +102,7 @@ const AllProductsFilteringSearching = ({
   return (
     <div className="grid xs:grid-cols-3 lg:grid-cols-4 md:grid-cols-3 gap-4">
       <div className="col-span-1">
-        <div className="sticky top-4 bg-gray-100 rounded-lg p-4 shadow-md h-full">
+        <div className="sticky top-4 bg-default-100 rounded-lg p-4 shadow-md h-full">
           <div className="mb-6">
             <h2 className="text-lg font-semibold mb-2">Filter by Category</h2>
             <RadioGroup

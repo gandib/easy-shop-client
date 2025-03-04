@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { getAllProducts } from "@/src/services/ProductService";
 
 const HomeFlashSale = () => {
+  const [loading, setLoading] = useState(true);
   const [flashSale, setFlashSale] = useState<{
     meta: IMeta;
     data: IProduct[];
@@ -29,6 +30,7 @@ const HomeFlashSale = () => {
         { name: "flash", value: "flash" },
       ]);
       setFlashSale(allProducts);
+      setLoading(false);
     };
     fetchFlashSale();
   }, []);
@@ -40,6 +42,7 @@ const HomeFlashSale = () => {
   return (
     <div>
       <h1 className="text-2xl font-bold pt-8 my-6">Flash Sale</h1>
+      {loading && <p>Loading...</p>}
       <FlashSaleCard products={flashSale!} fromShop="homeFlash" />
       <div className="flex justify-center items-center">
         {flashSale?.data?.length > 0 && (
@@ -51,7 +54,7 @@ const HomeFlashSale = () => {
           </Button>
         )}
       </div>
-      {!flashSale?.data?.length && "No products to show!"}
+      {!flashSale?.data?.length && !loading && "No products to show!"}
     </div>
   );
 };

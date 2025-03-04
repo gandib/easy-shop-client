@@ -59,6 +59,7 @@ const HomeSmartPhoneDisplay = ({
   } | null>(null);
   const [showPopup, setShowPopup] = useState(false);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const handleShowPopup = (productId: string, shopId: string) => {
     addToCart(productId, shopId, (message, id, shop) => {
@@ -95,6 +96,7 @@ const HomeSmartPhoneDisplay = ({
 
   useEffect(() => {
     setProductData(products);
+    setLoading(false);
   }, [products]);
 
   if (isLoading) {
@@ -104,6 +106,7 @@ const HomeSmartPhoneDisplay = ({
   return (
     <div className="pt-8">
       <h1 className="text-2xl font-bold mt-10 my-6">Latest Smarts Phone</h1>
+      {loading && <p>Loading...</p>}
       <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
         {products?.length > 0 ? (
           productData?.slice(0, 5)?.map((data: IProduct) => (

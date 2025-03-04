@@ -34,10 +34,8 @@ const NewsLetter = () => {
     <div>
       <section className="my-12">
         <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">
-            Stay Updated!
-          </h2>
-          <p className="text-lg text-gray-600 mb-6">
+          <h2 className="text-3xl font-bold  mb-4">Stay Updated!</h2>
+          <p className="text-lg  mb-6">
             Subscribe to our newsletter and never miss the latest updates and
             offers.
           </p>
