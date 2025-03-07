@@ -1,7 +1,6 @@
 "use client";
 
 import { CardBody, CardHeader, Card as NextUiCard } from "@nextui-org/react";
-import { StarIcon } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import SeeDetailButton from "./SeeDetailButton";
@@ -50,38 +49,6 @@ const UserOverviewOrderCard = ({ order }: { order: any }) => {
             <h4 className="rounded text-xl  pt-2 text-secondary-500">
               ${order?.product?.price}
             </h4>
-
-            {/* <div className="pt-2 flex gap-3 items-center">
-              <div className="flex ">
-                <div className="flex">
-                  {[...Array(5)].map((_, index) => {
-                    const ratingValue =
-                      order?.product?.rating?.length &&
-                      order?.product?.rating.reduce(
-                        (pre: any, next: { rating: any }) => pre + next.rating,
-                        0
-                      ) / order?.product?.rating?.length;
-                    return (
-                      <StarIcon
-                        key={index}
-                        size={16}
-                        className={`${
-                          ratingValue > index
-                            ? "text-yellow-400 fill-yellow-400"
-                            : "text-yellow-400"
-                        }`}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
-              <p>
-                (
-                {order?.product?.rating?.length &&
-                  order?.product?.rating?.length}
-                )
-              </p>
-            </div> */}
           </div>
         </CardBody>
       </NextUiCard>

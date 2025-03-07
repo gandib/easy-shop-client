@@ -12,7 +12,7 @@ import {
 import Image from "next/image";
 import { useUser } from "@/src/context/user.provider";
 import { useState } from "react";
-import { CornerDownRight, Minus, Plus, Star, StarIcon } from "lucide-react";
+import { CornerDownRight, Minus, Plus, Star } from "lucide-react";
 import { Button } from "@nextui-org/react";
 import ESForm from "../form/ESForm";
 import ESTextarea from "../form/FXTextarea";
@@ -29,6 +29,7 @@ import moment from "moment";
 import ShopRedirect from "./ShopRedirect";
 import { addToCart } from "@/src/utils/addToCart";
 import ShowPopup from "./ShowPopup";
+import StarRating from "./StarRating";
 
 const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
   const { user, isLoading } = useUser();
@@ -153,28 +154,8 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
                 </h4>
 
                 <div className="flex items-center pt-2">
-                  <p className="flex">
-                    {[...Array(5)].map((_, index) => {
-                      const ratingValue =
-                        product?.rating?.length &&
-                        product.rating.reduce(
-                          (pre, next) => pre + next.rating,
-                          0
-                        ) / product.rating.length;
-                      return (
-                        <StarIcon
-                          key={index}
-                          size={16}
-                          className={`${
-                            ratingValue > index
-                              ? "text-yellow-400 fill-yellow-400"
-                              : "text-yellow-400"
-                          }`}
-                        />
-                      );
-                    })}
-                  </p>
-                  <p className="pl-2">{product?.rating?.length}</p>
+                  <StarRating product={product} />
+                  <p className="pl-2">({product?.rating?.length})</p>
                 </div>
 
                 <div className="flex justify-between">
@@ -303,26 +284,9 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
                             {averageRating}
                           </h1>
                           <div className="pt-2">
-                            <p className="flex pl-2">
-                              {[...Array(5)].map((_, index) => {
-                                const ratingValue =
-                                  product?.rating?.length &&
-                                  product.rating.reduce(
-                                    (pre, next) => pre + next.rating,
-                                    0
-                                  ) / product.rating.length;
-                                return (
-                                  <StarIcon
-                                    key={index}
-                                    className={`${
-                                      ratingValue > index
-                                        ? "text-yellow-400 fill-yellow-400"
-                                        : "text-yellow-400"
-                                    }`}
-                                  />
-                                );
-                              })}
-                            </p>
+                            <div className="flex pl-2">
+                              <StarRating product={product} />
+                            </div>
                           </div>
                         </div>
                         <div></div>

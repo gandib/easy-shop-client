@@ -8,8 +8,9 @@ import SeeDetailButton from "./SeeDetailButton";
 import ShowPopup from "./ShowPopup";
 import { useUser } from "@/src/context/user.provider";
 import { addToCart } from "@/src/utils/addToCart";
-import { ShoppingCart, StarIcon } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
+import StarRating from "./StarRating";
 
 const RecentProductsCard = ({
   products,
@@ -104,39 +105,11 @@ const RecentProductsCard = ({
 
                     <div className="pt-2 flex gap-3 items-center">
                       <div className="flex ">
-                        <div className="flex">
-                          {[...Array(5)].map((_, index) => {
-                            const ratingValue =
-                              data?.rating?.length &&
-                              data.rating.reduce(
-                                (pre, next) => pre + next.rating,
-                                0
-                              ) / data.rating.length;
-                            return (
-                              <StarIcon
-                                key={index}
-                                size={16}
-                                className={`${
-                                  ratingValue > index
-                                    ? "text-yellow-400 fill-yellow-400"
-                                    : "text-yellow-400"
-                                }`}
-                              />
-                            );
-                          })}
-                        </div>
+                        <StarRating product={data} />
                       </div>
                       <p>({data?.rating?.length && data.rating.length})</p>
                     </div>
                   </div>
-                  {/* <div className="rounded text-base font-medium flex ">
-                <div>
-                  <p>
-                    {data.description.slice(0, 100) +
-                      `${data.description.length > 100 ? "..." : ""}`}
-                  </p>
-                </div>
-              </div> */}
                 </CardBody>
 
                 {/* Popup Modal */}

@@ -2,7 +2,7 @@
 
 import { useUser } from "@/src/context/user.provider";
 import { useEffect, useState } from "react";
-import { ShoppingCart, StarIcon } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { IProduct } from "@/src/types";
 
 import { Card as NextUiCard, CardHeader, CardBody } from "@nextui-org/react";
@@ -11,6 +11,7 @@ import Image from "next/image";
 import SeeDetailButton from "./SeeDetailButton";
 import ShowPopup from "./ShowPopup";
 import Link from "next/link";
+import StarRating from "./StarRating";
 
 export type queryParams = {
   name: string;
@@ -119,39 +120,11 @@ const HomeSmartPhoneDisplay = ({
 
                   <div className="pt-2 flex gap-3 items-center">
                     <div className="flex ">
-                      <div className="flex">
-                        {[...Array(5)].map((_, index) => {
-                          const ratingValue =
-                            data?.rating?.length &&
-                            data.rating.reduce(
-                              (pre, next) => pre + next.rating,
-                              0
-                            ) / data.rating.length;
-                          return (
-                            <StarIcon
-                              key={index}
-                              size={16}
-                              className={`${
-                                ratingValue > index
-                                  ? "text-yellow-400 fill-yellow-400"
-                                  : "text-yellow-400"
-                              }`}
-                            />
-                          );
-                        })}
-                      </div>
+                      <StarRating product={data} />
                     </div>
                     <p>({data?.rating?.length && data.rating.length})</p>
                   </div>
                 </div>
-                {/* <div className="rounded text-base font-medium flex ">
-                  <div>
-                    <p>
-                      {data.description.slice(0, 100) +
-                        `${data.description.length > 100 ? "..." : ""}`}
-                    </p>
-                  </div>
-                </div> */}
               </CardBody>
 
               {/* Popup Modal */}
@@ -170,28 +143,6 @@ const HomeSmartPhoneDisplay = ({
           <p>No Product available!</p>
         )}
       </div>
-      {/* <div className="flex justify-center my-8">
-        {!loading &&
-        productData?.data?.length > 0 &&
-        currentPage !== totalPage ? (
-          <Button
-            onPress={() => {
-              if (currentPage < totalPage) {
-                setCurrentPage((prev) => prev + 1);
-              }
-            }}
-            className="bg-primary-500 px-6 text-white"
-          >
-            Load More
-          </Button>
-        ) : loading && productData?.data?.length > 0 ? (
-          <p>Loading...</p>
-        ) : (
-          !loading &&
-          productData?.meta?.totalPage === totalPage &&
-          "No more products to show!"
-        )}
-      </div> */}
     </div>
   );
 };
