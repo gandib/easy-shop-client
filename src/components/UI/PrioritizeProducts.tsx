@@ -62,20 +62,6 @@ const PrioritizeProducts = ({
           ) : (
             ""
           )}
-          {/* {productData?.data?.length > 0 ? (
-              <div className="mt-5 flex justify-center items-center">
-                {productData?.data?.length > 0 && (
-                  <Pagination
-                    showControls
-                    total={totalPage}
-                    page={currentPage}
-                    onChange={(page) => setCurrentPage(page)}
-                  />
-                )}
-              </div>
-            ) : (
-              ""
-            )} */}
         </div>
       )}
     </div>

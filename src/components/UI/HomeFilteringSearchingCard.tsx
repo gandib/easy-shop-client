@@ -52,28 +52,6 @@ const HomeFilteringSearchingCard = ({
           <p>No Product available!</p>
         )}
       </div>
-      {/* <div className="flex justify-center my-8">
-        {!loading &&
-        productData?.data?.length > 0 &&
-        currentPage !== totalPage ? (
-          <Button
-            onPress={() => {
-              if (currentPage < totalPage) {
-                setCurrentPage((prev) => prev + 1);
-              }
-            }}
-            className="bg-primary-500 px-6 text-white"
-          >
-            Load More
-          </Button>
-        ) : loading && productData?.data?.length > 0 ? (
-          <p>Loading...</p>
-        ) : (
-          !loading &&
-          productData?.meta?.totalPage === totalPage &&
-          "No more products to show!"
-        )}
-      </div> */}
     </div>
   );
 };

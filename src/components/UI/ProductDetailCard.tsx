@@ -172,35 +172,6 @@ const ProductDetailCard = ({ product }: { product: IProduct }) => {
             </div>
           </CardHeader>
           <CardBody>
-            <div className="my-6 flex items-center">
-              <Minus
-                onClick={() => {
-                  if (rate !== 1) {
-                    setRate(rate - 1);
-                  }
-                }}
-                className="mr-2"
-              />
-              <p className="text-purple-500 font-bold flex justify-center items-center gap-1">
-                {rate} <Star size={"18"} />
-              </p>
-              <Plus
-                onClick={() => {
-                  if (rate !== 5) {
-                    setRate(rate + 1);
-                  }
-                }}
-                className="mx-2"
-              />
-              <Button
-                onPress={() => handleRating(product?.id)}
-                size="sm"
-                variant="flat"
-              >
-                Rate Now
-              </Button>
-            </div>
-
             {user?.role === "USER" &&
               product?.review?.find((review) => review?.userId === user?.id)
                 ?.userId !== user?.id && (

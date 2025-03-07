@@ -25,7 +25,7 @@ const ShopDetail = ({ shop }: { shop: IShop }) => {
     const fetchData = async () => {
       const { data: allProducts } = await getAllProducts([
         { name: "shop", value: shop?.id },
-        { name: "limit", value: 12 },
+        { name: "limit", value: 10 },
       ]);
       setProducts(allProducts);
     };
