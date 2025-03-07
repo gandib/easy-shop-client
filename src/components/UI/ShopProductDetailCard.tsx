@@ -12,7 +12,7 @@ import {
 import Image from "next/image";
 import { useUser } from "@/src/context/user.provider";
 import { useState } from "react";
-import { CornerDownRight, Minus, Plus, Star } from "lucide-react";
+import { CornerDownRight, Minus, Plus, Star, StarIcon } from "lucide-react";
 import { Button } from "@nextui-org/react";
 import ESForm from "../form/ESForm";
 import ESTextarea from "../form/FXTextarea";
@@ -30,12 +30,13 @@ import ShopRedirect from "./ShopRedirect";
 import { addToCart } from "@/src/utils/addToCart";
 import ShowPopup from "./ShowPopup";
 import StarRating from "./StarRating";
+import { toast } from "sonner";
 
 const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
   const { user, isLoading } = useUser();
   const { mutate: postRating } = useCreateRating();
   const { mutate: createReview } = useCreateReview();
-  const [rate, setRate] = useState(5);
+  const [rate, setRate] = useState(0);
   const [commentError, setCommentError] = useState("");
   const router = useRouter();
   const [imgLink, setImgLink] = useState(product?.img[0]);
@@ -47,6 +48,9 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
   const [showPopup, setShowPopup] = useState(false);
 
   const handleRating = (productId: string) => {
+    if (rate === 0) {
+      return toast("Please rate at least one start");
+    }
     const ratingData = {
       rating: rate,
       productId,
@@ -292,26 +296,22 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
                         <div></div>
                       </div>
 
-                      <div className="my-6 flex items-center">
-                        <Minus
-                          onClick={() => {
-                            if (rate !== 1) {
-                              setRate(rate - 1);
-                            }
-                          }}
-                          className="mr-2"
-                        />
-                        <p className="text-purple-500 font-bold flex justify-center items-center gap-1">
-                          {rate} <Star size={"18"} />
-                        </p>
-                        <Plus
-                          onClick={() => {
-                            if (rate !== 5) {
-                              setRate(rate + 1);
-                            }
-                          }}
-                          className="mx-2"
-                        />
+                      <div className="my-6 flex items-center gap-2">
+                        {[...Array(5)].map((_, index) => {
+                          return (
+                            <StarIcon
+                              key={index}
+                              size={20}
+                              onClick={() => setRate(index + 1)}
+                              className={`${
+                                rate > index
+                                  ? "text-yellow-400 fill-yellow-400"
+                                  : "text-yellow-400"
+                              }`}
+                            />
+                          );
+                        })}
+
                         <Button
                           onPress={() => handleRating(product?.id)}
                           size="sm"
