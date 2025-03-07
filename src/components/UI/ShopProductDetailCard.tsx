@@ -40,6 +40,9 @@ import RelatedProduct from "./RelatedProduct";
 import { recentViewedProductsStore } from "@/src/utils/recentViewedProductsStore";
 import moment from "moment";
 import ShopRedirect from "./ShopRedirect";
+import { addToCart } from "@/src/utils/addToCart";
+import ShowPopup from "./ShowPopup";
+import { toast } from "sonner";
 
 const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
   const { user, isLoading } = useUser();
@@ -49,6 +52,12 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
   const [commentError, setCommentError] = useState("");
   const router = useRouter();
   const [imgLink, setImgLink] = useState(product?.img[0]);
+  const [warning, setWarning] = useState<{
+    message: string;
+    productId: string;
+    shopId: string;
+  } | null>(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleRating = (productId: string) => {
     const ratingData = {
@@ -83,6 +92,35 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
 
   recentViewedProductsStore(product?.id);
 
+  const handleShowPopup = (productId: string, shopId: string) => {
+    addToCart(productId, shopId, (message, id, shop) => {
+      setWarning({ message, productId: id, shopId: shop });
+    });
+    setShowPopup(true);
+  };
+
+  const handleClosePopup = () => setShowPopup(false);
+
+  const handleReplaceCart = () => {
+    if (warning) {
+      localStorage.setItem(
+        "cart",
+        JSON.stringify([
+          { productId: warning.productId, shopId: warning.shopId },
+        ])
+      );
+      toast("Cart replaced successfully with the new product!");
+      setWarning(null);
+      setShowPopup(false);
+    }
+  };
+
+  const handleDismissWarning = () => {
+    toast("Cart remains unchanged.");
+    setWarning(null);
+    setShowPopup(false);
+  };
+
   let tabs = [
     {
       id: "description",
@@ -110,7 +148,7 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
         <NextUiCard isFooterBlurred className="  ">
           <CardHeader className="w-full flex-col items-start grid md:grid-cols-2 gap-4">
             <div>
-              <div className="h-[400px] px-0 py-0 w-full flex justify-center">
+              <div className="h-[420px] px-0 py-0 w-full flex justify-center">
                 {product && (
                   <Image
                     width={500}
@@ -199,6 +237,17 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
                   {product?.description.slice(0, 300)}
                   {product?.description.length > 300 && "..."}
                 </h4>
+              </div>
+
+              {/* Add to cart btn  */}
+              <div className="flex justify-end">
+                <Button
+                  onPress={() => handleShowPopup(product.id, product.shopId)}
+                  size="lg"
+                  className="bg-primary-500 text-white font-semibold"
+                >
+                  Add to cart
+                </Button>
               </div>
             </div>
           </CardHeader>
@@ -354,6 +403,14 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
             {/* <ProductUpdateButton id={product?.id} /> */}
             {/* <ProductDeleteButton id={recipe?._id} setLoading={setLoading} /> */}
           </CardFooter>
+
+          {/* Popup Modal */}
+          {showPopup && warning && warning.productId === product.id && (
+            <ShowPopup
+              handleReplaceCart={handleReplaceCart}
+              handleDismissWarning={handleDismissWarning}
+            />
+          )}
         </NextUiCard>
       )}
 
