@@ -2,21 +2,11 @@
 
 import { IProduct } from "@/src/types";
 import { useEffect, useState } from "react";
-import {
-  Card as NextUiCard,
-  CardHeader,
-  CardFooter,
-  CardBody,
-} from "@nextui-org/react";
+import { Card as NextUiCard, CardHeader, CardBody } from "@nextui-org/react";
 import Image from "next/image";
 import SeeDetailButton from "./SeeDetailButton";
-import ProductUpdateButton from "./ProductUpdateButton";
-import ProductDeleteButton from "./ProductDeleteButton";
-import ShopRedirect from "./ShopRedirect";
-import { Button, Pagination } from "@nextui-org/react";
 import ShowPopup from "./ShowPopup";
 import { useUser } from "@/src/context/user.provider";
-import { toast } from "sonner";
 import { addToCart } from "@/src/utils/addToCart";
 import { ShoppingCart, StarIcon } from "lucide-react";
 import Link from "next/link";
@@ -41,28 +31,6 @@ const RecentProductsCard = ({
       setWarning({ message, productId: id, shopId: shop });
     });
     setShowPopup(true);
-  };
-
-  const handleClosePopup = () => setShowPopup(false);
-
-  const handleReplaceCart = () => {
-    if (warning) {
-      localStorage.setItem(
-        "cart",
-        JSON.stringify([
-          { productId: warning.productId, shopId: warning.shopId },
-        ])
-      );
-      toast("Cart replaced successfully with the new product!");
-      setWarning(null);
-      setShowPopup(false);
-    }
-  };
-
-  const handleDismissWarning = () => {
-    toast("Cart remains unchanged.");
-    setWarning(null);
-    setShowPopup(false);
   };
 
   useEffect(() => {
@@ -174,8 +142,9 @@ const RecentProductsCard = ({
                 {/* Popup Modal */}
                 {showPopup && warning && warning.productId === data.id && (
                   <ShowPopup
-                    handleReplaceCart={handleReplaceCart}
-                    handleDismissWarning={handleDismissWarning}
+                    setShowPopup={setShowPopup}
+                    setWarning={setWarning}
+                    warning={warning}
                   />
                 )}
               </NextUiCard>

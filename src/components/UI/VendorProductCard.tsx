@@ -1,25 +1,15 @@
 "use client";
 
 import { IProduct } from "@/src/types";
-import {
-  Card as NextUiCard,
-  CardHeader,
-  CardFooter,
-  CardBody,
-} from "@nextui-org/react";
+import { Card as NextUiCard, CardHeader, CardBody } from "@nextui-org/react";
 import Image from "next/image";
 import SeeDetailButton from "./SeeDetailButton";
 import ProductUpdateButton from "./ProductUpdateButton";
 import ProductDeleteButton from "./ProductDeleteButton";
-import ShopRedirect from "./ShopRedirect";
 import ProductPaginationCard from "./ProductPaginationCard";
 import { useState } from "react";
 import { useUser } from "@/src/context/user.provider";
-import { Button } from "@nextui-org/react";
-import { addToCart } from "@/src/utils/addToCart";
-import { toast } from "sonner";
-import ShowPopup from "./ShowPopup";
-import { ShoppingCart, StarIcon } from "lucide-react";
+import { StarIcon } from "lucide-react";
 import Link from "next/link";
 
 export interface IMeta {
@@ -39,47 +29,8 @@ const VendorProductCard = ({
   fromShop?: string;
 }) => {
   const [productData, setProductData] = useState(products);
-  const { user, isLoading } = useUser();
-  const [showPopup, setShowPopup] = useState(false);
-  const [warning, setWarning] = useState<{
-    message: string;
-    productId: string;
-    shopId: string;
-  } | null>(null);
+  const { isLoading } = useUser();
   const [hoveredId, setHoveredId] = useState<string | null>(null);
-
-  const handleShowPopup = (productId: string, shopId: string) => {
-    addToCart(productId, shopId, (message, id, shop) => {
-      setWarning({ message, productId: id, shopId: shop });
-    });
-    setShowPopup(true);
-  };
-
-  const handleClosePopup = () => setShowPopup(false);
-
-  const handleReplaceCart = () => {
-    if (warning) {
-      localStorage.setItem(
-        "cart",
-        JSON.stringify([
-          { productId: warning.productId, shopId: warning.shopId },
-        ])
-      );
-      toast("Cart replaced successfully with the new product!");
-      setWarning(null);
-      setShowPopup(false);
-    }
-  };
-
-  const handleDismissWarning = () => {
-    toast("Cart remains unchanged.");
-    setWarning(null);
-    setShowPopup(false);
-  };
-
-  // const handleAddToCart = (productId: string, shopId: string) => {
-  //   addToCart(productId, shopId);
-  // };
 
   if (isLoading) {
     <p>Loading...</p>;
@@ -173,23 +124,7 @@ const VendorProductCard = ({
                     <p>({data?.rating?.length && data.rating.length})</p>
                   </div>
                 </div>
-                {/* <div className="rounded text-base font-medium flex ">
-                  <div>
-                    <p>
-                      {data.description.slice(0, 100) +
-                        `${data.description.length > 100 ? "..." : ""}`}
-                    </p>
-                  </div>
-                </div> */}
               </CardBody>
-
-              {/* Popup Modal */}
-              {showPopup && warning && warning.productId === data.id && (
-                <ShowPopup
-                  handleReplaceCart={handleReplaceCart}
-                  handleDismissWarning={handleDismissWarning}
-                />
-              )}
             </NextUiCard>
           ))}
       </div>

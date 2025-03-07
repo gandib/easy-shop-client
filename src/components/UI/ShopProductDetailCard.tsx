@@ -7,30 +7,17 @@ import {
   CardBody,
   Tabs,
   Tab,
-  Card,
-  Avatar,
   Divider,
 } from "@nextui-org/react";
 import Image from "next/image";
 import { useUser } from "@/src/context/user.provider";
 import { useState } from "react";
-import {
-  CornerDownRight,
-  Cross,
-  Delete,
-  DeleteIcon,
-  Minus,
-  Plus,
-  Star,
-  StarHalf,
-  StarIcon,
-} from "lucide-react";
+import { CornerDownRight, Minus, Plus, Star, StarIcon } from "lucide-react";
 import { Button } from "@nextui-org/react";
 import ESForm from "../form/ESForm";
 import ESTextarea from "../form/FXTextarea";
 import { FieldValues } from "react-hook-form";
 import { IProduct, IReview } from "@/src/types";
-import ProductUpdateButton from "./ProductUpdateButton";
 import {
   useCreateRating,
   useCreateReview,
@@ -42,7 +29,6 @@ import moment from "moment";
 import ShopRedirect from "./ShopRedirect";
 import { addToCart } from "@/src/utils/addToCart";
 import ShowPopup from "./ShowPopup";
-import { toast } from "sonner";
 
 const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
   const { user, isLoading } = useUser();
@@ -97,28 +83,6 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
       setWarning({ message, productId: id, shopId: shop });
     });
     setShowPopup(true);
-  };
-
-  const handleClosePopup = () => setShowPopup(false);
-
-  const handleReplaceCart = () => {
-    if (warning) {
-      localStorage.setItem(
-        "cart",
-        JSON.stringify([
-          { productId: warning.productId, shopId: warning.shopId },
-        ])
-      );
-      toast("Cart replaced successfully with the new product!");
-      setWarning(null);
-      setShowPopup(false);
-    }
-  };
-
-  const handleDismissWarning = () => {
-    toast("Cart remains unchanged.");
-    setWarning(null);
-    setShowPopup(false);
   };
 
   let tabs = [
@@ -407,8 +371,9 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
           {/* Popup Modal */}
           {showPopup && warning && warning.productId === product.id && (
             <ShowPopup
-              handleReplaceCart={handleReplaceCart}
-              handleDismissWarning={handleDismissWarning}
+              setShowPopup={setShowPopup}
+              setWarning={setWarning}
+              warning={warning}
             />
           )}
         </NextUiCard>

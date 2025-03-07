@@ -1,32 +1,15 @@
 "use client";
 
 import { useUser } from "@/src/context/user.provider";
-import { useEffect, useState, useCallback } from "react";
-import { FieldValues, useForm } from "react-hook-form";
-import useDebounce from "@/src/hooks/debounce.hook";
-import { SearchIcon, ShoppingCart, StarIcon } from "lucide-react";
-import { ICategory, IProduct } from "@/src/types";
-import { getAllProducts } from "@/src/services/ProductService";
-import {
-  RadioGroup,
-  Radio,
-  Input,
-  Button,
-  Slider,
-  Card as NextUiCard,
-  CardHeader,
-  CardBody,
-  CardFooter,
-} from "@nextui-org/react";
-import { getAllCategory } from "@/src/services/CategoryService";
-import HomeProductsDisplayCard from "./HomeProductsDisplayCard";
-import Loading from "./Loading";
-import { toast } from "sonner";
+import { useEffect, useState } from "react";
+import { ShoppingCart, StarIcon } from "lucide-react";
+import { IProduct } from "@/src/types";
+
+import { Card as NextUiCard, CardHeader, CardBody } from "@nextui-org/react";
 import { addToCart } from "@/src/utils/addToCart";
 import Image from "next/image";
 import SeeDetailButton from "./SeeDetailButton";
 import ShowPopup from "./ShowPopup";
-import loading from "@/src/app/loading";
 import Link from "next/link";
 
 export type queryParams = {
@@ -67,32 +50,6 @@ const HomeSmartPhoneDisplay = ({
     });
     setShowPopup(true);
   };
-
-  const handleClosePopup = () => setShowPopup(false);
-
-  const handleReplaceCart = () => {
-    if (warning) {
-      localStorage.setItem(
-        "cart",
-        JSON.stringify([
-          { productId: warning.productId, shopId: warning.shopId },
-        ])
-      );
-      toast("Cart replaced successfully with the new product!");
-      setWarning(null);
-      setShowPopup(false);
-    }
-  };
-
-  const handleDismissWarning = () => {
-    toast("Cart remains unchanged.");
-    setWarning(null);
-    setShowPopup(false);
-  };
-
-  // const handleAddToCart = (productId: string, shopId: string) => {
-  //   addToCart(productId, shopId);
-  // };
 
   useEffect(() => {
     setProductData(products);
@@ -200,8 +157,9 @@ const HomeSmartPhoneDisplay = ({
               {/* Popup Modal */}
               {showPopup && warning && warning.productId === data.id && (
                 <ShowPopup
-                  handleReplaceCart={handleReplaceCart}
-                  handleDismissWarning={handleDismissWarning}
+                  setShowPopup={setShowPopup}
+                  setWarning={setWarning}
+                  warning={warning}
                 />
               )}
             </NextUiCard>

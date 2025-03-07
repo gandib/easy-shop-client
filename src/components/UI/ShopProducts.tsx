@@ -1,29 +1,14 @@
 "use client";
 
 import { IProduct } from "@/src/types";
-import {
-  Card as NextUiCard,
-  CardHeader,
-  CardFooter,
-  CardBody,
-} from "@nextui-org/react";
+import { Card as NextUiCard, CardHeader, CardBody } from "@nextui-org/react";
 import Image from "next/image";
 import SeeDetailButton from "./SeeDetailButton";
-import ProductUpdateButton from "./ProductUpdateButton";
-import ProductDeleteButton from "./ProductDeleteButton";
-import ShopRedirect from "./ShopRedirect";
 import { useEffect, useState } from "react";
-import {
-  Button,
-  Pagination,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@nextui-org/react";
+import { Pagination } from "@nextui-org/react";
 import { queryParams } from "./OrderHistoryCard";
 import { getAllProducts } from "@/src/services/ProductService";
 import { useUser } from "@/src/context/user.provider";
-import { toast } from "sonner";
 import { addToCart } from "@/src/utils/addToCart";
 import ShowPopup from "./ShowPopup";
 import { ShoppingCart, StarIcon } from "lucide-react";
@@ -63,28 +48,6 @@ const ShopProducts = ({
     setShowPopup(true);
   };
 
-  const handleClosePopup = () => setShowPopup(false);
-
-  const handleReplaceCart = () => {
-    if (warning) {
-      localStorage.setItem(
-        "cart",
-        JSON.stringify([
-          { productId: warning.productId, shopId: warning.shopId },
-        ])
-      );
-      toast("Cart replaced successfully with the new product!");
-      setWarning(null);
-      setShowPopup(false);
-    }
-  };
-
-  const handleDismissWarning = () => {
-    toast("Cart remains unchanged.");
-    setWarning(null);
-    setShowPopup(false);
-  };
-
   useEffect(() => {
     const query: queryParams[] = [];
     if (limit) {
@@ -103,10 +66,6 @@ const ShopProducts = ({
 
     fetchData();
   }, [currentPage, totalPage]);
-
-  // const handleAddToCart = (productId: string, shopId: string) => {
-  //   addToCart(productId, shopId);
-  // };
 
   if (isLoading) {
     <p>Loading...</p>;
@@ -208,8 +167,9 @@ const ShopProducts = ({
               {/* Popup Modal */}
               {showPopup && warning && warning.productId === data.id && (
                 <ShowPopup
-                  handleReplaceCart={handleReplaceCart}
-                  handleDismissWarning={handleDismissWarning}
+                  setShowPopup={setShowPopup}
+                  setWarning={setWarning}
+                  warning={warning}
                 />
               )}
             </NextUiCard>

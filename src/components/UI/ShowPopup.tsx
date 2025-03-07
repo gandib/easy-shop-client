@@ -1,9 +1,21 @@
+import { handleReplaceCart } from "@/src/utils/handleReplaceCart";
+import { Dispatch, SetStateAction } from "react";
+import { toast } from "sonner";
+
 const ShowPopup = ({
-  handleReplaceCart,
-  handleDismissWarning,
+  setShowPopup,
+  setWarning,
+  warning,
 }: {
-  handleReplaceCart: any;
-  handleDismissWarning: any;
+  setShowPopup: Dispatch<SetStateAction<boolean>>;
+  setWarning: Dispatch<
+    SetStateAction<{
+      message: string;
+      productId: string;
+      shopId: string;
+    } | null>
+  >;
+  warning: { productId: string; shopId: string; message: string } | null;
 }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
@@ -14,13 +26,21 @@ const ShowPopup = ({
         </p>
         <div className="flex gap-4 mt-4 justify-center">
           <button
-            onClick={handleReplaceCart}
+            onClick={() => {
+              handleReplaceCart(warning);
+              setShowPopup(false);
+              setWarning(null);
+            }}
             className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-green-400"
           >
             Yes
           </button>
           <button
-            onClick={handleDismissWarning}
+            onClick={() => {
+              toast("Cart remains unchanged.");
+              setWarning(null);
+              setShowPopup(false);
+            }}
             className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-gray-400"
           >
             No
