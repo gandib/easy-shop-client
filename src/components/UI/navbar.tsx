@@ -98,7 +98,7 @@ export const Navbar = () => {
   return (
     <div className="mb-10">
       <NextUINavbar
-        className="bg-primary-50 fixed"
+        className="bg-primary-50 fixed xl:px-20"
         maxWidth="2xl"
         position="sticky"
       >
@@ -242,7 +242,7 @@ export const Navbar = () => {
           className="hidden md:flex basis-1/5 sm:basis-full"
           justify="end"
         >
-          {user && user?.email && (
+          {
             <NavbarItem className="hidden lg:flex gap-2">
               <Link
                 className="text-primary-800 font-bold text-base"
@@ -251,7 +251,7 @@ export const Navbar = () => {
                 <ShoppingCart />
               </Link>
             </NavbarItem>
-          )}
+          }
           <NavbarItem className="hidden lg:flex gap-2">
             <ThemeSwitch />
           </NavbarItem>

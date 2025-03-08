@@ -21,9 +21,9 @@ const SeeDetailButton = ({
           `/${fromShop && fromShop ? "shop" : "vendor-dashboard"}/detail-product/${id}`
         )
       }
-      className="bg-white text-black p-2 rounded-md hover:bg-secondary-500 hover:text-white"
+      className="bg-gray-100 text-black p-2 rounded-md hover:bg-secondary-500 hover:text-white"
     >
-      <Eye size={18} />
+      <Eye size={20} />
     </button>
   );
 };

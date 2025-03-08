@@ -72,13 +72,13 @@ const ProductCard = ({
         {user?.role === "VENDOR" && (
           <>
             <div
-              className={`absolute bottom-18 left-2 transition-all duration-300 ease-in-out 
+              className={`absolute bottom-[124px] left-2 transition-all duration-300 ease-in-out 
         ${hoveredId === data.id ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
             >
               <ProductUpdateButton id={data.id} />
             </div>
             <div
-              className={`absolute bottom-14 left-2 transition-all duration-300 ease-in-out 
+              className={`absolute bottom-[84px] left-2 transition-all duration-300 ease-in-out 
         ${hoveredId === data.id ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
             >
               <ProductDeleteButton id={data?.id} />
@@ -87,20 +87,20 @@ const ProductCard = ({
         )}
 
         {/* ShoppingCart Button with Smooth Transition */}
-        {user?.role === "USER" && (
+        {
           <button
             onClick={() => handleShowPopup(data.id, data.shopId)}
-            className={`bg-white text-black absolute bottom-14 left-2 p-2 rounded-md transition-all duration-300 ease-in-out 
+            className={`bg-gray-100 text-black absolute bottom-11 left-2 p-2 rounded-md transition-all duration-300 ease-in-out 
 ${hoveredId === data.id ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}
 hover:bg-secondary-500 hover:text-white`}
           >
-            <ShoppingCart size={18} />
+            <ShoppingCart size={20} />
           </button>
-        )}
+        }
 
         {/* Eye Button (SeeDetailButton) with Smooth Transition */}
         <div
-          className={`absolute bottom-2 left-2 transition-all duration-300 ease-in-out 
+          className={`absolute bottom-1 left-2 transition-all duration-300 ease-in-out 
 ${hoveredId === data.id ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
         >
           <SeeDetailButton id={data?.id} fromShop={fromShop} />

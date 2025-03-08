@@ -20,10 +20,10 @@ const ProductUpdateButton = ({ id }: { id: string }) => {
 
   return (
     <button
-      className="bg-white text-black hover:bg-secondary-500 hover:text-white p-2 rounded-md"
+      className="bg-gray-100 text-black hover:bg-secondary-500 hover:text-white p-2 rounded-md"
       onClick={() => handleUpdate()}
     >
-      <Edit size={18} />
+      <Edit size={20} />
     </button>
   );
 };

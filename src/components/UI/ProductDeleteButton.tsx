@@ -24,9 +24,9 @@ const ProductDeleteButton = ({ id }: { id: string }) => {
   return (
     <button
       onClick={() => handleDelete()}
-      className="bg-white text-danger-500 hover:bg-danger-500 hover:text-white p-2 rounded-md"
+      className="bg-gray-100 text-danger-500 hover:bg-danger-500 hover:text-white p-2 rounded-md"
     >
-      <Trash size={18} />
+      <Trash size={20} />
     </button>
   );
 };
