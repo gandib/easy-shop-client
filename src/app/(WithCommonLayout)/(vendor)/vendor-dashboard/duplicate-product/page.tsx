@@ -1,5 +1,5 @@
-import Container from "@/src/components/UI/Container";
-import ProductManageCard from "@/src/components/UI/ProductManageCard";
+import Container from "@/src/components/UI/Shared/Container";
+import ProductManageCard from "@/src/components/UI/Dashboard/ProductManageCard";
 import { getAllCategory } from "@/src/services/CategoryService";
 import { getSingleProduct } from "@/src/services/ProductService";
 import { getUserByEmail } from "@/src/services/UserService";

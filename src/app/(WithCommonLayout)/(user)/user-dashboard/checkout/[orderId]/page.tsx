@@ -1,4 +1,4 @@
-import Container from "@/src/components/UI/Container";
+import Container from "@/src/components/UI/Shared/Container";
 import PayNowCard from "@/src/components/UI/PayNowCard";
 import { getOrderById } from "@/src/services/OrderService";
 import { Button } from "@nextui-org/react";

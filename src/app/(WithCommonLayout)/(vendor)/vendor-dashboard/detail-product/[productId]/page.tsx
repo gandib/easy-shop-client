@@ -1,5 +1,5 @@
-import Container from "@/src/components/UI/Container";
-import ProductDetailCard from "@/src/components/UI/ProductDetailCard";
+import Container from "@/src/components/UI/Shared/Container";
+import ProductDetailCard from "@/src/components/UI/Dashboard/ProductDetailCard";
 import { getSingleProduct } from "@/src/services/ProductService";
 
 type Params = Promise<{ productId: string }>;

@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues } from "react-hook-form";
 import { useRecoverPassword } from "@/src/hooks/auth.hook";
 import { useRouter, useSearchParams } from "next/navigation";
-import Loading from "@/src/components/UI/Loading";
+import Loading from "@/src/components/UI/Shared/Loading";
 import { useUser } from "@/src/context/user.provider";
 import recoverPasswordValidationSchema from "@/src/schemas/recover-password.schemas";
 import { useEffect } from "react";

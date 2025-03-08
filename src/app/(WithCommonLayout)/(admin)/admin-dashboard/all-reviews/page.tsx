@@ -1,5 +1,5 @@
-import AllReviewsCard from "@/src/components/UI/AllReviewsCard";
-import Container from "@/src/components/UI/Container";
+import AllReviewsCard from "@/src/components/UI/Dashboard/AllReviewsCard";
+import Container from "@/src/components/UI/Shared/Container";
 import { getAllReview } from "@/src/services/RatingAndReviewService";
 
 const AllReviews = async () => {

@@ -1,5 +1,5 @@
-import Container from "@/src/components/UI/Container";
-import RatingCard from "@/src/components/UI/RatingCard";
+import Container from "@/src/components/UI/Shared/Container";
+import RatingCard from "@/src/components/UI/Dashboard/RatingCard";
 import { getAllRating } from "@/src/services/RatingAndReviewService";
 
 const RatingsPage = async () => {

@@ -1,5 +1,5 @@
-import CategoryManagementCard from "@/src/components/UI/CategoryManagementCard";
-import Container from "@/src/components/UI/Container";
+import CategoryManagementCard from "@/src/components/UI/Dashboard/CategoryManagementCard";
+import Container from "@/src/components/UI/Shared/Container";
 
 const AddCategoryPage = () => {
   return (

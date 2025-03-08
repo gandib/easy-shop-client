@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, useForm } from "react-hook-form";
 import { useForgetPassword, useUserlogin } from "@/src/hooks/auth.hook";
 import { useRouter, useSearchParams } from "next/navigation";
-import Loading from "@/src/components/UI/Loading";
+import Loading from "@/src/components/UI/Shared/Loading";
 import { useUser } from "@/src/context/user.provider";
 import { useEffect, useState } from "react";
 import loginValidationSchema from "@/src/schemas/login.schemas";

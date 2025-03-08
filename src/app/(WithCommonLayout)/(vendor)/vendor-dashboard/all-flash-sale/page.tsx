@@ -1,5 +1,5 @@
-import Container from "@/src/components/UI/Container";
-import FlashSaleDisplayCard from "@/src/components/UI/FlashSaleDisplayCard";
+import Container from "@/src/components/UI/Shared/Container";
+import FlashSaleDisplayCard from "@/src/components/UI/Dashboard/FlashSaleDisplayCard";
 import { getAllFlashSale } from "@/src/services/CouponAndFlashSaleService";
 import { IFlashSale } from "@/src/types";
 

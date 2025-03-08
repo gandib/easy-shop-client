@@ -1,5 +1,5 @@
-import AllProductsFilteringSearching from "@/src/components/UI/AllProductsFilteringSearching";
-import Container from "@/src/components/UI/Container";
+import AllProductsFilteringSearching from "@/src/components/UI/Home/AllProductsFilteringSearching";
+import Container from "@/src/components/UI/Shared/Container";
 import { getAllProducts } from "@/src/services/ProductService";
 
 type SearchParams = Promise<{ category: string }>;

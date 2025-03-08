@@ -2,7 +2,7 @@ import SidebarMenu from "@/src/components/UI/SidebarMenu";
 import UserSidebar from "@/src/components/UI/UserSidebar";
 import { userLinks } from "@/src/components/UI/UserSidebar/constant";
 import React from "react";
-import { DashboardNavbar } from "@/src/components/UI/DashboardNavbar";
+import { DashboardNavbar } from "@/src/components/UI/Dashboard/DashboardNavbar";
 
 const UserLayout = ({ children }: { children: React.ReactNode }) => {
   return (

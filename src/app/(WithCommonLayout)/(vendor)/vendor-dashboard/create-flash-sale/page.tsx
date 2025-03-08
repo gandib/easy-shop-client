@@ -1,6 +1,6 @@
 "use client";
-import Container from "@/src/components/UI/Container";
-import FlashSaleManagementCard from "@/src/components/UI/FlashSaleManagementCard";
+import Container from "@/src/components/UI/Shared/Container";
+import FlashSaleManagementCard from "@/src/components/UI/Dashboard/FlashSaleManagementCard";
 import { useUser } from "@/src/context/user.provider";
 import { getShopById } from "@/src/services/ShopService";
 import { useEffect, useState } from "react";

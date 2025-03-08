@@ -1,13 +1,13 @@
-import CategoryDisplay from "@/src/components/UI/CategoryDisplay";
-import Container from "@/src/components/UI/Container";
-import FlashSaleCard from "@/src/components/UI/FlashSaleCard";
+import CategoryDisplay from "@/src/components/UI/Home/Cards/CategoryDisplay";
+import Container from "@/src/components/UI/Shared/Container";
+import FlashSaleCard from "@/src/components/UI/Home/FlashSaleCard";
 import Hero from "@/src/components/UI/Hero";
-import HomeFilteringSearchingCard from "@/src/components/UI/HomeFilteringSearchingCard";
-import HomeFlashSale from "@/src/components/UI/HomeFlashSale";
-import HomeSmartPhoneDisplay from "@/src/components/UI/HomeSmartPhoneDisplay";
-import NewsLetter from "@/src/components/UI/NewsLetter";
-import PrioritizeProducts from "@/src/components/UI/PrioritizeProducts";
-import ScrollToTop from "@/src/components/UI/ScrollTopToBottomButton";
+import HomeFilteringSearchingCard from "@/src/components/UI/Home/HomeFilteringSearchingCard";
+import HomeFlashSale from "@/src/components/UI/Home/HomeFlashSale";
+import HomeSmartPhoneDisplay from "@/src/components/UI/Home/HomeSmartPhoneDisplay";
+import NewsLetter from "@/src/components/UI/Home/NewsLetter";
+import PrioritizeProducts from "@/src/components/UI/Home/PrioritizeProducts";
+import ScrollToTop from "@/src/components/UI/Home/ScrollTopToBottomButton";
 import { getAllCategory } from "@/src/services/CategoryService";
 import {
   getAllProducts,
@@ -28,7 +28,7 @@ const Home = async () => {
   const { data: allPrioritizeProducts } = await getAllProductsByFollowedUser([
     { name: "limit", value: 5 },
   ]);
-  console.log(allPrioritizeProducts);
+
   return (
     <div className=" ">
       <Hero />

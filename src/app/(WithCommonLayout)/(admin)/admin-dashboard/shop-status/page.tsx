@@ -1,5 +1,5 @@
-import Container from "@/src/components/UI/Container";
-import ShopBlackListManageCard from "@/src/components/UI/ShopBlackListManageCard";
+import Container from "@/src/components/UI/Shared/Container";
+import ShopBlackListManageCard from "@/src/components/UI/Dashboard/ShopBlackListManageCard";
 import { getAllShop } from "@/src/services/ShopService";
 
 const ShopStatus = async () => {

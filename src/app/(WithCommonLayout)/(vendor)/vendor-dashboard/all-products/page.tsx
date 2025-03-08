@@ -1,5 +1,5 @@
-import Container from "@/src/components/UI/Container";
-import VendorProductCard from "@/src/components/UI/VendorProductCard";
+import Container from "@/src/components/UI/Shared/Container";
+import VendorProductCard from "@/src/components/UI/Dashboard/VendorProductCard";
 import { getAllProductsByShopId } from "@/src/services/ProductService";
 
 const AllProducts = async () => {

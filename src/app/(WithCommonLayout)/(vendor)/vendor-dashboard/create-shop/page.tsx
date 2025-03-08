@@ -2,7 +2,7 @@
 import ESForm from "@/src/components/form/ESForm";
 import ESInput from "@/src/components/form/ESInput";
 import ESTextarea from "@/src/components/form/FXTextarea";
-import Container from "@/src/components/UI/Container";
+import Container from "@/src/components/UI/Shared/Container";
 import { useUser } from "@/src/context/user.provider";
 import { useCreateShop } from "@/src/hooks/shop.hook";
 import createShopValidationSchema from "@/src/schemas/create-shop.schema";

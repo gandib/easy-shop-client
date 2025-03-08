@@ -1,5 +1,5 @@
-import Container from "@/src/components/UI/Container";
-import CouponManagementCard from "@/src/components/UI/CouponManagementCard";
+import Container from "@/src/components/UI/Shared/Container";
+import CouponManagementCard from "@/src/components/UI/Dashboard/CouponManagementCard";
 
 const CreateCoupon = () => {
   return (

@@ -1,5 +1,5 @@
-import Container from "@/src/components/UI/Container";
-import CouponDisplayCard from "@/src/components/UI/CouponDisplayCard";
+import Container from "@/src/components/UI/Shared/Container";
+import CouponDisplayCard from "@/src/components/UI/Dashboard/CouponDisplayCard";
 import { getAllCoupon } from "@/src/services/CouponAndFlashSaleService";
 import { ICoupon } from "@/src/types";
 

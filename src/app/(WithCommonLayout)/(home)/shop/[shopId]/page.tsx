@@ -1,5 +1,5 @@
-import Container from "@/src/components/UI/Container";
-import ShopDetail from "@/src/components/UI/ShopDetail";
+import Container from "@/src/components/UI/Shared/Container";
+import ShopDetail from "@/src/components/UI/Home/Cards/ShopDetail";
 import { getShopById } from "@/src/services/ShopService";
 
 type Params = Promise<{ shopId: string }>;

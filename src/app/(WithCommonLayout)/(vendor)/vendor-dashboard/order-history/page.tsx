@@ -1,5 +1,5 @@
-import Container from "@/src/components/UI/Container";
-import OrderHistoryCard from "@/src/components/UI/OrderHistoryCard";
+import Container from "@/src/components/UI/Shared/Container";
+import OrderHistoryCard from "@/src/components/UI/Dashboard/OrderHistoryCard";
 import { getAllOrder } from "@/src/services/OrderService";
 
 const OrderHistory = async () => {

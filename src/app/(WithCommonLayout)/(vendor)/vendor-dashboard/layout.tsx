@@ -1,4 +1,4 @@
-import { DashboardNavbar } from "@/src/components/UI/DashboardNavbar";
+import { DashboardNavbar } from "@/src/components/UI/Dashboard/DashboardNavbar";
 import SidebarMenu from "@/src/components/UI/SidebarMenu";
 import VendorSidebar from "@/src/components/UI/VendorSidebar";
 import { vendorLinks } from "@/src/components/UI/VendorSidebar/constant";

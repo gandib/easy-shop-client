@@ -1,6 +1,6 @@
-import Footer from "@/src/components/UI/Footer";
+import Footer from "@/src/components/UI/Shared/Footer";
 import Hero from "@/src/components/UI/Hero";
-import { Navbar } from "@/src/components/UI/navbar";
+import { Navbar } from "@/src/components/UI/Shared/navbar";
 
 export default function layout({ children }: { children: React.ReactNode }) {
   return (

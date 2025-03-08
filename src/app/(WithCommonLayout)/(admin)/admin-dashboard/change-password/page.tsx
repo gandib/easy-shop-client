@@ -7,7 +7,7 @@ import { Button } from "@nextui-org/react";
 import { FieldValues } from "react-hook-form";
 import { useChangePassword } from "@/src/hooks/auth.hook";
 import { useRouter } from "next/navigation";
-import Container from "@/src/components/UI/Container";
+import Container from "@/src/components/UI/Shared/Container";
 import { useEffect } from "react";
 
 export default function ChangePassword() {

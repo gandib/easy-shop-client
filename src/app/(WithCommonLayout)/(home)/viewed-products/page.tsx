@@ -1,5 +1,5 @@
-import Container from "@/src/components/UI/Container";
-import RecentProductsCard from "@/src/components/UI/RecentProductsCard";
+import Container from "@/src/components/UI/Shared/Container";
+import RecentProductsCard from "@/src/components/UI/Home/RecentProductsCard";
 import { getAllProducts } from "@/src/services/ProductService";
 
 const RecentProducts = async () => {

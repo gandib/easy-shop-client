@@ -1,5 +1,5 @@
-import Container from "@/src/components/UI/Container";
-import UpdateShop from "@/src/components/UI/UpdateShop";
+import Container from "@/src/components/UI/Shared/Container";
+import UpdateShop from "@/src/components/UI/Dashboard/UpdateShop";
 import { getUserByEmail } from "@/src/services/UserService";
 
 const UpdateShopPage = async () => {

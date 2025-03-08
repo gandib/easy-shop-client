@@ -1,5 +1,5 @@
-import Container from "@/src/components/UI/Container";
-import UserManagementCard from "@/src/components/UI/UserManagementCard";
+import Container from "@/src/components/UI/Shared/Container";
+import UserManagementCard from "@/src/components/UI/Dashboard/UserManagementCard";
 import { getAllUser } from "@/src/services/UserService";
 
 const UserManagement = async () => {

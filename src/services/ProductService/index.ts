@@ -1,5 +1,5 @@
 "use server";
-import { queryParams } from "@/src/components/UI/OrderHistoryCard";
+import { queryParams } from "@/src/components/UI/Dashboard/OrderHistoryCard";
 import envConfig from "@/src/config/envConfig";
 import axiosInstance from "@/src/lib/AxiosInstance";
 import axios from "axios";

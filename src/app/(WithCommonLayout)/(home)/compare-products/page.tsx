@@ -1,5 +1,5 @@
-import CompareCard from "@/src/components/UI/CompareCard";
-import Container from "@/src/components/UI/Container";
+import CompareCard from "@/src/components/UI/Home/Cards/CompareCard";
+import Container from "@/src/components/UI/Shared/Container";
 import { getAllProducts } from "@/src/services/ProductService";
 
 const CompareProducts = async () => {

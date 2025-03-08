@@ -1,5 +1,5 @@
-import CategoryDisplayCard from "@/src/components/UI/CategoryDisplayCard";
-import Container from "@/src/components/UI/Container";
+import CategoryDisplayCard from "@/src/components/UI/Dashboard/CategoryDisplayCard";
+import Container from "@/src/components/UI/Shared/Container";
 import { getAllCategory } from "@/src/services/CategoryService";
 import { ICategory } from "@/src/types";
 

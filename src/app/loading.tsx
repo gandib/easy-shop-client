@@ -1,8 +1,8 @@
 "use client";
 import { Spinner } from "@nextui-org/react";
-import { Navbar } from "../components/UI/navbar";
+import { Navbar } from "../components/UI/Shared/navbar";
 import { usePathname } from "next/navigation";
-import { DashboardNavbar } from "../components/UI/DashboardNavbar";
+import { DashboardNavbar } from "../components/UI/Dashboard/DashboardNavbar";
 
 export default function loading() {
   const pathname = usePathname();

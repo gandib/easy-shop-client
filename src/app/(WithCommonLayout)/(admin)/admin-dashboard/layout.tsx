@@ -2,7 +2,7 @@ import AdminSidebar from "@/src/components/UI/AdminSidebar";
 import { adminLinks } from "@/src/components/UI/AdminSidebar/constant";
 import SidebarMenu from "@/src/components/UI/SidebarMenu";
 import React from "react";
-import { DashboardNavbar } from "@/src/components/UI/DashboardNavbar";
+import { DashboardNavbar } from "@/src/components/UI/Dashboard/DashboardNavbar";
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   return (

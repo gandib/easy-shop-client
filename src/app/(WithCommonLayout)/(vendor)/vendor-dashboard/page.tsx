@@ -1,8 +1,8 @@
-import Container from "@/src/components/UI/Container";
-import LineChartComponent from "@/src/components/UI/LineChart";
-import OrderHistoryCard from "@/src/components/UI/OrderHistoryCard";
-import PieCharts from "@/src/components/UI/PieChart";
-import UserOverviewOrderCard from "@/src/components/UI/UserOverviewOrderCard";
+import Container from "@/src/components/UI/Shared/Container";
+import LineChartComponent from "@/src/components/UI/Dashboard/LineChart";
+import OrderHistoryCard from "@/src/components/UI/Dashboard/OrderHistoryCard";
+import PieCharts from "@/src/components/UI/Dashboard/PieChart";
+import UserOverviewOrderCard from "@/src/components/UI/Dashboard/UserOverviewOrderCard";
 import { getAllOrder } from "@/src/services/OrderService";
 
 const VendorDashboard = async () => {

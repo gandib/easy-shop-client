@@ -1,5 +1,5 @@
-import Container from "@/src/components/UI/Container";
-import NewsletterManagementCard from "@/src/components/UI/NewsletterManagementCard";
+import Container from "@/src/components/UI/Shared/Container";
+import NewsletterManagementCard from "@/src/components/UI/Dashboard/NewsletterManagementCard";
 import { getAllNewsletter } from "@/src/services/NewsletterService";
 
 const Newsletter = async () => {

@@ -1,5 +1,5 @@
-import Container from "@/src/components/UI/Container";
-import FlashSaleCard from "@/src/components/UI/FlashSaleCard";
+import Container from "@/src/components/UI/Shared/Container";
+import FlashSaleCard from "@/src/components/UI/Home/FlashSaleCard";
 import { getAllProducts } from "@/src/services/ProductService";
 import { IProduct } from "@/src/types";
 
