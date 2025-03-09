@@ -16,6 +16,7 @@ import { ICategory, queryParams, TProductMeta } from "@/src/types";
 import { getAllProducts } from "@/src/services/ProductService";
 import { getAllCategory } from "@/src/services/CategoryService";
 import AllProductsDisplayCard from "./AllProductsDisplayCard";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const AllProductsFilteringSearching = ({
   products,
@@ -41,6 +42,20 @@ const AllProductsFilteringSearching = ({
   const [maxPrice, setMaxPrice] = useState(0);
   const [sliderValue, setSliderValue] = useState<number | number[]>([]);
   const searchText = useDebounce(watch("search"));
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+
+  const handleCategoryChange = (category: string) => {
+    setLoading(true);
+    const params = new URLSearchParams(searchParams);
+    if (category) {
+      params.set("category", category);
+    } else {
+      params.delete("category");
+    }
+    router.push(`?${params.toString()}`, { scroll: false });
+  };
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -53,10 +68,12 @@ const AllProductsFilteringSearching = ({
   useEffect(() => {
     if (searchText || categories || minPrice || maxPrice) {
       setCurrentPage(1);
+      setLoading(true);
     }
   }, [searchText, categories, minPrice, maxPrice]);
 
   useEffect(() => {
+    setLoading(true);
     const query: queryParams[] = [];
     if (limit) query.push({ name: "limit", value: limit });
     if (sort) query.push({ name: "sort", value: sort });
@@ -74,6 +91,7 @@ const AllProductsFilteringSearching = ({
       const { data: allProducts } = await getAllProducts(query);
       setProductData(allProducts);
       setTotalPage(allProducts?.meta?.totalPage);
+      setLoading(false);
     };
 
     const categoryFetch = async () => {
@@ -83,7 +101,7 @@ const AllProductsFilteringSearching = ({
 
     categoryFetch();
     if (query.length > 0) fetchData();
-  }, [currentPage, searchText, sort, categories, minPrice, maxPrice]);
+  }, [currentPage, searchText, sort, categories, minPrice, maxPrice, category]);
 
   const onSubmit = (data: FieldValues) => {};
 
@@ -99,7 +117,8 @@ const AllProductsFilteringSearching = ({
               label="Categories"
               orientation="vertical"
               className="space-y-2"
-              onChange={(e) => setCategories(e.target.value)}
+              value={category || ""}
+              onChange={(e) => handleCategoryChange(e.target.value)}
             >
               {allCategories?.map((cat) => (
                 <Radio key={cat.id} value={cat.name} className="text-sm">
@@ -145,6 +164,7 @@ const AllProductsFilteringSearching = ({
             />
           </form>
         </div>
+        {loading && <p>Loading...</p>}
         {productData?.data?.length > 0 ? (
           <AllProductsDisplayCard
             products={productData}
@@ -152,7 +172,7 @@ const AllProductsFilteringSearching = ({
             fromShop={fromShop}
           />
         ) : (
-          <p>No Product available!</p>
+          !productData?.data?.length && !loading && <p>No Product available!</p>
         )}
         {productData?.data?.length > 0 && (
           <div className="mt-5 flex justify-center items-center mb-5">
