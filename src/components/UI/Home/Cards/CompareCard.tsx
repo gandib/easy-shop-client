@@ -54,14 +54,15 @@ const CompareCard = () => {
             id: products[2]?.id || "",
             catId: products[2]?.categoryId || "",
           });
+          setLoading(false);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
+        setLoading(false);
       }
     };
 
     fetchData();
-    setLoading(false);
   }, [cartData]);
 
   const removeCompare = (productId: string) => {
