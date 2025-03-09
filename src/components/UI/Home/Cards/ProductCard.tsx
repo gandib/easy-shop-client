@@ -1,7 +1,7 @@
 "use client";
 
 import { CardBody, CardHeader, Card as NextUiCard } from "@nextui-org/react";
-import { ShoppingCart } from "lucide-react";
+import { ArrowRightLeft, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import SeeDetailButton from "../../Shared/SeeDetailButton";
 import Link from "next/link";
@@ -13,6 +13,7 @@ import { useUser } from "@/src/context/user.provider";
 import { IProduct } from "@/src/types";
 import ProductUpdateButton from "../../Shared/ProductUpdateButton";
 import ProductDeleteButton from "../../Shared/ProductDeleteButton";
+import { addToCompare } from "@/src/utils/addToCompare";
 
 const ProductCard = ({
   data,
@@ -27,7 +28,8 @@ const ProductCard = ({
   const [warning, setWarning] = useState<{
     message: string;
     productId: string;
-    shopId: string;
+    shopId?: string;
+    catId?: string;
   } | null>(null);
   const [showPopup, setShowPopup] = useState(false);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
@@ -35,6 +37,13 @@ const ProductCard = ({
   const handleShowPopup = (productId: string, shopId: string) => {
     addToCart(productId, shopId, (message, id, shop) => {
       setWarning({ message, productId: id, shopId: shop });
+    });
+    setShowPopup(true);
+  };
+
+  const handleShowComparePopup = (productId: string, catId: string) => {
+    addToCompare(productId, catId, (message, id, cat) => {
+      setWarning({ message, productId: id, catId: cat });
     });
     setShowPopup(true);
   };
@@ -86,6 +95,18 @@ const ProductCard = ({
           </>
         )}
 
+        {/* Compare button  */}
+        {user?.role === "USER" && (
+          <button
+            onClick={() => handleShowComparePopup(data.id, data.categoryId)}
+            className={`bg-gray-100 text-black absolute bottom-[84px] left-2 p-2 rounded-md transition-all duration-300 ease-in-out 
+${hoveredId === data.id ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}
+hover:bg-secondary-500 hover:text-white`}
+          >
+            <ArrowRightLeft size={20} />
+          </button>
+        )}
+
         {/* ShoppingCart Button with Smooth Transition */}
         {
           <button
@@ -131,13 +152,16 @@ ${hoveredId === data.id ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2
       </CardBody>
 
       {/* Popup Modal */}
-      {showPopup && warning && warning.productId === data.id && (
-        <ShowPopup
-          setShowPopup={setShowPopup}
-          setWarning={setWarning}
-          warning={warning}
-        />
-      )}
+      {showPopup &&
+        warning &&
+        (warning.shopId === data.shopId ||
+          warning?.catId === data.categoryId) && (
+          <ShowPopup
+            setShowPopup={setShowPopup}
+            setWarning={setWarning}
+            warning={warning}
+          />
+        )}
     </NextUiCard>
   );
 };

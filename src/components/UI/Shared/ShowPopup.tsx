@@ -12,17 +12,22 @@ const ShowPopup = ({
     SetStateAction<{
       message: string;
       productId: string;
-      shopId: string;
+      shopId?: string;
+      catId?: string;
     } | null>
   >;
-  warning: { productId: string; shopId: string; message: string } | null;
+  warning: {
+    productId: string;
+    shopId?: string;
+    catId?: string;
+    message: string;
+  } | null;
 }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div className="bg-white p-6 rounded-md shadow-lg w-80">
         <p className="text-red-700 text-lg font-semibold text-center">
-          The product belongs to a different shop. Do you want to replace the
-          current cart with the new product?
+          {warning?.message}
         </p>
         <div className="flex gap-4 mt-4 justify-center">
           <button

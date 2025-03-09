@@ -11,9 +11,10 @@ import {
   SelectItem,
 } from "@nextui-org/react";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
 import { getAllProducts } from "@/src/services/ProductService";
 import { IMeta } from "../../Dashboard/VendorProductCard";
+import { handleProductSelect } from "@/src/utils/handleProductSelect";
+import { averageRating } from "@/src/utils/averageRating";
 
 const CompareCard = ({
   products,
@@ -51,71 +52,36 @@ const CompareCard = ({
   };
 
   const handleFirstSelect = (id: string, catId: string) => {
-    if (!validateProductSelection(catId)) {
-      toast(
-        "Product must be from the same category as other selected products"
-      );
-      return;
+    if (firstProductId.id && !secondProduct?.id && !thirdProduct?.id) {
+      return setFirstProductId({ id, catId });
     }
-    setFirstProductId({ id, catId });
+    handleProductSelect(id, catId, validateProductSelection, setFirstProductId);
   };
 
-  const handleSecondSelect = (id: string, catId: string) => {
-    if (!validateProductSelection(catId)) {
-      toast(
-        "Product must be from the same category as other selected products"
-      );
-      return;
-    }
-    setSecondProductId({ id, catId });
-  };
+  const handleSecondSelect = (id: string, catId: string) =>
+    handleProductSelect(
+      id,
+      catId,
+      validateProductSelection,
+      setSecondProductId
+    );
 
-  const handleThirdSelect = (id: string, catId: string) => {
-    if (!validateProductSelection(catId)) {
-      toast(
-        "Product must be from the same category as other selected products"
-      );
-      return;
-    }
-    setThirdProductId({ id, catId });
-  };
+  const handleThirdSelect = (id: string, catId: string) =>
+    handleProductSelect(id, catId, validateProductSelection, setThirdProductId);
 
-  const firstProduct = productData?.data?.filter(
+  const firstProduct = productData?.data?.find(
     (product) => product?.id === firstProductId?.id
   );
-  const secondProduct = productData?.data?.filter(
+  const secondProduct = productData?.data?.find(
     (product) => product.id === secondProductId.id
   );
-  const thirdProduct = productData?.data?.filter(
+  const thirdProduct = productData?.data?.find(
     (product) => product.id === thirdProductId.id
   );
 
-  const firstRating = (firstProduct && firstProduct[0]?.rating) || [];
-  const firstAverageRating =
-    firstRating?.length > 0
-      ? `${(
-          firstRating.reduce((pre, next) => pre + next.rating, 0) /
-          firstRating.length
-        ).toFixed(1)}/5`
-      : "0/5";
-
-  const secondRating = (secondProduct && secondProduct[0]?.rating) || [];
-  const secondAverageRating =
-    secondRating?.length > 0
-      ? `${(
-          secondRating.reduce((pre, next) => pre + next.rating, 0) /
-          secondRating.length
-        ).toFixed(1)}/5`
-      : "0/5";
-
-  const thirdRating = (thirdProduct && thirdProduct[0]?.rating) || [];
-  const thirdAverageRating =
-    thirdRating?.length > 0
-      ? `${(
-          thirdRating.reduce((pre, next) => pre + next.rating, 0) /
-          thirdRating.length
-        ).toFixed(1)}/5`
-      : "0/5";
+  const firstAverageRating = averageRating(firstProduct?.rating || []);
+  const secondAverageRating = averageRating(secondProduct?.rating || []);
+  const thirdAverageRating = averageRating(thirdProduct?.rating || []);
 
   return (
     <div>
@@ -167,58 +133,42 @@ const CompareCard = ({
       <Table isStriped aria-label="Example static collection table">
         <TableHeader>
           <TableColumn>Brand</TableColumn>
+          <TableColumn>{firstProduct && firstProduct?.shop?.name}</TableColumn>
           <TableColumn>
-            {firstProduct && firstProduct[0]?.shop?.name}
+            {secondProduct && secondProduct?.shop?.name}
           </TableColumn>
-          <TableColumn>
-            {secondProduct && secondProduct[0]?.shop?.name}
-          </TableColumn>
-          <TableColumn>
-            {thirdProduct && thirdProduct[0]?.shop?.name}
-          </TableColumn>
+          <TableColumn>{thirdProduct && thirdProduct?.shop?.name}</TableColumn>
         </TableHeader>
         <TableBody>
           <TableRow key="1">
             <TableCell>Name</TableCell>
-            <TableCell>{firstProduct && firstProduct[0]?.name}</TableCell>
-            <TableCell>{secondProduct && secondProduct[0]?.name}</TableCell>
-            <TableCell>{thirdProduct && thirdProduct[0]?.name}</TableCell>
+            <TableCell>{firstProduct && firstProduct?.name}</TableCell>
+            <TableCell>{secondProduct && secondProduct?.name}</TableCell>
+            <TableCell>{thirdProduct && thirdProduct?.name}</TableCell>
           </TableRow>
           <TableRow key="2">
             <TableCell>Price</TableCell>
-            <TableCell>{firstProduct && firstProduct[0]?.price}</TableCell>
-            <TableCell>{secondProduct && secondProduct[0]?.price}</TableCell>
-            <TableCell>{thirdProduct && thirdProduct[0]?.price}</TableCell>
+            <TableCell>{firstProduct && firstProduct?.price}</TableCell>
+            <TableCell>{secondProduct && secondProduct?.price}</TableCell>
+            <TableCell>{thirdProduct && thirdProduct?.price}</TableCell>
           </TableRow>
           <TableRow key="3">
             <TableCell>Discount</TableCell>
-            <TableCell>{firstProduct && firstProduct[0]?.discount}</TableCell>
-            <TableCell>{secondProduct && secondProduct[0]?.discount}</TableCell>
-            <TableCell>{thirdProduct && thirdProduct[0]?.discount}</TableCell>
+            <TableCell>{firstProduct && firstProduct?.discount}</TableCell>
+            <TableCell>{secondProduct && secondProduct?.discount}</TableCell>
+            <TableCell>{thirdProduct && thirdProduct?.discount}</TableCell>
           </TableRow>
           <TableRow key="4">
             <TableCell>Rating</TableCell>
-            <TableCell>
-              {firstProduct?.length > 0 && firstAverageRating}
-            </TableCell>
-            <TableCell>
-              {secondProduct?.length > 0 && secondAverageRating}
-            </TableCell>
-            <TableCell>
-              {thirdProduct?.length > 0 && thirdAverageRating}
-            </TableCell>
+            <TableCell>{firstProduct && firstAverageRating}</TableCell>
+            <TableCell>{secondProduct && secondAverageRating}</TableCell>
+            <TableCell>{thirdProduct && thirdAverageRating}</TableCell>
           </TableRow>
           <TableRow key="5">
             <TableCell>Description</TableCell>
-            <TableCell>
-              {firstProduct && firstProduct[0]?.description}
-            </TableCell>
-            <TableCell>
-              {secondProduct && secondProduct[0]?.description}
-            </TableCell>
-            <TableCell>
-              {thirdProduct && thirdProduct[0]?.description}
-            </TableCell>
+            <TableCell>{firstProduct && firstProduct?.description}</TableCell>
+            <TableCell>{secondProduct && secondProduct?.description}</TableCell>
+            <TableCell>{thirdProduct && thirdProduct?.description}</TableCell>
           </TableRow>
         </TableBody>
       </Table>
