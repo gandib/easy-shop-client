@@ -12,20 +12,10 @@ import {
 import { FieldValues, useForm } from "react-hook-form";
 import useDebounce from "@/src/hooks/debounce.hook";
 import { SearchIcon } from "lucide-react";
-import { ICategory, IProduct } from "@/src/types";
+import { ICategory, queryParams, TProductMeta } from "@/src/types";
 import { getAllProducts } from "@/src/services/ProductService";
 import { getAllCategory } from "@/src/services/CategoryService";
 import AllProductsDisplayCard from "./AllProductsDisplayCard";
-
-export type queryParams = {
-  name: string;
-  value: boolean | React.Key;
-};
-
-type TProductMeta = {
-  meta: { page: number; limit: number; total: number; totalPage: number };
-  data: IProduct[];
-};
 
 const AllProductsFilteringSearching = ({
   products,

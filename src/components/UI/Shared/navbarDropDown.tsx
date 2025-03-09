@@ -1,6 +1,5 @@
 "use client";
 import { useUser } from "@/src/context/user.provider";
-import { logout } from "../../../services/AuthService";
 import { protectedRoutes } from "@/src/utils/constant";
 import { Avatar } from "@nextui-org/react";
 import {
@@ -10,16 +9,11 @@ import {
   DropdownTrigger,
 } from "@nextui-org/react";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 const NavbarDropDown = () => {
   const router = useRouter();
   const pathname = usePathname();
   const { user, setIsLoading } = useUser();
-
-  const handleNavigation = (pathname: string) => {
-    router.push(pathname);
-  };
 
   const handleLogout = () => {
     // logout();
@@ -32,27 +26,6 @@ const NavbarDropDown = () => {
       router.push("/");
     }
   };
-
-  {
-    user?.email && (
-      <>
-        {/* <NavbarItem>
-        <NextLink
-          href={
-            user?.role === "USER"
-              ? "/user-dashboard"
-              : user?.role === "ADMIN"
-                ? "/admin-dashboard"
-                : "/vendor-dashboard"
-          }
-          className={`text-base font-bold ${pathname === "/user-dashboard" ? "text-primary-500" : ""} ${pathname === "/admin-dashboard" ? "text-primary-500" : ""} ${pathname === "/vendor-dashboard" ? "text-primary-500" : ""}`}
-        >
-          Dashboard
-        </NextLink>
-      </NavbarItem> */}
-      </>
-    );
-  }
 
   const navigateDashboard = () => {
     router.push(
@@ -88,29 +61,21 @@ const NavbarDropDown = () => {
         <Avatar className="cursor-pointer" />
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">
-        <DropdownItem
-          onPress={navigateDashboard} // Switch to onClick for testing
-          key="dashboard"
-          className=""
-        >
+        <DropdownItem onPress={navigateDashboard} key="dashboard" className="">
           Dashboard
         </DropdownItem>
-        <DropdownItem
-          onPress={navigateProfile} // Switch to onClick for testing
-          key="profile"
-          className=""
-        >
+        <DropdownItem onPress={navigateProfile} key="profile" className="">
           My Profile
         </DropdownItem>
         <DropdownItem
-          onPress={navigateViewedProducts} // Switch to onClick for testing
+          onPress={navigateViewedProducts}
           key="Viewed-Products"
           className=""
         >
           Viewed Products
         </DropdownItem>
         <DropdownItem
-          onPress={handleLogout} // Switch to onClick for testing
+          onPress={handleLogout}
           key="delete"
           className="text-danger"
           color="danger"

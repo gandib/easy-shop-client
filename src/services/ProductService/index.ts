@@ -1,7 +1,8 @@
 "use server";
-import { queryParams } from "@/src/components/UI/Dashboard/OrderHistoryCard";
+
 import envConfig from "@/src/config/envConfig";
 import axiosInstance from "@/src/lib/AxiosInstance";
+import { queryParams } from "@/src/types";
 import axios from "axios";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";

@@ -4,16 +4,6 @@ import { useEffect, useState } from "react";
 import { IProduct } from "@/src/types";
 import ProductCard from "./Cards/ProductCard";
 
-export type queryParams = {
-  name: string;
-  value: boolean | React.Key;
-};
-
-type TProductMeta = {
-  meta: { page: number; limit: number; total: number; totalPage: number };
-  data: IProduct[];
-};
-
 const HomeSmartPhoneDisplay = ({
   products,
   category,

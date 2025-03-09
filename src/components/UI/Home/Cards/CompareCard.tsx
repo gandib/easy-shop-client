@@ -1,5 +1,5 @@
 "use client";
-import { IProduct } from "@/src/types";
+import { IProduct, queryParams } from "@/src/types";
 import {
   Table,
   TableHeader,
@@ -12,7 +12,6 @@ import {
 } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { queryParams } from "../../Dashboard/OrderHistoryCard";
 import { getAllProducts } from "@/src/services/ProductService";
 import { IMeta } from "../../Dashboard/VendorProductCard";
 

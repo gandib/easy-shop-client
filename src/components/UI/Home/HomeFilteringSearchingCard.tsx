@@ -1,26 +1,8 @@
 "use client";
 
-import { useUser } from "@/src/context/user.provider";
-import { useEffect, useState, useCallback } from "react";
-import { FieldValues, useForm } from "react-hook-form";
-import useDebounce from "@/src/hooks/debounce.hook";
-import { SearchIcon } from "lucide-react";
-import { ICategory, IProduct } from "@/src/types";
-import { getAllProducts } from "@/src/services/ProductService";
-import { RadioGroup, Radio, Input, Button, Slider } from "@nextui-org/react";
-import { getAllCategory } from "@/src/services/CategoryService";
+import { useState } from "react";
+import { TProductMeta } from "@/src/types";
 import HomeProductsDisplayCard from "./HomeProductsDisplayCard";
-import Loading from "../Shared/Loading";
-
-export type queryParams = {
-  name: string;
-  value: boolean | React.Key;
-};
-
-type TProductMeta = {
-  meta: { page: number; limit: number; total: number; totalPage: number };
-  data: IProduct[];
-};
 
 const HomeFilteringSearchingCard = ({
   products,

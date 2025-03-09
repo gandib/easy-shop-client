@@ -1,8 +1,8 @@
 "use server";
 
-import { queryParams } from "@/src/components/UI/Dashboard/OrderHistoryCard";
 import envConfig from "@/src/config/envConfig";
 import axiosInstance from "@/src/lib/AxiosInstance";
+import { queryParams } from "@/src/types";
 import axios from "axios";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";

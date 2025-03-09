@@ -1,9 +1,8 @@
 "use client";
 
-import { IProduct } from "@/src/types";
+import { IProduct, queryParams } from "@/src/types";
 import { Pagination } from "@nextui-org/react";
 import { useEffect, useState } from "react";
-import { queryParams } from "../Dashboard/OrderHistoryCard";
 import { getAllProducts } from "@/src/services/ProductService";
 import ProductCard from "./Cards/ProductCard";
 

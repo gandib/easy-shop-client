@@ -7,7 +7,6 @@ import {
   NavbarBrand,
   NavbarItem,
   NavbarMenuItem,
-  Input,
 } from "@nextui-org/react";
 import { Link } from "@nextui-org/react";
 import NextLink from "next/link";
@@ -18,43 +17,23 @@ import { ThemeSwitch } from "../theme-switch";
 import { useUser } from "@/src/context/user.provider";
 import { usePathname, useRouter } from "next/navigation";
 import { logout } from "@/src/services/AuthService";
-import { protectedRoutes } from "@/src/utils/constant";
-import { useEffect, useState } from "react";
-import { ChevronDown, Eye, SearchIcon, ShoppingCart } from "lucide-react";
-import { FieldValues, useForm } from "react-hook-form";
-import { queryParams } from "../Dashboard/OrderHistoryCard";
-import { getAllProducts } from "@/src/services/ProductService";
+import { useState } from "react";
+import { ShoppingCart } from "lucide-react";
+import { useForm } from "react-hook-form";
 import useDebounce from "@/src/hooks/debounce.hook";
-import { IProduct } from "@/src/types";
-import Image from "next/image";
-
-type TProductMeta = {
-  meta: { page: number; limit: number; total: number; totalPage: number };
-  data: IProduct[];
-};
+import { TProductMeta } from "@/src/types";
+import NavbarSearching from "./NavbarSearching";
+import NavbarSearchForm from "./NavbarSearchForm";
+import NavbarCategoryMegaMenu from "./NavbarCategoryMegaMenu";
 
 export const Navbar = () => {
   const router = useRouter();
   const pathname = usePathname();
   const { user, setIsLoading, isLoading } = useUser();
-  const [showMegaMenu, setShowMegaMenu] = useState(false);
-
   const [productData, setProductData] = useState<TProductMeta>();
   const { register, handleSubmit, watch, setValue } = useForm();
   const searchText = useDebounce(watch("search"));
   const [loading, setLoading] = useState(true);
-
-  // const handleLogout = () => {
-  //   // logout();
-  //   document.cookie =
-  //     "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=None; secure;";
-  //   setIsLoading(true);
-  //   router.push("/");
-
-  //   if (protectedRoutes.some((route) => pathname.match(route))) {
-  //     router.push("/");
-  //   }
-  // };
 
   const handleLogout = async () => {
     try {
@@ -69,27 +48,6 @@ export const Navbar = () => {
       console.error("Error during logout:", error);
     }
   };
-
-  useEffect(() => {
-    const query: queryParams[] = [];
-    query.push({ name: "limit", value: 10 });
-    query.push({ name: "searchTerm", value: searchText });
-
-    const fetchData = async () => {
-      const { data: allProducts } = await getAllProducts(query);
-      setProductData(allProducts);
-      setLoading(false);
-    };
-
-    if (searchText) {
-      setLoading(true);
-      fetchData();
-    } else {
-      setProductData(undefined); // Clear the product data when search text is cleared
-    }
-  }, [searchText]);
-
-  const onSubmit = (data: FieldValues) => {};
 
   if (isLoading) {
     <p>Loading...</p>;
@@ -118,96 +76,11 @@ export const Navbar = () => {
             </NextLink>
           </NavbarBrand>
           <ul className="hidden lg:flex gap-4 justify-start items-center ml-2">
+            {/* Brows Category Mega Menu  */}
             <NavbarItem>
-              <div
-                className={`relative text-base font-bold cursor-pointer `}
-                onMouseEnter={() => setShowMegaMenu(true)}
-                onMouseLeave={() => setShowMegaMenu(false)}
-              >
-                {/* Single Link */}
-                {/* <NextLink href="/all-products" legacyBehavior>
-                <a className="text-base font-bold flex">
-                  Products
-                  <ChevronDown className="pt-1" />{" "}
-                </a>
-              </NextLink> */}
-                <h1 className="text-base font-bold flex">
-                  Brows Categories <ChevronDown className="pt-1" />
-                </h1>
-
-                {/* Mega Menu */}
-                {showMegaMenu && (
-                  <div className="absolute left-0 top-full pt-2 w-[300px] bg-default-100 shadow-lg rounded-md p-4 z-50">
-                    <div className="grid grid-cols-2 gap-4">
-                      {/* Individual Links */}
-
-                      <NextLink
-                        href="/all-products?category=Smarts Phone"
-                        legacyBehavior
-                      >
-                        <a
-                          className={`font-medium cursor-pointer  hover:text-primary-500`}
-                        >
-                          Smarts Phone
-                        </a>
-                      </NextLink>
-                      <NextLink
-                        href="/all-products?category=Motor Cycle"
-                        legacyBehavior
-                      >
-                        <a className="font-medium cursor-pointer hover:text-primary-500">
-                          Motor Cycle
-                        </a>
-                      </NextLink>
-                      <NextLink
-                        href="/all-products?category=Electronics"
-                        legacyBehavior
-                      >
-                        <a className="font-medium cursor-pointer hover:text-primary-500">
-                          Electronics
-                        </a>
-                      </NextLink>
-                      <NextLink
-                        href="/all-products?category=Charger"
-                        legacyBehavior
-                      >
-                        <a className="font-medium cursor-pointer hover:text-primary-500">
-                          Charger
-                        </a>
-                      </NextLink>
-                    </div>
-                  </div>
-                )}
-              </div>
+              <NavbarCategoryMegaMenu />
             </NavbarItem>
 
-            {/* <NavbarItem>
-            <NextLink
-              className={`text-lg ${pathname === "/shop" ? "text-primary-500" : ""}`}
-              href="/shop"
-            >
-              Shop
-            </NextLink>
-          </NavbarItem> */}
-
-            {user?.email && (
-              <>
-                {/* <NavbarItem>
-                <NextLink
-                  href={
-                    user?.role === "USER"
-                      ? "/user-dashboard"
-                      : user?.role === "ADMIN"
-                        ? "/admin-dashboard"
-                        : "/vendor-dashboard"
-                  }
-                  className={`text-base font-bold ${pathname === "/user-dashboard" ? "text-primary-500" : ""} ${pathname === "/admin-dashboard" ? "text-primary-500" : ""} ${pathname === "/vendor-dashboard" ? "text-primary-500" : ""}`}
-                >
-                  Dashboard
-                </NextLink>
-              </NavbarItem> */}
-              </>
-            )}
             {siteConfig.navMenuItems.map((item, index) => (
               <NavbarMenuItem key={`${item}-${index}`}>
                 <Link
@@ -223,20 +96,13 @@ export const Navbar = () => {
           </ul>
         </NavbarContent>
 
-        <div className="flex justify-center items-center my-2">
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Input
-              {...register("search")}
-              aria-label="Search"
-              placeholder="Search Product..."
-              size="lg"
-              startContent={
-                <SearchIcon className="pointer-events-none flex-shrink-0 text-base text-default-400" />
-              }
-              type="text"
-            />
-          </form>
-        </div>
+        <NavbarSearchForm
+          handleSubmit={handleSubmit}
+          register={register}
+          searchText={searchText}
+          setLoading={setLoading}
+          setProductData={setProductData}
+        />
 
         <NavbarContent
           className="hidden md:flex basis-1/5 sm:basis-full"
@@ -288,22 +154,6 @@ export const Navbar = () => {
 
         <NavbarMenu>
           <div className="mx-4 mt-2 flex flex-col gap-2">
-            {/* <NavbarItem>
-            <NextLink
-              className={`text-lg ${pathname === "/viewed-products" ? "text-primary-500" : ""}`}
-              href="/viewed-products"
-            >
-              Viewed Products
-            </NextLink>
-          </NavbarItem> */}
-            {/* <NavbarItem>
-            <NextLink
-              className={`text-lg ${pathname === "/shop" ? "text-primary-500" : ""}`}
-              href="/shop"
-            >
-              Shop
-            </NextLink>
-          </NavbarItem> */}
             {user?.email && (
               <>
                 <NavbarItem>
@@ -373,46 +223,14 @@ export const Navbar = () => {
           </div>
         </NavbarMenu>
       </NextUINavbar>
+
       {searchText && (productData?.data || loading) && (
-        <div
-          className="bg-default-100 absolute flex flex-col w-full max-w-md h-[200px] overflow-y-auto p-2 z-50" // Added z-index
-          style={{
-            top: "4rem", // Adjust based on your layout
-            left: "50%",
-            transform: "translateX(-50%)",
-            borderRadius: "8px",
-            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
-          }}
-        >
-          {loading && <p className="flex justify-center">Searching...</p>}
-          {productData?.data?.length! > 0
-            ? productData?.data.map((product: IProduct) => (
-                <div
-                  onClick={() => {
-                    router.push(`/shop/detail-product/${product.id}`);
-                    setProductData(undefined);
-                    setValue("search", "");
-                  }}
-                  key={product.id}
-                  className="flex hover:bg-primary-100 cursor-pointer items-center justify-between py-2 border-b bg-default-100"
-                >
-                  <Image
-                    src={product.img[0]}
-                    width={50}
-                    height={50}
-                    alt="product"
-                  />
-                  <p className="text-default-800 font-semibold">
-                    {product.name}
-                  </p>
-                  <Eye className="text-default-100 hover:text-primary-500" />
-                  <span className="text-secondary-500 font-bold">{`$${product.price}`}</span>
-                </div>
-              ))
-            : !loading && (
-                <p className="text-center text-gray-500">No products found</p>
-              )}
-        </div>
+        <NavbarSearching
+          loading={loading}
+          productData={productData!}
+          setProductData={setProductData}
+          setValue={setValue}
+        />
       )}
     </div>
   );

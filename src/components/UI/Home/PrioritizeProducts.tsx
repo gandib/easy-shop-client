@@ -1,12 +1,11 @@
 "use client";
 
-import { IProduct } from "@/src/types";
+import { IProduct, queryParams } from "@/src/types";
 import { IMeta } from "../Dashboard/VendorProductCard";
 import { useUser } from "@/src/context/user.provider";
 import AllProductsDisplayCard from "./AllProductsDisplayCard";
 import { Pagination } from "@nextui-org/react";
 import { useEffect, useState } from "react";
-import { queryParams } from "../Dashboard/OrderHistoryCard";
 import { getAllProductsByFollowedUser } from "@/src/services/ProductService";
 
 const PrioritizeProducts = ({

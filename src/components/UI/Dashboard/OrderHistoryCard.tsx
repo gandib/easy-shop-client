@@ -1,5 +1,5 @@
 "use client";
-import { IOrder, IRating } from "@/src/types";
+import { IOrder, queryParams } from "@/src/types";
 import {
   Table,
   TableHeader,
@@ -12,11 +12,6 @@ import {
 import { IMeta } from "./VendorProductCard";
 import { useEffect, useState } from "react";
 import { getAllOrder } from "@/src/services/OrderService";
-
-export type queryParams = {
-  name: string;
-  value: boolean | React.Key;
-};
 
 const OrderHistoryCard = ({
   orders,

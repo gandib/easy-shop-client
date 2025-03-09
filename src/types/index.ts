@@ -4,6 +4,16 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
 };
 
+export type TProductMeta = {
+  meta: { page: number; limit: number; total: number; totalPage: number };
+  data: IProduct[];
+};
+
+export type queryParams = {
+  name: string;
+  value: boolean | React.Key;
+};
+
 export interface IInput {
   varient?: "flat" | "bordered" | "faded" | "underlined";
   size?: "sm" | "md" | "lg";
