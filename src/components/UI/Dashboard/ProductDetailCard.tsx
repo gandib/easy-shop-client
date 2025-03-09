@@ -25,6 +25,7 @@ import {
 } from "@/src/hooks/rating-review.hook";
 import { useRouter } from "next/navigation";
 import RelatedProduct from "../Home/RelatedProduct";
+import { averageRating } from "@/src/utils/averageRating";
 
 const ProductDetailCard = ({ product }: { product: IProduct }) => {
   const { user, isLoading } = useUser();
@@ -58,11 +59,9 @@ const ProductDetailCard = ({ product }: { product: IProduct }) => {
   }
 
   const rating = product?.rating || [];
-  const averageRating =
+  const averageRatings =
     rating.length > 0
-      ? (
-          rating.reduce((pre, next) => pre + next.rating, 0) / rating.length
-        ).toFixed(1)
+      ? Number(averageRating(product?.rating ?? [])).toFixed(1)
       : "0";
 
   let tabs = [
@@ -128,7 +127,7 @@ const ProductDetailCard = ({ product }: { product: IProduct }) => {
                 </h4>
               )}
               <h4 className="mt-2 rounded flex items-center p-1 text-base md:text-base font-medium text-green-500">
-                Rating: {averageRating}/5
+                Rating: {averageRatings}/5
               </h4>
             </div>
             <div className="my-2 rounded  p-1 lg:text-lg font-medium flex justify-center ">

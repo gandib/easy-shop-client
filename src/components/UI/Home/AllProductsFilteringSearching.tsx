@@ -17,6 +17,7 @@ import { getAllProducts } from "@/src/services/ProductService";
 import { getAllCategory } from "@/src/services/CategoryService";
 import AllProductsDisplayCard from "./AllProductsDisplayCard";
 import { useRouter, useSearchParams } from "next/navigation";
+import Loading from "../Shared/Loading";
 
 const AllProductsFilteringSearching = ({
   products,
@@ -105,7 +106,7 @@ const AllProductsFilteringSearching = ({
 
   const onSubmit = (data: FieldValues) => {};
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) <p>Loading...</p>;
 
   return (
     <div className="grid xs:grid-cols-3 lg:grid-cols-4 md:grid-cols-3 gap-4">
@@ -164,8 +165,8 @@ const AllProductsFilteringSearching = ({
             />
           </form>
         </div>
-        {loading && <p>Loading...</p>}
-        {productData?.data?.length > 0 ? (
+        {loading && <Loading />}
+        {!loading && productData?.data?.length > 0 ? (
           <AllProductsDisplayCard
             products={productData}
             category={category}
@@ -174,7 +175,7 @@ const AllProductsFilteringSearching = ({
         ) : (
           !productData?.data?.length && !loading && <p>No Product available!</p>
         )}
-        {productData?.data?.length > 0 && (
+        {!loading && productData?.data?.length > 0 && (
           <div className="mt-5 flex justify-center items-center mb-5">
             <Pagination
               total={totalPage}

@@ -4,6 +4,7 @@ import FlashSaleManagementCard from "@/src/components/UI/Dashboard/FlashSaleMana
 import { useUser } from "@/src/context/user.provider";
 import { getShopById } from "@/src/services/ShopService";
 import { useEffect, useState } from "react";
+import Loading from "@/src/components/UI/Shared/Loading";
 
 const CreateFlashSale = () => {
   const [shop, setShop] = useState(null);
@@ -29,7 +30,7 @@ const CreateFlashSale = () => {
   }, []);
 
   if (loading || isLoading) {
-    return <div>Loading shop data...</div>;
+    return <Loading />;
   }
 
   if (error) {

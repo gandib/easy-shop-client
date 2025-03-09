@@ -1,3 +1,4 @@
+import { averageRating } from "@/src/utils/averageRating";
 import { StarIcon } from "lucide-react";
 
 interface StarRatingProps {
@@ -8,8 +9,7 @@ interface StarRatingProps {
 const StarRating: React.FC<StarRatingProps> = ({ product, totalStars = 5 }) => {
   const ratingValue =
     product?.rating?.length > 0
-      ? product.rating.reduce((pre, next) => pre + next.rating, 0) /
-        product.rating.length
+      ? Number(averageRating(product?.rating ?? []))
       : 0;
 
   return (

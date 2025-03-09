@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { TProductMeta } from "@/src/types";
 import HomeProductsDisplayCard from "./HomeProductsDisplayCard";
+import Loading from "../Shared/Loading";
 
 const HomeFilteringSearchingCard = ({
   products,
@@ -29,7 +30,7 @@ const HomeFilteringSearchingCard = ({
             fromShop={fromShop}
           />
         ) : loading && productData?.data?.length < 1 ? (
-          <p>Loading...</p>
+          <Loading />
         ) : (
           <p>No Product available!</p>
         )}

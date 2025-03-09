@@ -7,6 +7,7 @@ import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getAllProducts } from "@/src/services/ProductService";
+import Loading from "../Shared/Loading";
 
 const HomeFlashSale = () => {
   const [loading, setLoading] = useState(true);
@@ -42,7 +43,7 @@ const HomeFlashSale = () => {
   return (
     <div>
       <h1 className="text-2xl font-bold pt-8 my-6">Flash Sale</h1>
-      {loading && <p>Loading...</p>}
+      {loading && <Loading />}
       <FlashSaleCard products={flashSale!} fromShop="homeFlash" />
       <div className="flex justify-center items-center">
         {flashSale?.data?.length > 0 && (

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { IProduct } from "@/src/types";
 import ProductCard from "./Cards/ProductCard";
+import Loading from "../Shared/Loading";
 
 const HomeSmartPhoneDisplay = ({
   products,
@@ -26,7 +27,7 @@ const HomeSmartPhoneDisplay = ({
   return (
     <div className="pt-8">
       <h1 className="text-2xl font-bold mt-10 my-6">Latest Smarts Phone</h1>
-      {loading && <p>Loading...</p>}
+      {loading && <Loading />}
       <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
         {products?.length > 0 ? (
           productData

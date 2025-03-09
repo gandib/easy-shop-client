@@ -3,6 +3,7 @@ import { getAllProducts } from "@/src/services/ProductService";
 import { IProduct } from "@/src/types";
 import VendorProductCard, { IMeta } from "../Dashboard/VendorProductCard";
 import RealtedProductsDisplayCard from "./RealtedProductsDisplayCard";
+import Loading from "../Shared/Loading";
 
 const RelatedProduct = ({
   categoryName,
@@ -34,16 +35,20 @@ const RelatedProduct = ({
     fetchRelatedProducts();
   }, [categoryName]);
 
-  if (loading) return <p>Loading related products...</p>;
+  // if (loading) return <p>Loading related products...</p>;
 
   return (
     <div>
       <h2 className="text-xl font-bold my-4">Suggested Products</h2>
-      <RealtedProductsDisplayCard
-        products={relatedProducts!}
-        category={categoryName}
-        fromShop={fromShop}
-      />
+      {loading && <Loading />}
+
+      {!loading && (
+        <RealtedProductsDisplayCard
+          products={relatedProducts!}
+          category={categoryName}
+          fromShop={fromShop}
+        />
+      )}
     </div>
   );
 };

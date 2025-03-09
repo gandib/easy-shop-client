@@ -31,6 +31,7 @@ import { addToCart } from "@/src/utils/addToCart";
 import ShowPopup from "../../Shared/ShowPopup";
 import StarRating from "./StarRating";
 import { toast } from "sonner";
+import { averageRating } from "@/src/utils/averageRating";
 
 const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
   const { user, isLoading } = useUser();
@@ -43,7 +44,8 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
   const [warning, setWarning] = useState<{
     message: string;
     productId: string;
-    shopId: string;
+    shopId?: string;
+    catId?: string;
   } | null>(null);
   const [showPopup, setShowPopup] = useState(false);
 
@@ -74,11 +76,9 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
   }
 
   const rating = product?.rating || [];
-  const averageRating =
+  const averageRatings =
     rating.length > 0
-      ? (
-          rating.reduce((pre, next) => pre + next.rating, 0) / rating.length
-        ).toFixed(1)
+      ? Number(averageRating(product?.rating ?? [])).toFixed(1)
       : "0";
 
   recentViewedProductsStore(product?.id);
@@ -285,7 +285,7 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
                       <div className="p-4">
                         <div className="flex">
                           <h1 className="text-4xl font-bold">
-                            {averageRating}
+                            {averageRatings}
                           </h1>
                           <div className="pt-2">
                             <div className="flex pl-2">

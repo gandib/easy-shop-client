@@ -6,5 +6,5 @@ export const averageRating = (ratings: { rating: number }[]) => {
   const total = ratings.reduce((pre, next) => pre + (next.rating || 0), 0);
   const average = total / ratings.length;
 
-  return `${average.toFixed(1)}/5`;
+  return average;
 };
