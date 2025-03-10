@@ -8,7 +8,7 @@ const AllFlashSale = async () => {
   return (
     <Container>
       <h1 className="text-2xl font-bold mb-6">All Flash Sale</h1>
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-2">
         {allFlashSale && allFlashSale.length > 0
           ? allFlashSale?.map((flashSale: IFlashSale) => (
               <FlashSaleDisplayCard flashSale={flashSale} key={flashSale?.id} />

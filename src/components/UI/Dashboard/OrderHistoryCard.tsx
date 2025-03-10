@@ -8,6 +8,7 @@ import {
   TableRow,
   TableCell,
   Pagination,
+  Chip,
 } from "@nextui-org/react";
 import { IMeta } from "./VendorProductCard";
 import { useEffect, useState } from "react";
@@ -34,8 +35,10 @@ const OrderHistoryCard = ({
 
     const fetchData = async () => {
       const { data: allOrder } = await getAllOrder(query);
-      setOrderData(allOrder);
-      setTotalPage(orderData?.meta?.totalPage);
+      if (allOrder) {
+        setOrderData(allOrder);
+        setTotalPage(allOrder?.meta?.totalPage);
+      }
     };
 
     if (query.length > 0) {
@@ -43,9 +46,34 @@ const OrderHistoryCard = ({
     }
   }, [currentPage, totalPage]);
 
+  type PaymentStatus = "PAID" | "CANCELLED" | "UNPAID";
+
+  const statusColorMap: Record<PaymentStatus, any> = {
+    PAID: "success",
+    CANCELLED: "danger",
+    UNPAID: "warning",
+  };
   return (
-    <div>
-      <Table aria-label="Example static collection table">
+    <div className="mb-20">
+      <Table
+        isStriped
+        aria-label="Example static collection table"
+        bottomContent={
+          orderData?.data?.length > 0 ? (
+            <div className="flex w-full justify-center">
+              <Pagination
+                isCompact
+                showControls
+                showShadow
+                color="primary"
+                page={currentPage}
+                total={totalPage}
+                onChange={(page) => setCurrentPage(page)}
+              />
+            </div>
+          ) : null
+        }
+      >
         <TableHeader>
           <TableColumn>ORDER ID</TableColumn>
           <TableColumn>Total Amount</TableColumn>
@@ -58,22 +86,22 @@ const OrderHistoryCard = ({
               <TableCell>{order?.id}</TableCell>
               <TableCell>{order?.totalPrice}</TableCell>
               <TableCell>{order?.status}</TableCell>
-              <TableCell>{order?.paymentStatus}</TableCell>
+              {/* <TableCell>{order?.paymentStatus}</TableCell> */}
+              <TableCell>
+                <Chip
+                  className="capitalize border-none gap-1 text-default-600"
+                  color={statusColorMap[order?.paymentStatus as PaymentStatus]}
+                  size="sm"
+                  variant="dot"
+                >
+                  {order?.paymentStatus}
+                </Chip>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      {orderData?.data?.length > 0 ? (
-        <Pagination
-          total={totalPage}
-          page={currentPage}
-          showControls
-          onChange={(page) => setCurrentPage(page)}
-          className="flex justify-center my-2"
-        />
-      ) : (
-        "No orders to show"
-      )}
+      {orderData?.data?.length === 0 && "No orders to show"}
     </div>
   );
 };

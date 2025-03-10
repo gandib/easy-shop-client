@@ -37,11 +37,14 @@ const ReviewResponseCard = ({
 
   return (
     <div>
-      <NextUiCard isFooterBlurred className="  ">
+      <NextUiCard
+        isFooterBlurred
+        className="rounded-t-none shadow-xl p-4 border-1 border-t-0 rounded-md relative overflow-hidden"
+      >
         <CardHeader className="w-full flex-col items-start ">
           <h4 className="mt-1 rounded p-1 text-base md:text-lg font-medium flex ">
             <p className="cursor-pointer hover:text-green-500 ml-2">
-              {review?.product?.name}
+              Product: {review?.product?.name}
             </p>
           </h4>
 

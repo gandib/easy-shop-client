@@ -1,6 +1,6 @@
 "use client";
 
-import { INewsletter, IUser } from "@/src/types";
+import { INewsletter } from "@/src/types";
 import { Button } from "@nextui-org/react";
 import {
   Table,
@@ -10,12 +10,6 @@ import {
   TableHeader,
   TableRow,
 } from "@nextui-org/react";
-import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
-import { useState } from "react";
-import ESForm from "../../form/ESForm";
-import ESSelect from "../../form/ESSelect";
-import { FieldValues } from "react-hook-form";
-import { useUpdateUserStatus } from "@/src/hooks/user.hook";
 import { useDeleteNewsletter } from "@/src/hooks/newsletter.hook";
 
 const NewsletterManagementCard = ({
@@ -31,7 +25,7 @@ const NewsletterManagementCard = ({
 
   return (
     <div>
-      <Table aria-label="Example static collection table">
+      <Table isStriped aria-label="Example static collection table">
         <TableHeader>
           <TableColumn>EMAIL</TableColumn>
           <TableColumn>ACTIONS</TableColumn>
@@ -44,8 +38,10 @@ const NewsletterManagementCard = ({
                 <Button
                   onPress={() => handleDelete(subscriber.email)}
                   type="submit"
-                  className="my-3  rounded-md bg-danger-500 font-semibold text-default"
+                  color="danger"
+                  // className="my-3  rounded-md bg-danger-500 font-semibold text-default"
                   size="sm"
+                  variant="flat"
                 >
                   Delete
                 </Button>

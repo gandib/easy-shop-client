@@ -12,7 +12,7 @@ import {
 const RatingCard = ({ ratings }: { ratings: IRating[] }) => {
   return (
     <div>
-      <Table aria-label="Example static collection table">
+      <Table isStriped aria-label="Example static collection table">
         <TableHeader>
           <TableColumn>PRODUCT NAME</TableColumn>
           <TableColumn>USER NAME</TableColumn>

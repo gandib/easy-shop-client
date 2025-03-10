@@ -1,7 +1,7 @@
 "use client";
 
 import { IUser } from "@/src/types";
-import { Button } from "@nextui-org/react";
+import { Button, Chip } from "@nextui-org/react";
 import {
   Table,
   TableBody,
@@ -32,9 +32,17 @@ const UserManagementCard = ({ users }: { users: IUser[] }) => {
     setOpen(true);
   };
 
+  type UserStatus = "ACTIVE" | "SUSPENDED" | "DELETED";
+
+  const statusColorMap: Record<UserStatus, any> = {
+    ACTIVE: "success",
+    DELETED: "danger",
+    SUSPENDED: "danger",
+  };
+
   return (
     <div>
-      <Table aria-label="Example static collection table">
+      <Table isStriped aria-label="Example static collection table">
         <TableHeader>
           <TableColumn>NAME</TableColumn>
           <TableColumn>EMAIL</TableColumn>
@@ -47,7 +55,16 @@ const UserManagementCard = ({ users }: { users: IUser[] }) => {
             <TableRow key={user?.id}>
               <TableCell>{user?.name}</TableCell>
               <TableCell>{user?.email}</TableCell>
-              <TableCell>{user?.status}</TableCell>
+              <TableCell>
+                <Chip
+                  className="capitalize border-none gap-1 text-default-600"
+                  color={statusColorMap[user?.status as UserStatus]}
+                  size="sm"
+                  variant="dot"
+                >
+                  {user?.status}
+                </Chip>
+              </TableCell>
               <TableCell>{user?.role}</TableCell>
               <TableCell>
                 <Popover
@@ -57,7 +74,9 @@ const UserManagementCard = ({ users }: { users: IUser[] }) => {
                   placement="bottom"
                 >
                   <PopoverTrigger>
-                    <Button color="primary">Change Status</Button>
+                    <Button color="primary" size="sm" variant="flat">
+                      Change Status
+                    </Button>
                   </PopoverTrigger>
                   {!open && (
                     <PopoverContent className="w-[240px]">

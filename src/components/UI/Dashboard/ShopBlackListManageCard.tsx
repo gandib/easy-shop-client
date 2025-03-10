@@ -1,7 +1,7 @@
 "use client";
 
 import { IShop } from "@/src/types";
-import { Button } from "@nextui-org/react";
+import { Button, Chip } from "@nextui-org/react";
 import {
   Table,
   TableBody,
@@ -33,9 +33,16 @@ const ShopBlackListManageCard = ({ shops }: { shops: IShop[] }) => {
     updateBlackListStatus(statusData);
     setOpen(true);
   };
+
+  type BlacklistStatus = "false" | "true";
+
+  const statusColorMap: Record<BlacklistStatus, any> = {
+    false: "success",
+    true: "danger",
+  };
   return (
     <div>
-      <Table aria-label="Example static collection table">
+      <Table isStriped aria-label="Example static collection table">
         <TableHeader>
           <TableColumn>NAME</TableColumn>
           <TableColumn>Vendor Name</TableColumn>
@@ -48,7 +55,20 @@ const ShopBlackListManageCard = ({ shops }: { shops: IShop[] }) => {
               <TableCell>{shop?.name}</TableCell>
               <TableCell>{shop?.vendor?.name}</TableCell>
               <TableCell>
-                {shop?.isBlackListed === false ? "false" : "true"}
+                <Chip
+                  className="capitalize border-none gap-1 text-default-600"
+                  color={
+                    statusColorMap[
+                      shop?.isBlackListed === false
+                        ? "false"
+                        : ("true" as BlacklistStatus)
+                    ]
+                  }
+                  size="sm"
+                  variant="dot"
+                >
+                  {shop?.isBlackListed === false ? "false" : "true"}
+                </Chip>
               </TableCell>
               <TableCell>
                 <Popover
@@ -58,7 +78,9 @@ const ShopBlackListManageCard = ({ shops }: { shops: IShop[] }) => {
                   placement="bottom"
                 >
                   <PopoverTrigger>
-                    <Button color="primary">Change Status</Button>
+                    <Button color="primary" size="sm" variant="flat">
+                      Change Status
+                    </Button>
                   </PopoverTrigger>
                   {!open && (
                     <PopoverContent className="w-[240px]">
