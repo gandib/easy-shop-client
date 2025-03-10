@@ -1,6 +1,4 @@
 import CategoryDisplay from "@/src/components/UI/Home/Cards/CategoryDisplay";
-import Container from "@/src/components/UI/Shared/Container";
-import FlashSaleCard from "@/src/components/UI/Home/FlashSaleCard";
 import Hero from "@/src/components/UI/Hero";
 import HomeFilteringSearchingCard from "@/src/components/UI/Home/HomeFilteringSearchingCard";
 import HomeFlashSale from "@/src/components/UI/Home/HomeFlashSale";
@@ -13,7 +11,7 @@ import {
   getAllProducts,
   getAllProductsByFollowedUser,
 } from "@/src/services/ProductService";
-import { IProduct } from "@/src/types";
+import HomeBanner from "@/src/components/UI/Home/HomeBanner";
 
 const Home = async () => {
   const { data: allProducts } = await getAllProducts([
@@ -36,6 +34,7 @@ const Home = async () => {
         <PrioritizeProducts products={allPrioritizeProducts} />
         <HomeFlashSale />
         <CategoryDisplay category={allCategory} />
+        <HomeBanner />
         <HomeSmartPhoneDisplay
           products={allSmartsPhone?.data}
           fromShop="home"
