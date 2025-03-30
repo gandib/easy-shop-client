@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FormEvent, SVGProps } from "react";
+import { ChangeEventHandler, ElementType, FormEvent, SVGProps } from "react";
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
@@ -7,6 +7,12 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
 export type TProductMeta = {
   meta: { page: number; limit: number; total: number; totalPage: number };
   data: IProduct[];
+};
+
+export type TLinkItem = {
+  href: string;
+  label: string;
+  icon: ElementType;
 };
 
 export type queryParams = {
