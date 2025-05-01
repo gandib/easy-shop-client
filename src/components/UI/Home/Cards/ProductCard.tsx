@@ -14,6 +14,8 @@ import { IProduct } from "@/src/types";
 import ProductUpdateButton from "../../Shared/ProductUpdateButton";
 import ProductDeleteButton from "../../Shared/ProductDeleteButton";
 import { addToCompare } from "@/src/utils/addToCompare";
+import Rating from "react-custom-rating-stars";
+import { averageRating } from "@/src/utils/averageRating";
 
 const ProductCard = ({
   data,
@@ -144,7 +146,14 @@ ${hoveredId === data.id ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2
 
           <div className="pt-2 flex gap-3 items-center">
             <div className="flex ">
-              <StarRating product={data} />
+              {/* <StarRating product={data} /> */}
+              <Rating
+                rating={
+                  data?.rating?.length > 0
+                    ? Number(averageRating(data?.rating ?? []))
+                    : 0
+                }
+              />
             </div>
             <p>({data?.rating?.length && data.rating.length})</p>
           </div>

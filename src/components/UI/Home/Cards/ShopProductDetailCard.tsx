@@ -32,6 +32,7 @@ import ShowPopup from "../../Shared/ShowPopup";
 import StarRating from "./StarRating";
 import { toast } from "sonner";
 import { averageRating } from "@/src/utils/averageRating";
+import Rating from "react-custom-rating-stars";
 
 const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
   const { user, isLoading } = useUser();
@@ -158,7 +159,13 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
                 </h4>
 
                 <div className="flex items-center pt-2">
-                  <StarRating product={product} />
+                  <Rating
+                    rating={
+                      product?.rating?.length > 0
+                        ? Number(averageRating(product?.rating ?? []))
+                        : 0
+                    }
+                  />
                   <p className="pl-2">({product?.rating?.length})</p>
                 </div>
 
@@ -289,7 +296,15 @@ const ShopProductDetailCard = ({ product }: { product: IProduct }) => {
                           </h1>
                           <div className="pt-2">
                             <div className="flex pl-2">
-                              <StarRating product={product} />
+                              <Rating
+                                rating={
+                                  product?.rating?.length > 0
+                                    ? Number(
+                                        averageRating(product?.rating ?? [])
+                                      )
+                                    : 0
+                                }
+                              />
                             </div>
                           </div>
                         </div>
